@@ -1017,31 +1017,10 @@ section[id] {
   padding: 40px 0 96px;
 }
 
-.site-footer__inner {
-  display: grid;
-  gap: 28px;
-}
-
 .site-footer__brand p {
-  color: color-mix(in srgb, var(--cream) 72%, var(--sage));
-  margin-top: 10px;
-}
-
-.site-footer__nav {
-  display: grid;
-  gap: 10px;
-}
-
-.site-footer__nav a {
-  color: color-mix(in srgb, var(--cream) 82%, var(--sage));
-}
-
-.site-footer__copy {
-  width: min(100%, var(--container));
-  margin: 32px auto 0;
-  padding-inline: var(--page-gutter);
-  color: color-mix(in srgb, var(--cream) 55%, var(--sage));
-  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--cream) 78%, var(--sage));
+  margin-top: 12px;
+  max-width: 28rem;
 }
 
 .sticky-wa {
@@ -1153,20 +1132,6 @@ main {
 
   .site-footer {
     padding: 28px 0 88px;
-  }
-
-  .site-footer__inner {
-    gap: 14px;
-  }
-
-  .site-footer__nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 16px;
-  }
-
-  .site-footer__copy {
-    margin-top: 16px;
   }
 }
 
@@ -1293,11 +1258,6 @@ main {
     grid-template-columns: auto 1fr;
     align-items: start;
     gap: 64px;
-  }
-
-  .site-footer__inner {
-    grid-template-columns: 1.2fr 1fr auto;
-    align-items: start;
   }
 
   .closing-line {
