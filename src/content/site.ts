@@ -1,7 +1,7 @@
 export const nav = [
-  { href: "#what-i-do", label: "איך אני עוזרת" },
+  { href: "#what-i-do", label: "איך זה עובד" },
   { href: "#before-after", label: "לפני ואחרי" },
-  { href: "#how-it-works", label: "איך זה עובד" },
+  { href: "#how-it-works", label: "איך מתחילים" },
   { href: "#about", label: "קצת עליי" },
 ] as const;
 
