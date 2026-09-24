@@ -1,15 +1,14 @@
 import { Reveal } from "@/components/Reveal";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { cta, hero } from "@/content/site";
-import { Ltr, RichText } from "@/components/Ltr";
+import { RichText } from "@/components/Ltr";
 
 export function Hero() {
   return (
     <section className="hero" id="top">
       <div className="hero__copy">
         <p className="eyebrow">
-          <span>אוטומציות עסקיות לעסקי</span>
-          <Ltr>Wellness</Ltr>
+          <RichText text={hero.label} />
         </p>
         <h1>{hero.title}</h1>
         {hero.paragraphs.map((paragraph) => (

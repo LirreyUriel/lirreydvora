@@ -11,7 +11,7 @@ export const cta = {
 } as const;
 
 export const hero = {
-  label: "אוטומציות עסקיות לעסקי Wellness",
+  label: "לירי דבורה • מערכות חכמות לצמיחה בעסקי Wellness",
   title: "העסק שלך נועד להשפיע.",
   paragraphs: [
     "יש לך יכולת יוצאת דופן להוביל שינוי ולהעניק ערך.",
@@ -197,7 +197,7 @@ export const finalCta = {
 export const footer = {
   name: "Lirrey Dvora",
   hebrewName: "לירי דבורה",
-  tagline: "אוטומציות עסקיות לעסקי Wellness",
+  tagline: "לירי דבורה • מערכות חכמות לצמיחה בעסקי Wellness",
   copyright: "© 2026 Lirrey Dvora",
 } as const;
 

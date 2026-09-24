@@ -18,7 +18,7 @@ export function Logo({ compact = false, inverted = false }: Props) {
           Lirrey Dvora
         </span>
         {compact ? null : (
-          <span className="brand__tagline">אוטומציות עסקיות לעסקי <span dir="ltr">Wellness</span></span>
+          <span className="brand__tagline">לירי דבורה • מערכות חכמות לצמיחה בעסקי <span dir="ltr">Wellness</span></span>
         )}
       </span>
     </a>
