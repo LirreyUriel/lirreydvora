@@ -6,7 +6,7 @@ export const nav = [
 ] as const;
 
 export const cta = {
-  talk: "בואי נדבר",
+  talk: "לשיחה אישית ב-WhatsApp",
   whatsapp: "לשיחה אישית ב-WhatsApp",
 } as const;
 
@@ -203,7 +203,7 @@ export const footer = {
 
 export const stickyCta = {
   label: "WhatsApp",
-  action: "בואי נדבר",
+  action: "לשיחה אישית",
 } as const;
 
 export const whatsappChat = {

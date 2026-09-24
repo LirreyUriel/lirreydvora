@@ -1,6 +1,7 @@
 import { Logo } from "@/components/Logo";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { cta, nav } from "@/content/site";
+import { RichText } from "@/components/Ltr";
 import { useScrolled } from "@/hooks/useScrolled";
 
 export function Header() {
@@ -18,7 +19,7 @@ export function Header() {
           ))}
         </nav>
         <WhatsAppButton source="header" variant="header">
-          {cta.talk}
+          <RichText text={cta.whatsapp} />
         </WhatsAppButton>
       </div>
     </header>
