@@ -6,11 +6,11 @@ import { RichText } from "@/components/Ltr";
 export function Hero() {
   return (
     <section className="hero" id="top">
+      <p className="eyebrow hero__eyebrow">
+        <RichText text={hero.label} />
+      </p>
+      <h1 className="hero__title">{hero.title}</h1>
       <div className="hero__copy">
-        <p className="eyebrow">
-          <RichText text={hero.label} />
-        </p>
-        <h1>{hero.title}</h1>
         {hero.paragraphs.map((paragraph) => (
           <p key={paragraph} className="lede">
             {paragraph}
@@ -27,7 +27,7 @@ export function Hero() {
           <img
             src="/images/hero.webp"
             srcSet="/images/hero-800.webp 800w, /images/hero.webp 1600w"
-            sizes="(max-width: 767px) 92vw, (max-width: 1199px) 88vw, 640px"
+            sizes="(max-width: 1023px) 92vw, 540px"
             width={1600}
             height={1200}
             alt={hero.imageAlt}

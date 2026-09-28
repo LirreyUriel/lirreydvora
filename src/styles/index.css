@@ -374,7 +374,10 @@ section[id] {
   padding-block: 16px 88px;
   padding-inline: var(--page-gutter);
   display: grid;
-  gap: 32px;
+}
+
+.hero__visual {
+  margin-top: 32px;
 }
 
 .hero__cta {
@@ -1095,7 +1098,10 @@ main {
 
   .hero {
     padding-block: 8px 40px;
-    gap: 18px;
+  }
+
+  .hero__visual {
+    margin-top: 18px;
   }
 
   .hero__frame {
@@ -1218,10 +1224,36 @@ main {
   }
 
   .hero {
-    grid-template-columns: 1.05fr 0.95fr;
-    align-items: center;
-    gap: 56px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "eyebrow eyebrow"
+      "title title"
+      "copy visual";
+    align-items: start;
+    column-gap: 56px;
     padding-block: 28px 120px;
+  }
+
+  .hero__eyebrow {
+    grid-area: eyebrow;
+  }
+
+  .hero__title {
+    grid-area: title;
+    margin-bottom: 28px;
+  }
+
+  .hero__copy {
+    grid-area: copy;
+  }
+
+  .hero__copy > .lede:first-child {
+    margin-top: 0;
+  }
+
+  .hero__visual {
+    grid-area: visual;
+    margin-top: 0;
   }
 
   .case-study {
