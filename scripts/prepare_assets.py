@@ -18,7 +18,7 @@ LOGO_CANDIDATES = [
 ]
 
 PHOTOS = {
-    "hero": "https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=1800&q=80",
+    "hero": "https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=max&w=4000&q=92",
     "industry-retreat": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1400&q=80",
     "industry-workshop": "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1400&q=80",
     "industry-studio": "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?auto=format&fit=crop&w=1400&q=80",
@@ -141,8 +141,9 @@ def main() -> None:
     for name, url in PHOTOS.items():
         raw = Image.open(io.BytesIO(download(url))).convert("RGB")
         if name == "hero":
-            save_webp(raw, IMAGES / "hero.webp", 1600, 80)
-            save_webp(raw, IMAGES / "hero-800.webp", 800, 78)
+            save_webp(raw, IMAGES / "hero.webp", 2800, 88)
+            save_webp(raw, IMAGES / "hero-1600.webp", 1600, 86)
+            save_webp(raw, IMAGES / "hero-800.webp", 800, 84)
         elif name == "about":
             save_webp(raw, IMAGES / "about.webp", 1200, 82)
             save_webp(raw, IMAGES / "about-800.webp", 800, 80)
