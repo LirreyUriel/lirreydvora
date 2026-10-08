@@ -566,7 +566,8 @@ section[id] {
 }
 
 .ba-list,
-.case-list {
+.case-list,
+.cs-list {
   display: grid;
   gap: 24px;
   margin-top: 40px;
@@ -806,6 +807,23 @@ section[id] {
 .case-study__message {
   margin-top: 20px;
   font-weight: 700;
+}
+
+.cs-list {
+  gap: 32px;
+}
+
+.cs-card {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--card);
+}
+
+.cs-card img {
+  width: 100%;
+  height: auto;
 }
 
 .pill-list,

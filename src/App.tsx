@@ -3,6 +3,7 @@ import { Hero } from "@/components/Hero";
 import { ProblemSection } from "@/components/ProblemSection";
 import { WhatIDoSection } from "@/components/WhatIDoSection";
 import { BeforeAfterSection } from "@/components/BeforeAfterSection";
+import { CaseStudies } from "@/components/CaseStudies";
 import { HowItWorks } from "@/components/HowItWorks";
 import { About } from "@/components/About";
 import { FinalCTA } from "@/components/FinalCTA";
@@ -27,6 +28,7 @@ export default function App() {
         <ProblemSection />
         <WhatIDoSection />
         <BeforeAfterSection />
+        <CaseStudies />
         <HowItWorks />
         <About />
         <FinalCTA />

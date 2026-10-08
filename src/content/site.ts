@@ -1,6 +1,7 @@
 export const nav = [
   { href: "#what-i-do", label: "איך זה עובד" },
   { href: "#before-after", label: "לפני ואחרי" },
+  { href: "#case-studies", label: "מקרי בוחן" },
   { href: "#how-it-works", label: "איך מתחילים" },
   { href: "#about", label: "קצת עליי" },
 ] as const;
@@ -93,60 +94,25 @@ export const beforeAfter = {
   ],
 } as const;
 
-export const projects = {
-  id: "projects",
-  demoLabel: "דוגמה למערכת",
+export const caseStudies = {
+  id: "case-studies",
+  title: "מקרי בוחן",
   items: [
     {
-      id: "crm",
-      number: "01",
+      id: "follow-up",
       viewEvent: "case_study_01_view",
-      title: "מניהול לידים מפוזר לתהליך מסודר שעוקב אחריהם.",
-      problem: "לידים הגיעו ממקורות שונים ונדרשו למעקב ידני.",
-      builtTitle: "מה בנינו",
-      built: ["CRM", "ריכוז לידים", "סטטוסים", "תזכורות", "Follow-up"],
-      impactTitle: "התוצאה",
-      impact: [
-        "תמונה ברורה של כל הלידים",
-        "פחות מעקב ידני",
-        "פחות לידים שנופלים בין הכיסאות",
-        "תהליך מכירה עקבי יותר",
-      ],
-      visual: "crm" as const,
+      image: "/images/cs1.png",
+      alt: "איך הפסקנו לרדוף אחרי לקוחות פוטנציאליים וחסכנו 11 שעות בשבוע",
+      width: 2880,
+      height: 1902,
     },
     {
-      id: "journey",
-      number: "02",
+      id: "booking",
       viewEvent: "case_study_02_view",
-      title: "מהפנייה הראשונה ועד לקביעת פגישה — בלי לרדוף אחרי הלקוחה.",
-      problem:
-        "במקום להעביר כל ליד ידנית משלב לשלב, התהליך ממשיך להתקדם באופן אוטומטי.",
-      message: "חוויה טובה יותר ללקוחה, ופחות עבודה לבעלת העסק.",
-      flow: [
-        "ליד נכנס",
-        "נוסף ל-CRM",
-        "WhatsApp מיידי",
-        "שאלון חימום",
-        "קביעת פגישה",
-        "סדרת מיילים",
-        "Follow-up",
-      ],
-      visual: "customer-journey" as const,
-    },
-    {
-      id: "chatbot",
-      number: "03",
-      viewEvent: "case_study_03_view",
-      title: "לתת ל-WhatsApp לענות על השאלות שלא צריך לענות עליהן 30 פעמים.",
-      problem: "הלקוחות מקבלים תשובות מהר יותר. ואת מבזבזת פחות זמן על לענות שוב ושוב על אותם דברים.",
-      flow: [
-        "שאלת לקוחה",
-        "תשובה מיידית",
-        "מידע רלוונטי",
-        "השלב הבא",
-        "העברה לאדם במידת הצורך",
-      ],
-      visual: "whatsapp" as const,
+      image: "/images/cs2.png",
+      alt: "איך שחררנו את בעלת הסטודיו מתיאומים בוואטסאפ",
+      width: 2880,
+      height: 1700,
     },
   ],
 } as const;
