@@ -4,6 +4,7 @@ import { trackViewOnce } from "@/analytics";
 import { useInView } from "@/hooks/useInView";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { RichText } from "@/components/Ltr";
+import { WordReveal } from "@/components/WordReveal";
 
 export function ProcessStep({
   step,
@@ -36,11 +37,9 @@ export function HowItWorks() {
       aria-labelledby="how-it-works-title"
     >
       <div className="container">
-        <Reveal>
-          <h2 id="how-it-works-title">{howItWorks.title}</h2>
-        </Reveal>
+        <WordReveal id="how-it-works-title" text={howItWorks.title} />
 
-        <ol className="process-timeline">
+        <ol className="process-timeline process-timeline--four">
           {howItWorks.steps.map((step, index) => (
             <ProcessStep key={step.number} step={step} index={index} />
           ))}

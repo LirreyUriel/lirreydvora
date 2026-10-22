@@ -30,9 +30,6 @@ export function MobileWhatsAppCTA() {
         onClick={() => trackWhatsApp("sticky_mobile")}
       >
         <WhatsAppIcon />
-        <span className="sticky-wa__label" dir="ltr">
-          {stickyCta.label}
-        </span>
         <span className="sticky-wa__action">{stickyCta.action}</span>
         <span className="btn__arrow" aria-hidden="true">
           ←

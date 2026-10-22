@@ -1,6 +1,16 @@
 import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
+import { WordReveal } from "@/components/WordReveal";
 import { faq } from "@/content/site";
+
+type FaqItem = (typeof faq.items)[number];
+
+function answerText(item: FaqItem) {
+  const parts: string[] = [...item.paragraphs];
+  if ("list" in item) parts.push(...item.list);
+  if ("closing" in item) parts.push(item.closing);
+  return parts.join("\n");
+}
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -10,23 +20,17 @@ const faqSchema = {
     name: item.question,
     acceptedAnswer: {
       "@type": "Answer",
-      text: item.answer,
+      text: answerText(item),
     },
   })),
 };
 
-function FaqItem({
-  question,
-  answer,
-  index,
-}: {
-  question: string;
-  answer: string;
-  index: number;
-}) {
+function FaqItemView({ item, index }: { item: FaqItem; index: number }) {
   const [open, setOpen] = useState(false);
   const questionId = `faq-q-${index + 1}`;
   const panelId = `faq-a-${index + 1}`;
+  const list = "list" in item ? item.list : undefined;
+  const closing = "closing" in item ? item.closing : undefined;
 
   return (
     <div className={`faq__item${open ? " is-open" : ""}`}>
@@ -39,16 +43,15 @@ function FaqItem({
           aria-controls={panelId}
           onClick={() => setOpen((current) => !current)}
         >
-          <span>{question}</span>
+          <span>{item.question}</span>
           <span className="faq__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="18" height="18" focusable="false">
               <path
-                d="M6 9.5 12 15.5 18 9.5"
+                d="M12 5v14M5 12h14"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.7"
                 strokeLinecap="round"
-                strokeLinejoin="round"
               />
             </svg>
           </span>
@@ -62,7 +65,19 @@ function FaqItem({
         inert={!open}
       >
         <div className="faq__panel-inner">
-          <p className="faq__answer">{answer}</p>
+          <div className="faq__answer">
+            {item.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+            {list ? (
+              <ul className="faq__points">
+                {list.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            ) : null}
+            {closing ? <p>{closing}</p> : null}
+          </div>
         </div>
       </div>
     </div>
@@ -80,16 +95,11 @@ export function FaqSection() {
       />
       <div className="container">
         <div className="faq">
+          <WordReveal id="faq-title" text={faq.title} />
           <Reveal>
-            <h2 id="faq-title">{faq.title}</h2>
             <div className="faq__list">
               {faq.items.map((item, index) => (
-                <FaqItem
-                  key={item.question}
-                  question={item.question}
-                  answer={item.answer}
-                  index={index}
-                />
+                <FaqItemView key={item.question} item={item} index={index} />
               ))}
             </div>
           </Reveal>

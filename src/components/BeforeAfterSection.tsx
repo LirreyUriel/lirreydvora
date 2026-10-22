@@ -1,33 +1,10 @@
 import { Reveal } from "@/components/Reveal";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { beforeAfter, cta } from "@/content/site";
+import { cta, shift } from "@/content/site";
 import { trackViewOnce } from "@/analytics";
 import { useInView } from "@/hooks/useInView";
 import { RichText } from "@/components/Ltr";
-
-export function BeforeAfterCard({
-  example,
-}: {
-  example: (typeof beforeAfter.examples)[number];
-}) {
-  return (
-    <article className="ba-card">
-      <div className="ba-col ba-col--before">
-        <h3 className="ba-title">
-          <RichText text={example.beforeLabel} />
-        </h3>
-        <p className="ba-text">{example.beforeText}</p>
-      </div>
-
-      <div className="ba-col ba-col--after">
-        <h3 className="ba-title ba-title--after">
-          <RichText text={example.afterLabel} />
-        </h3>
-        <p className="ba-text">{example.afterText}</p>
-      </div>
-    </article>
-  );
-}
+import { WordReveal } from "@/components/WordReveal";
 
 export function BeforeAfterSection() {
   const { ref } = useInView<HTMLElement>(() => trackViewOnce("before_after_view"));
@@ -36,18 +13,28 @@ export function BeforeAfterSection() {
     <section
       ref={ref}
       className="section section--beige"
-      id={beforeAfter.id}
-      aria-labelledby="before-after-title"
+      id={shift.id}
+      aria-labelledby="shift-title"
     >
       <div className="container">
+        <WordReveal id="shift-title" text={shift.title} />
         <Reveal>
-          <h2 id="before-after-title">{beforeAfter.title}</h2>
+          <p className="section__intro">{shift.text}</p>
         </Reveal>
 
-        <div className="ba-list">
-          {beforeAfter.examples.map((example, index) => (
-            <Reveal key={example.id} delay={index * 80}>
-              <BeforeAfterCard example={example} />
+        <div className="shift-list">
+          {shift.pairs.map((pair, index) => (
+            <Reveal key={pair.less} delay={index * 60}>
+              <article className="shift-row">
+                <div className="shift-side shift-side--less">
+                  <span>פחות</span>
+                  <p>{pair.less}</p>
+                </div>
+                <div className="shift-side shift-side--more">
+                  <span>יותר</span>
+                  <p>{pair.more}</p>
+                </div>
+              </article>
             </Reveal>
           ))}
         </div>

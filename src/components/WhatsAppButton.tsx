@@ -1,6 +1,7 @@
 import { whatsappUrl } from "@/config";
 import { trackWhatsApp, type WhatsAppSource } from "@/analytics";
 import type { ReactNode } from "react";
+import { ButtonRipples, useButtonRipple } from "@/components/ButtonRipple";
 
 type Props = {
   source: WhatsAppSource;
@@ -15,14 +16,18 @@ export function WhatsAppButton({
   className = "",
   variant = "primary",
 }: Props) {
+  const { ripples, onPointerDown, removeRipple } = useButtonRipple();
+
   return (
     <a
       href={whatsappUrl}
       className={`btn btn--${variant} ${className}`}
       target="_blank"
       rel="noopener noreferrer"
+      onPointerDown={onPointerDown}
       onClick={() => trackWhatsApp(source)}
     >
+      <ButtonRipples ripples={ripples} onDone={removeRipple} />
       <span className="btn__label">{children}</span>
       <span className="btn__arrow" aria-hidden="true">
         ←

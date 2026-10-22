@@ -1,6 +1,7 @@
 import { Logo } from "@/components/Logo";
+import { SiteNav } from "@/components/SiteNav";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { cta, nav } from "@/content/site";
+import { cta } from "@/content/site";
 import { RichText } from "@/components/Ltr";
 import { useScrolled } from "@/hooks/useScrolled";
 
@@ -11,13 +12,7 @@ export function Header() {
     <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
       <div className="site-header__inner">
         <Logo compact />
-        <nav className="site-nav" aria-label="ניווט ראשי">
-          {nav.map((item) => (
-            <a key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
+        <SiteNav />
         <WhatsAppButton source="header" variant="header">
           <RichText text={cta.whatsapp} />
         </WhatsAppButton>

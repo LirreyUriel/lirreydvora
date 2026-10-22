@@ -24,14 +24,19 @@ const LTR_TERMS = [
   "Wellness",
 ];
 
-const LTR_PATTERN = new RegExp(`(${LTR_TERMS.join("|")})`, "g");
+const LTR_PATTERN = new RegExp(`(${LTR_TERMS.join("|")})`, "gi");
+
+function isLtrTerm(part: string) {
+  const value = part.toLowerCase();
+  return LTR_TERMS.some((term) => term.toLowerCase() === value);
+}
 
 export function RichText({ text }: { text: string }) {
   const parts = text.split(LTR_PATTERN);
   return (
     <>
       {parts.map((part, index) =>
-        LTR_TERMS.includes(part) ? <Ltr key={`${part}-${index}`}>{part}</Ltr> : part,
+        isLtrTerm(part) ? <Ltr key={`${part}-${index}`}>{part}</Ltr> : part,
       )}
     </>
   );
