@@ -55,7 +55,7 @@ export function startScrollFallback() {
     },
     { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
   );
-  document.querySelectorAll(".words, .clip-reveal").forEach((node) => revealObserver.observe(node));
+  document.querySelectorAll(".words, .clip-reveal, .pull-quote").forEach((node) => revealObserver.observe(node));
 
   return () => {
     window.removeEventListener("scroll", onScroll);

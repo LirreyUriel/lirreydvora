@@ -3,7 +3,6 @@ import { Hero } from "@/components/Hero";
 import { ProblemSection } from "@/components/ProblemSection";
 import { BeforeAfterSection } from "@/components/BeforeAfterSection";
 import { Statement } from "@/components/Statement";
-import { WhatIDoSection } from "@/components/WhatIDoSection";
 import { About } from "@/components/About";
 import { Outcomes } from "@/components/Outcomes";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -36,7 +35,6 @@ export default function App() {
         <Statement />
         <About />
         <Outcomes />
-        <WhatIDoSection />
         <HowItWorks />
         <FaqSection />
         <FinalCTA />

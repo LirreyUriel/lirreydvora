@@ -1,5 +1,4 @@
 import { Logo } from "@/components/Logo";
-import { SiteNav } from "@/components/SiteNav";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { cta } from "@/content/site";
 import { RichText } from "@/components/Ltr";
@@ -12,7 +11,6 @@ export function Header() {
     <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
       <div className="site-header__inner">
         <Logo compact />
-        <SiteNav />
         <WhatsAppButton source="header" variant="header">
           <RichText text={cta.whatsapp} />
         </WhatsAppButton>

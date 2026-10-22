@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/Reveal";
+import { PullQuote } from "@/components/PullQuote";
 import { WordReveal } from "@/components/WordReveal";
 import { problem } from "@/content/site";
 
@@ -56,7 +57,7 @@ export function ProblemSection() {
     <>
     <section className="opening-band">
       <div className="container">
-        <p className="statement__text opening-band__text">{problem.title}</p>
+        <PullQuote text={problem.title} textClassName="opening-band__text" />
       </div>
     </section>
     <section className="section section--cream" id={problem.id} aria-labelledby="problem-title">
