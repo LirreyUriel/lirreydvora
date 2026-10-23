@@ -298,13 +298,13 @@ export function Hero() {
           <span className="hero__rule" aria-hidden="true" />
           {hero.paragraphs.map((paragraph) => (
             <p key={paragraph} className="lede">
-              {paragraph}
+              <RichText text={paragraph} />
             </p>
           ))}
           <div className="hero__cta" ref={anchorRef}>
             <div className="hero__magnet" ref={magnetRef}>
               <WhatsAppButton source="hero">
-                <RichText text={cta.whatsapp} />
+                <RichText text={cta.hero} />
               </WhatsAppButton>
             </div>
           </div>

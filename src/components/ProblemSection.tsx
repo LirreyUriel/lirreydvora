@@ -1,8 +1,7 @@
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/Reveal";
-import { PullQuote } from "@/components/PullQuote";
 import { WordReveal } from "@/components/WordReveal";
-import { problem } from "@/content/site";
+import { problem, statement } from "@/content/site";
 
 function LineIcon({ children }: { children: ReactNode }) {
   return (
@@ -56,8 +55,19 @@ export function ProblemSection() {
   return (
     <>
     <section className="opening-band">
-      <div className="container">
-        <PullQuote text={problem.title} textClassName="opening-band__text" />
+      <div className="container opening-band__layout">
+        <blockquote className="opening-band__quote">
+          <p>{statement.text}</p>
+        </blockquote>
+        <img
+          className="opening-band__photo"
+          src="/images/presence.jpg"
+          width={1024}
+          height={682}
+          alt="שיחת ייעוץ בסטודיו, כשהמשימות כבר מסודרות על המסך"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </section>
     <section className="section section--cream" id={problem.id} aria-labelledby="problem-title">
@@ -81,7 +91,7 @@ export function ProblemSection() {
         </div>
 
         <Reveal>
-          <p className="section__close">{problem.closing}</p>
+          <h2 className="section__close">{problem.closing}</h2>
         </Reveal>
       </div>
     </section>

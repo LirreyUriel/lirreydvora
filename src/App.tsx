@@ -2,7 +2,6 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { ProblemSection } from "@/components/ProblemSection";
 import { BeforeAfterSection } from "@/components/BeforeAfterSection";
-import { Statement } from "@/components/Statement";
 import { About } from "@/components/About";
 import { Outcomes } from "@/components/Outcomes";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -32,7 +31,6 @@ export default function App() {
         <Hero />
         <ProblemSection />
         <BeforeAfterSection />
-        <Statement />
         <About />
         <Outcomes />
         <HowItWorks />
