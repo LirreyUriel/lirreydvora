@@ -8,15 +8,16 @@ import { HowItWorks } from "@/components/HowItWorks";
 import { FaqSection } from "@/components/Faq";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Footer } from "@/components/Footer";
+import { ConsentBanner } from "@/components/ConsentBanner";
 import { MobileWhatsAppCTA } from "@/components/MobileWhatsAppCTA";
 import { ScrollProgress } from "@/components/ScrollProgress";
-import { track } from "@/analytics";
+import { trackViewOnce } from "@/analytics";
 import { startScrollFallback } from "@/scrollEffects";
 import { useEffect } from "react";
 
 export default function App() {
   useEffect(() => {
-    track("page_view");
+    trackViewOnce("page_view");
     return startScrollFallback();
   }, []);
 
@@ -38,6 +39,7 @@ export default function App() {
         <FinalCTA />
       </main>
       <Footer />
+      <ConsentBanner />
       <MobileWhatsAppCTA />
     </>
   );

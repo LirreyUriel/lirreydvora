@@ -1,5 +1,5 @@
 import { Logo } from "@/components/Logo";
-import { footer } from "@/content/site";
+import { footer, privacy } from "@/content/site";
 import { RichText } from "@/components/Ltr";
 
 export function Footer() {
@@ -10,6 +10,10 @@ export function Footer() {
         <p>
           <RichText text={footer.tagline} />
         </p>
+        <details className="site-footer__privacy">
+          <summary>{privacy.summary}</summary>
+          <p>{privacy.note}</p>
+        </details>
       </div>
     </footer>
   );

@@ -2,6 +2,8 @@
 
 interface ImportMetaEnv {
   readonly VITE_WHATSAPP_PHONE: string;
+  readonly VITE_GA_MEASUREMENT_ID?: string;
+  readonly VITE_CLARITY_PROJECT_ID?: string;
 }
 
 interface ImportMeta {
@@ -9,6 +11,7 @@ interface ImportMeta {
 }
 
 interface Window {
-  dataLayer?: Record<string, unknown>[];
+  dataLayer?: unknown[];
   gtag?: (...args: unknown[]) => void;
+  clarity?: ((...args: unknown[]) => void) & { q?: unknown[][] };
 }

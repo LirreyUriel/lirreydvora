@@ -1758,6 +1758,73 @@ h2.measure-wide {
   max-width: 28rem;
 }
 
+.site-footer__privacy {
+  margin-top: 18px;
+  max-width: 36rem;
+}
+
+.site-footer__privacy summary {
+  cursor: pointer;
+  width: fit-content;
+  color: color-mix(in srgb, var(--cream) 88%, var(--gold-soft));
+  font-size: 0.92rem;
+}
+
+.site-footer__privacy p {
+  margin-top: 8px;
+  max-width: 36rem;
+  font-size: 0.92rem;
+  text-align: start;
+}
+
+.consent-bar {
+  position: fixed;
+  z-index: 70;
+  inset-inline: 0;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  width: min(640px, calc(100% - 32px));
+  margin-inline: auto;
+  padding: 16px 18px;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(23, 37, 34, 0.16);
+}
+
+.consent-bar p {
+  margin: 0;
+  max-width: none;
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  text-align: start;
+}
+
+.consent-bar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.consent-bar .btn {
+  min-height: 44px;
+  padding: 8px 18px;
+  font-size: 0.95rem;
+}
+
+.consent-bar__decline {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 0;
+  background: transparent;
+  color: var(--muted-text);
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+
 .sticky-wa {
   position: fixed;
   inset-inline: var(--page-gutter);
@@ -1868,6 +1935,10 @@ main {
 
   .site-footer {
     padding: 28px 0 88px;
+  }
+
+  .consent-bar {
+    bottom: calc(84px + env(safe-area-inset-bottom));
   }
 }
 
