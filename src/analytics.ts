@@ -94,11 +94,11 @@ function loadGoogleAnalytics(id: string) {
 function loadClarity(id: string) {
   if (window.clarity) return;
 
-  const clarity = function clarity(...args: unknown[]) {
-    clarity.q = clarity.q || [];
-    clarity.q.push(args);
-  } as Window["clarity"] & { q?: unknown[][] };
-
+  const queued: unknown[][] = [];
+  const clarity: NonNullable<Window["clarity"]> = (...args: unknown[]) => {
+    queued.push(args);
+  };
+  clarity.q = queued;
   window.clarity = clarity;
 
   const script = document.createElement("script");
