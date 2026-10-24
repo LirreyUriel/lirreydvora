@@ -23,9 +23,10 @@ const namedClicks: Partial<Record<WhatsAppSource, string>> = {
 type Consent = "granted" | "denied";
 type QueuedEvent = { event: string; params: Record<string, unknown> };
 
+const GA_MEASUREMENT_ID = "G-DM9S3T9S54";
 const CLARITY_PROJECT_ID = "z2sksixp74";
 
-const gaId = measurementId(import.meta.env.VITE_GA_MEASUREMENT_ID, GA_ID_PATTERN);
+const gaId = measurementId(import.meta.env.VITE_GA_MEASUREMENT_ID, GA_ID_PATTERN) || GA_MEASUREMENT_ID;
 const clarityId =
   measurementId(import.meta.env.VITE_CLARITY_PROJECT_ID, CLARITY_ID_PATTERN) || CLARITY_PROJECT_ID;
 const queue: QueuedEvent[] = [];
