@@ -6,6 +6,16 @@ import { useInView } from "@/hooks/useInView";
 import { RichText } from "@/components/Ltr";
 import { WordReveal } from "@/components/WordReveal";
 
+function MoreLine({ text }: { text: string }) {
+  const [first, ...rest] = text.split(" ");
+  return (
+    <p>
+      <strong>{first}</strong>
+      {rest.length > 0 ? ` ${rest.join(" ")}` : null}
+    </p>
+  );
+}
+
 export function BeforeAfterSection() {
   const { ref } = useInView<HTMLElement>(() => trackViewOnce("before_after_view"));
 
@@ -32,7 +42,7 @@ export function BeforeAfterSection() {
                 </div>
                 <div className="shift-side shift-side--more">
                   <span>יותר</span>
-                  <p>{pair.more}</p>
+                  <MoreLine text={pair.more} />
                 </div>
               </article>
             </Reveal>
