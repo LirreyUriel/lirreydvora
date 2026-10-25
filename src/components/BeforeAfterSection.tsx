@@ -6,16 +6,6 @@ import { useInView } from "@/hooks/useInView";
 import { RichText } from "@/components/Ltr";
 import { WordReveal } from "@/components/WordReveal";
 
-function MoreLine({ text }: { text: string }) {
-  const [first, ...rest] = text.split(" ");
-  return (
-    <p>
-      <strong>{first}</strong>
-      {rest.length > 0 ? ` ${rest.join(" ")}` : null}
-    </p>
-  );
-}
-
 export function BeforeAfterSection() {
   const { ref } = useInView<HTMLElement>(() => trackViewOnce("before_after_view"));
 
@@ -31,23 +21,6 @@ export function BeforeAfterSection() {
         <Reveal>
           <p className="section__intro">{shift.text}</p>
         </Reveal>
-
-        <div className="shift-list">
-          {shift.pairs.map((pair, index) => (
-            <Reveal key={pair.less} delay={index * 60}>
-              <article className="shift-row">
-                <div className="shift-side shift-side--less">
-                  <span>פחות</span>
-                  <p>{pair.less}</p>
-                </div>
-                <div className="shift-side shift-side--more">
-                  <span>יותר</span>
-                  <MoreLine text={pair.more} />
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
 
         <div className="section-cta">
           <WhatsAppButton source="before_after">
