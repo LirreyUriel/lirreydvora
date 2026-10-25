@@ -2,7 +2,7 @@ import { automations, type Automation } from "../content/automations.ts";
 
 export type QuizAnswers = {
   pains: string[];
-  response?: string;
+  response: string[];
   channels: string[];
   booking_methods: string[];
 };
@@ -33,7 +33,7 @@ export function selectAutomations(
   const ids: string[] = [];
 
   // תשובה ראשונה קודמת ל"מקום אחד לכל הפניות" גם כשפניות חדשות סומנו כשלב שכואב.
-  const slowReply = answers.response === "forgotten" || answers.response === "next_day";
+  const slowReply = answers.response.includes("forgotten") || answers.response.includes("next_day");
   if (slowReply || answers.pains.includes("first_contact")) {
     ids.push("first_reply");
   }

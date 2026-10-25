@@ -96,7 +96,7 @@ export function Quiz() {
     const shown = shownAnswers(answers);
     const selected = selectAutomations({
       pains: shown.pains,
-      response: shown.response[0],
+      response: shown.response,
       channels: shown.channels,
       booking_methods: shown.booking_methods,
     });
@@ -109,7 +109,7 @@ export function Quiz() {
         hours: shown.hours[0] ?? "",
         impact: shown.impact,
         channels: shown.channels,
-        response: shown.response[0] ?? "",
+        response: shown.response,
         close_rate: shown.close_rate[0] ?? "",
         booking_methods: shown.booking_methods,
         return_rate: shown.return_rate[0] ?? "",
@@ -405,9 +405,11 @@ function QuizResult({ automations, answers, headingRef }: QuizResultProps) {
   const href = `${whatsappUrl}?text=${encodeURIComponent(message)}`;
 
   const hours = quiz.hoursText[answers.hours[0]] ?? "";
-  const response = answers.response[0];
-  const extra =
-    response === "forgotten" ? quiz.result.forgotten : response === "next_day" ? quiz.result.nextDay : "";
+  const extra = answers.response.includes("forgotten")
+    ? quiz.result.forgotten
+    : answers.response.includes("next_day")
+      ? quiz.result.nextDay
+      : "";
 
   return (
     <div className="quiz-result">
