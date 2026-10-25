@@ -23,12 +23,16 @@ test("no forced rules leaves only the chosen stage", () => {
       channels: ["whatsapp"],
       booking_methods: ["google_calendar"],
     }),
-    ["win_back"],
+    ["win_back", "after_session"],
   );
 });
 
 test("forgotten replies add first_reply before retention", () => {
-  assert.deepEqual(ids({ pains: ["retention"], response: "forgotten" }), ["first_reply", "win_back"]);
+  assert.deepEqual(ids({ pains: ["retention"], response: "forgotten" }), [
+    "first_reply",
+    "win_back",
+    "after_session",
+  ]);
 });
 
 test("both forced rules plus stages are cut to three", () => {
@@ -49,8 +53,12 @@ test("manual WhatsApp booking adds a single inbox", () => {
   );
 });
 
-test("after the session suggests its own automation", () => {
-  assert.deepEqual(ids({ pains: ["after_session"], response: "within_hour" }), ["after_session"]);
+test("new inquiries and retention fill all three places", () => {
+  assert.deepEqual(ids({ pains: ["first_contact", "retention"], response: "forgotten" }), [
+    "first_reply",
+    "win_back",
+    "after_session",
+  ]);
 });
 
 test("an automation still marked TODO is never shown", () => {

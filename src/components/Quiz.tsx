@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import { QUIZ_WEBHOOK_URL, whatsappUrl } from "@/config";
 import { activeQuestions, quiz, type QuizKey, type QuizOption, type QuizQuestion } from "@/content/quiz";
 import { QuizIcon } from "@/components/QuizIcon";
@@ -39,6 +39,7 @@ function sendAnswers(payload: Record<string, unknown>) {
 }
 
 export function Quiz() {
+  const [started, setStarted] = useState(false);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>(emptyAnswers);
   const [otherText, setOtherText] = useState("");
@@ -56,7 +57,7 @@ export function Quiz() {
   useEffect(() => {
     // לא מזיזים את הפוקוס בטעינת הדף, רק אחרי מעבר בין מסכים.
     if (moved.current) headingRef.current?.focus();
-  }, [step, result]);
+  }, [started, step, result]);
 
   const goTo = (next: number) => {
     moved.current = true;
@@ -133,13 +134,34 @@ export function Quiz() {
     );
   }
 
+  if (!started) {
+    return (
+      <div className="quiz quiz--intro">
+        <QuizIllustration />
+        <h3 className="quiz__intro-title">{quiz.title}</h3>
+        <p className="quiz__intro-text">{quiz.subtitle}</p>
+        <button
+          type="button"
+          className="btn btn--primary"
+          onClick={() => {
+            moved.current = true;
+            setStarted(true);
+          }}
+        >
+          <span className="btn__label">{quiz.start}</span>
+          <span className="btn__arrow" aria-hidden="true">
+            ←
+          </span>
+        </button>
+      </div>
+    );
+  }
+
   // המסך הנוכחי מתוך כל השאלות ומסך הפרטים.
   const progress = ((step + 1) / (questions.length + 1)) * 100;
 
   return (
     <div className="quiz">
-      <h3 className="quiz__title">{quiz.title}</h3>
-
       <div
         className="quiz__bar"
         role="progressbar"
@@ -372,12 +394,12 @@ type QuizResultProps = {
 };
 
 function QuizResult({ automations, answers, headingRef }: QuizResultProps) {
-  const lead = automations[0];
   const phrases = Object.keys(quiz.painPhrases)
     .filter((pain) => answers.pains.includes(pain))
     .map((pain) => quiz.painPhrases[pain]);
   const pains = quiz.result.joinPains(phrases);
-  const message = lead
+  const found = automations.length > 0;
+  const message = found
     ? `${quiz.result.message} ${quiz.result.messagePains(pains, phrases.length)}`
     : quiz.result.message;
   const href = `${whatsappUrl}?text=${encodeURIComponent(message)}`;
@@ -388,22 +410,34 @@ function QuizResult({ automations, answers, headingRef }: QuizResultProps) {
     response === "forgotten" ? quiz.result.forgotten : response === "next_day" ? quiz.result.nextDay : "";
 
   return (
-    <div className="quiz__result">
-      <h3 className="quiz__result-title" ref={headingRef} tabIndex={-1}>
-        {lead ? quiz.result.title(pains, phrases.length, hours) : quiz.result.emptyTitle}
+    <div className="quiz-result">
+      <QuizIllustration />
+      <h3 className="quiz-result__eyebrow" ref={headingRef} tabIndex={-1}>
+        {found ? quiz.result.eyebrow : quiz.result.emptyTitle}
       </h3>
 
-      {lead ? (
+      {found ? (
         <>
-          {extra ? <p className="quiz__summary">{extra}</p> : null}
-          <p className="quiz__intro">{quiz.result.intro}</p>
-          <ol className="quiz__automations">
+          <div className="quiz-result__pain">
+            <p>{quiz.result.title(pains, phrases.length, hours)}</p>
+            {extra ? <p className="quiz-result__extra">{extra}</p> : null}
+          </div>
+
+          <p className="quiz-result__heading">{quiz.result.intro}</p>
+          <ol className="quiz-result__list">
             {automations.map((automation, index) => (
-              <li key={automation.id} className="quiz__automation">
-                <span className="quiz__number" aria-hidden="true">
-                  {index + 1}
+              <li
+                key={automation.id}
+                className="quiz-result__card"
+                style={{ "--card-delay": `${index * 120}ms` } as CSSProperties}
+              >
+                <span className="quiz-result__icon">
+                  <QuizIcon name={automation.id} size={26} />
+                  <span className="quiz-result__number" aria-hidden="true">
+                    {index + 1}
+                  </span>
                 </span>
-                <div>
+                <div className="quiz-result__body">
                   <h4>{automation.name}</h4>
                   <p>{automation.description}</p>
                 </div>
@@ -422,5 +456,25 @@ function QuizResult({ automations, answers, headingRef }: QuizResultProps) {
         </a>
       </div>
     </div>
+  );
+}
+
+// איור שקט לפתיחה ולתוצאה: כרטיס משימות שכולן סומנו, וניצוצות.
+function QuizIllustration() {
+  return (
+    <svg className="quiz-art" viewBox="0 0 220 140" aria-hidden="true" focusable="false">
+      <ellipse className="quiz-art__blob" cx="110" cy="78" rx="98" ry="56" />
+      <rect className="quiz-art__card" x="64" y="20" width="92" height="104" rx="16" />
+      {[46, 72, 98].map((y, index) => (
+        <g key={y} className="quiz-art__row" style={{ "--row": index } as CSSProperties}>
+          <circle className="quiz-art__dot" cx="84" cy={y} r="8" />
+          <path className="quiz-art__tick" d={`m80 ${y} 3 3 5-6`} />
+          <rect className="quiz-art__line" x="98" y={y - 4} width={index === 1 ? 34 : 44} height="8" rx="4" />
+        </g>
+      ))}
+      <path className="quiz-art__spark" d="M180 26l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" />
+      <path className="quiz-art__spark quiz-art__spark--small" d="M40 52l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" />
+      <circle className="quiz-art__spark" cx="172" cy="108" r="3" />
+    </svg>
   );
 }

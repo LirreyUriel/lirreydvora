@@ -31,10 +31,10 @@ export default function App() {
       <main id="main">
         <Hero />
         <ProblemSection />
-        <BeforeAfterSection />
-        <About />
         <Outcomes />
         <HowItWorks />
+        <BeforeAfterSection />
+        <About />
         <FaqSection />
         <FinalCTA />
       </main>

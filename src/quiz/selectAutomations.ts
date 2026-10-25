@@ -7,15 +7,15 @@ export type QuizAnswers = {
   booking_methods: string[];
 };
 
-// כל שלב בשאלה 2 והאוטומציה שלו, לפי סדר השלבים בעסק.
-const stageAutomation: [pain: string, automationId: string][] = [
-  ["first_contact", "first_reply"],
-  ["stalled_leads", "gentle_followup"],
-  ["booking", "welcome_confirmation"],
-  ["before_session", "appointment_reminder"],
-  ["after_session", "after_session"],
-  ["retention", "win_back"],
-  ["behind_scenes", "weekly_summary"],
+// כל שלב בשאלה 2 והאוטומציות שלו, לפי סדר השלבים בעסק.
+// שימור הקשר מאחד את "אחרי המפגש" ו"שימור", ולכן מוביל לשתי אוטומציות.
+const stageAutomations: [pain: string, automationIds: string[]][] = [
+  ["first_contact", ["first_reply"]],
+  ["stalled_leads", ["gentle_followup"]],
+  ["booking", ["welcome_confirmation"]],
+  ["before_session", ["appointment_reminder"]],
+  ["retention", ["win_back", "after_session"]],
+  ["behind_scenes", ["weekly_summary"]],
 ];
 
 const MAX_RESULTS = 3;
@@ -45,8 +45,8 @@ export function selectAutomations(
     ids.push("single_inbox");
   }
 
-  for (const [pain, automationId] of stageAutomation) {
-    if (answers.pains.includes(pain)) ids.push(automationId);
+  for (const [pain, automationIds] of stageAutomations) {
+    if (answers.pains.includes(pain)) ids.push(...automationIds);
   }
 
   return [...new Set(ids)]
