@@ -1,6 +1,7 @@
 import { Logo } from "@/components/Logo";
 import { footer, privacy } from "@/content/site";
 import { RichText } from "@/components/Ltr";
+import { openConsentSettings } from "@/components/ConsentBanner";
 
 export function Footer() {
   return (
@@ -13,6 +14,9 @@ export function Footer() {
         <details className="site-footer__privacy">
           <summary>{privacy.summary}</summary>
           <p>{privacy.note}</p>
+          <button type="button" className="site-footer__consent" onClick={openConsentSettings}>
+            {privacy.settings}
+          </button>
         </details>
       </div>
     </footer>

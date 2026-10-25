@@ -21,7 +21,6 @@ const namedClicks: Partial<Record<WhatsAppSource, string>> = {
 };
 
 type Consent = "granted" | "denied";
-type QueuedEvent = { event: string; params: Record<string, unknown> };
 
 const GA_MEASUREMENT_ID = "G-DM9S3T9S54";
 const CLARITY_PROJECT_ID = "z2sksixp74";
@@ -29,7 +28,6 @@ const CLARITY_PROJECT_ID = "z2sksixp74";
 const gaId = measurementId(import.meta.env.VITE_GA_MEASUREMENT_ID, GA_ID_PATTERN) || GA_MEASUREMENT_ID;
 const clarityId =
   measurementId(import.meta.env.VITE_CLARITY_PROJECT_ID, CLARITY_ID_PATTERN) || CLARITY_PROJECT_ID;
-const queue: QueuedEvent[] = [];
 let started = false;
 
 function measurementId(value: string | undefined, pattern: RegExp) {
@@ -51,15 +49,33 @@ export function getConsent(): Consent | null {
   }
 }
 
+// Measurement is on by default. Only an explicit "denied" turns it off.
+export function analyticsEnabled() {
+  return getConsent() !== "denied";
+}
+
 export function grantConsent() {
   rememberConsent("granted");
+  if (gaId) delete (window as unknown as Record<string, unknown>)[`ga-disable-${gaId}`];
   startAnalytics();
-  flush();
 }
 
 export function denyConsent() {
   rememberConsent("denied");
-  queue.length = 0;
+  stopAnalytics();
+}
+
+function stopAnalytics() {
+  if (typeof window === "undefined") return;
+  if (gaId) (window as unknown as Record<string, unknown>)[`ga-disable-${gaId}`] = true;
+  window.clarity?.("consent", false);
+  for (const name of document.cookie.split(";").map((c) => c.split("=")[0].trim())) {
+    if (!/^(_ga|_gid|_gat|_clck|_clsk|CLID|MUID)/.test(name)) continue;
+    const domains = ["", location.hostname, `.${location.hostname.replace(/^www\./, "")}`];
+    for (const domain of domains) {
+      document.cookie = `${name}=; Max-Age=0; path=/${domain ? `; domain=${domain}` : ""}`;
+    }
+  }
 }
 
 function rememberConsent(value: Consent) {
@@ -71,7 +87,7 @@ function rememberConsent(value: Consent) {
 }
 
 export function startAnalytics() {
-  if (started || typeof window === "undefined" || getConsent() !== "granted") return;
+  if (started || typeof window === "undefined" || !analyticsEnabled()) return;
   started = true;
   if (gaId) loadGoogleAnalytics(gaId);
   if (clarityId) loadClarity(clarityId);
@@ -115,23 +131,12 @@ function send(event: string, params: Record<string, unknown>) {
   }
 }
 
-function flush() {
-  const pending = queue.splice(0);
-  for (const item of pending) send(item.event, item.params);
-}
-
 function push(event: string, params: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
 
-  if (getConsent() === "denied") return;
-
-  if (getConsent() === "granted") {
-    startAnalytics();
-    send(event, params);
-    return;
-  }
-
-  if (queue.length < 40) queue.push({ event, params });
+  if (!analyticsEnabled()) return;
+  startAnalytics();
+  send(event, params);
 }
 
 export function track(event: string, params: Record<string, unknown> = {}) {
