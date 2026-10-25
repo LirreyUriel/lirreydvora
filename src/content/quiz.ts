@@ -166,7 +166,7 @@ const questionList = [
   },
 ] satisfies QuizQuestion[];
 
-const byKey = Object.fromEntries(questionList.map((question) => [question.key, question])) as Record<
+export const questionsByKey = Object.fromEntries(questionList.map((question) => [question.key, question])) as Record<
   QuizKey,
   QuizQuestion
 >;
@@ -184,7 +184,7 @@ export function activeQuestions(pains: string[]): QuizQuestion[] {
   for (const [pain, extra] of followUps) {
     if (pains.includes(pain)) keys.push(...extra);
   }
-  return keys.map((key) => byKey[key]);
+  return keys.map((key) => questionsByKey[key]);
 }
 
 export const quiz = {

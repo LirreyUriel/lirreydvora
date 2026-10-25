@@ -5,4 +5,6 @@ export const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}`;
 export const SITE_URL = "https://lirreydvora.com";
 
 // כתובת שמקבלת את תשובות השאלון (POST ב-JSON). כל עוד היא ריקה, השאלון מציג תוצאה ולא שולח כלום.
-export const QUIZ_WEBHOOK_URL = "";
+// מחובר לאוטומציה "שאלון באתר ← מתעניינים" בבסיס Clients ב-Airtable, שיוצרת שורה בטבלת "מתעניינים".
+export const QUIZ_WEBHOOK_URL =
+  "https://hooks.airtable.com/workflows/v1/genericWebhook/appkBihHRyfzNadpq/wflmIZkWuhqEbyQL8/wtrbxc6uSZLR0Ckgn";

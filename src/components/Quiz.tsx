@@ -1,6 +1,13 @@
 import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import { QUIZ_WEBHOOK_URL, whatsappUrl } from "@/config";
-import { activeQuestions, quiz, type QuizKey, type QuizOption, type QuizQuestion } from "@/content/quiz";
+import {
+  activeQuestions,
+  questionsByKey,
+  quiz,
+  type QuizKey,
+  type QuizOption,
+  type QuizQuestion,
+} from "@/content/quiz";
 import { QuizIcon } from "@/components/QuizIcon";
 import type { Automation } from "@/content/automations";
 import { selectAutomations } from "@/quiz/selectAutomations";
@@ -27,13 +34,24 @@ function shownAnswers(answers: Answers): Answers {
   ) as Answers;
 }
 
-function sendAnswers(payload: Record<string, unknown>) {
+// התשובות נשלחות בעברית, מופרדות בפסיקים, כמו האפשרויות בטבלת "מתעניינים" ב-Airtable.
+// Airtable מפצל בחירה מרובה לפי פסיקים, אז פסיק בתוך תשובה הופך ל-" / ".
+function labels(key: QuizKey, values: string[]) {
+  return values
+    .map((value) => questionsByKey[key].options.find((option) => option.value === value)?.label ?? value)
+    .map((label) => label.replace(/,\s*/g, " / "))
+    .join(", ");
+}
+
+function sendAnswers(payload: Record<string, string>) {
   if (!QUIZ_WEBHOOK_URL) return;
   // שליחה ברקע: כישלון לא עוצר את הצגת התוצאה.
+  // ה-webhook של Airtable חוסם JSON מהדפדפן (CORS), אבל מקבל טופס רגיל בלי בדיקה מקדימה.
+  // no-cors כי אין צורך לקרוא את התשובה.
   fetch(QUIZ_WEBHOOK_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    mode: "no-cors",
+    body: new URLSearchParams(payload),
     keepalive: true,
   }).catch(() => undefined);
 }
@@ -103,19 +121,19 @@ export function Quiz() {
 
     if (!honeypot) {
       sendAnswers({
-        business_type: shown.business_type,
+        business_type: labels("business_type", shown.business_type),
         business_type_other: shown.business_type.includes("other") ? otherText.trim() : "",
-        pains: shown.pains,
-        hours: shown.hours[0] ?? "",
-        impact: shown.impact,
-        channels: shown.channels,
-        response: shown.response,
-        close_rate: shown.close_rate[0] ?? "",
-        booking_methods: shown.booking_methods,
-        return_rate: shown.return_rate[0] ?? "",
+        pains: labels("pains", shown.pains),
+        hours: labels("hours", shown.hours),
+        impact: labels("impact", shown.impact),
+        channels: labels("channels", shown.channels),
+        response: labels("response", shown.response),
+        close_rate: labels("close_rate", shown.close_rate),
+        booking_methods: labels("booking_methods", shown.booking_methods),
+        return_rate: labels("return_rate", shown.return_rate),
         name: name.trim(),
         phone: phone.trim(),
-        result_ids: selected.map((automation) => automation.id),
+        results: selected.map((automation) => automation.name).join("\n"),
         submitted_at: new Date().toISOString(),
         page_url: window.location.href,
       });
