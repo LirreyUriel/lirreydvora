@@ -39,15 +39,13 @@ export function Outcomes() {
         >
           {outcomes.pairs.map((pair, index) => (
             <Reveal key={pair.less} delay={index * 60}>
-              <article className="shift-row" style={{ "--shift-delay": `${index * 140}ms` } as CSSProperties}>
+              <article className="shift-row" style={{ "--shift-delay": `${index * 70}ms` } as CSSProperties}>
                 <div className="shift-side shift-side--less">
-                  <span>פחות</span>
                   <p>
                     <span className="shift-strike">{pair.less}</span>
                   </p>
                 </div>
                 <div className="shift-side shift-side--more" aria-hidden={!revealed}>
-                  <span>יותר</span>
                   <MoreLine text={pair.more} />
                 </div>
               </article>
@@ -58,6 +56,7 @@ export function Outcomes() {
         <Reveal>
           <p className="shift-closing">{outcomes.closing}</p>
         </Reveal>
+        {revealed ? <p className="shift-after">{outcomes.afterReveal}</p> : null}
 
         {revealed ? null : (
           <div className="section-cta">

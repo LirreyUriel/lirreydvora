@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { ProblemSection } from "@/components/ProblemSection";
 import { BeforeAfterSection } from "@/components/BeforeAfterSection";
+import { PresenceBand } from "@/components/PresenceBand";
 import { About } from "@/components/About";
 import { Outcomes } from "@/components/Outcomes";
 import { StorySection } from "@/components/StorySection";
@@ -36,6 +37,7 @@ export default function App() {
         <StorySection />
         <HowItWorks />
         <BeforeAfterSection />
+        <PresenceBand />
         <About />
         <FaqSection />
         <FinalCTA />
