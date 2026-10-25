@@ -17,6 +17,7 @@ export function openConsentSettings() {
 
 export function ConsentBanner() {
   const [visible, setVisible] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const [analytics, setAnalytics] = useState(true);
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export function ConsentBanner() {
 
     const open = () => {
       setAnalytics(analyticsEnabled());
+      setExpanded(true);
       setVisible(true);
     };
     window.addEventListener(OPEN_CONSENT_EVENT, open);
@@ -34,6 +36,14 @@ export function ConsentBanner() {
   }, []);
 
   if (!visible) return null;
+
+  if (!expanded) {
+    return (
+      <button type="button" className="consent-line" onClick={() => setExpanded(true)}>
+        {privacy.banner}
+      </button>
+    );
+  }
 
   const close = (allowAnalytics: boolean) => {
     if (allowAnalytics) grantConsent();
@@ -43,22 +53,19 @@ export function ConsentBanner() {
 
   return (
     <aside className="consent-bar" role="dialog" aria-labelledby="consent-title">
-      <p id="consent-title" className="consent-bar__intro">
-        <span aria-hidden="true">🍪</span>
-        {privacy.banner}
-      </p>
+      <p id="consent-title">{privacy.intro}</p>
 
       <div className="consent-bar__options">
         <div className="consent-bar__option">
           <div>
-            <strong>🔒 {privacy.necessaryTitle}</strong>
+            <strong>{privacy.necessaryTitle}</strong>
             <span>{privacy.necessaryText}</span>
           </div>
           <span className="consent-switch is-on is-locked" aria-hidden="true" />
         </div>
         <label className="consent-bar__option">
           <div>
-            <strong>📊 {privacy.analyticsTitle}</strong>
+            <strong>{privacy.analyticsTitle}</strong>
             <span>{privacy.analyticsText}</span>
           </div>
           <input
@@ -77,9 +84,6 @@ export function ConsentBanner() {
         </button>
         <button type="button" className="btn consent-bar__save" onClick={() => close(analytics)}>
           {privacy.save}
-        </button>
-        <button type="button" className="consent-bar__decline" onClick={() => close(false)}>
-          {privacy.necessaryOnly}
         </button>
       </div>
     </aside>
