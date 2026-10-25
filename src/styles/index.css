@@ -379,7 +379,7 @@ h2.measure-wide {
   background: color-mix(in srgb, var(--beige) 55%, var(--card));
 }
 
-.shift-side span {
+.shift-side > span {
   display: block;
   margin-bottom: 4px;
   color: var(--gold);
@@ -392,12 +392,12 @@ h2.measure-wide {
   background: color-mix(in srgb, var(--sage) 46%, #e7f0e6);
 }
 
-.shift-side--less span,
+.shift-side--less > span,
 .shift-side--less p {
   font-weight: 400;
 }
 
-.shift-side--more span {
+.shift-side--more > span {
   color: var(--deep-green);
 }
 
@@ -414,6 +414,72 @@ h2.measure-wide {
   font-size: 1em;
   font-weight: 400;
   line-height: 1.45;
+}
+
+/* Less -> more: once the row is revealed, the "less" side dims and is struck through,
+   then the "more" side lights up. */
+.shift-side {
+  position: relative;
+  transition:
+    background-color 900ms ease,
+    opacity 700ms ease;
+}
+
+.shift-side--less p {
+  transition: color 700ms ease;
+}
+
+.shift-strike {
+  background: linear-gradient(currentColor, currentColor) no-repeat right 58% / 0% 1px;
+  transition: background-size 800ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.shift-side--more {
+  background-color: color-mix(in srgb, var(--beige) 55%, var(--card));
+}
+
+.shift-side--more::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 140% at 100% 0%, color-mix(in srgb, var(--gold-soft) 38%, transparent), transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1200ms ease;
+}
+
+.shift-side--more > span,
+.shift-side--more p {
+  position: relative;
+  z-index: 1;
+  opacity: 0.55;
+  transition: opacity 700ms ease;
+}
+
+.reveal.is-visible .shift-side--less p {
+  color: color-mix(in srgb, var(--muted-text) 70%, transparent);
+  transition-delay: calc(var(--shift-delay, 0ms) + 450ms);
+}
+
+.reveal.is-visible .shift-strike {
+  background-size: 100% 1px;
+  transition-delay: calc(var(--shift-delay, 0ms) + 600ms);
+}
+
+.reveal.is-visible .shift-side--more {
+  background-color: color-mix(in srgb, var(--sage) 46%, #e7f0e6);
+  transition-delay: calc(var(--shift-delay, 0ms) + 1150ms);
+}
+
+.reveal.is-visible .shift-side--more > span,
+.reveal.is-visible .shift-side--more p {
+  opacity: 1;
+  transition-delay: calc(var(--shift-delay, 0ms) + 1150ms);
+}
+
+.reveal.is-visible .shift-side--more::after {
+  opacity: 1;
+  transition-delay: calc(var(--shift-delay, 0ms) + 1250ms);
 }
 
 .reveal {
@@ -733,6 +799,21 @@ h2.measure-wide {
   animation: mesh-gold 20s ease-in-out infinite alternate;
 }
 
+.hero__blob--breath {
+  width: 46%;
+  height: 52%;
+  right: 20%;
+  top: 14%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--gold-soft) 70%, transparent),
+    color-mix(in srgb, var(--sage) 40%, transparent) 55%,
+    transparent
+  );
+  opacity: 0.3;
+  animation: mesh-breath 11s ease-in-out infinite;
+}
+
 .hero__scrim {
   position: absolute;
   inset: 0;
@@ -901,6 +982,18 @@ h2.measure-wide {
   to {
     transform: translate3d(8%, -12%, 0) scale(1.16);
     opacity: 0.72;
+  }
+}
+
+@keyframes mesh-breath {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(0.88);
+    opacity: 0.22;
+  }
+  50% {
+    transform: translate3d(-4%, 3%, 0) scale(1.1);
+    opacity: 0.5;
   }
 }
 
@@ -1500,6 +1593,27 @@ h2.measure-wide {
   bottom: 0;
   width: 1px;
   background: color-mix(in srgb, var(--gold) 70%, var(--beige));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 600ms cubic-bezier(0.65, 0, 0.35, 1);
+  transition-delay: calc(var(--i, 0) * 650ms + 240ms);
+}
+
+.process-timeline.is-drawn .process-step:not(:last-child)::before {
+  transform: none;
+}
+
+.process-step__marker span {
+  font-variant-numeric: tabular-nums;
+  transition:
+    background-color 500ms ease,
+    box-shadow 500ms ease;
+  transition-delay: calc(var(--i, 0) * 650ms);
+}
+
+.process-timeline.is-drawn .process-step__marker span {
+  background: color-mix(in srgb, var(--gold-soft) 22%, var(--warm-white));
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--gold-soft) 18%, transparent);
 }
 
 .process-step__marker span {
@@ -2017,6 +2131,8 @@ main {
     inset-inline-end: -24px;
     top: 20px;
     bottom: auto;
+    transform: scaleX(0);
+    transform-origin: right;
   }
 
   .site-footer {
@@ -2357,6 +2473,16 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
 
   .hero__caret {
     display: none;
+  }
+
+  .shift-side,
+  .shift-side::after,
+  .shift-side > span,
+  .shift-side p,
+  .shift-strike,
+  .process-step::before,
+  .process-step__marker span {
+    transition-delay: 0ms !important;
   }
 }
 

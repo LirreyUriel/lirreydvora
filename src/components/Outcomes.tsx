@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Reveal } from "@/components/Reveal";
 import { WordReveal } from "@/components/WordReveal";
 import { outcomes } from "@/content/site";
@@ -25,10 +26,12 @@ export function Outcomes() {
         <div className="shift-list">
           {outcomes.pairs.map((pair, index) => (
             <Reveal key={pair.less} delay={index * 60}>
-              <article className="shift-row">
+              <article className="shift-row" style={{ "--shift-delay": `${index * 60}ms` } as CSSProperties}>
                 <div className="shift-side shift-side--less">
                   <span>פחות</span>
-                  <p>{pair.less}</p>
+                  <p>
+                    <span className="shift-strike">{pair.less}</span>
+                  </p>
                 </div>
                 <div className="shift-side shift-side--more">
                   <span>יותר</span>

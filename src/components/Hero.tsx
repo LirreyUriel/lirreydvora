@@ -262,6 +262,7 @@ export function Hero() {
         <div className="hero__blob hero__blob--deep" />
         <div className="hero__blob hero__blob--sage" />
         <div className="hero__blob hero__blob--gold" />
+        <div className="hero__blob hero__blob--breath" />
         <div className="hero__scrim" />
       </div>
 
