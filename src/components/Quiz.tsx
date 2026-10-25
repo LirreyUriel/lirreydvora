@@ -1,23 +1,30 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { QUIZ_WEBHOOK_URL, whatsappUrl } from "@/config";
-import { quiz, type QuizQuestion } from "@/content/quiz";
+import { activeQuestions, quiz, type QuizKey, type QuizQuestion } from "@/content/quiz";
 import type { Automation } from "@/content/automations";
 import { selectAutomations } from "@/quiz/selectAutomations";
 
-type Answers = Record<QuizQuestion["key"], string[]>;
-
-const questions: QuizQuestion[] = quiz.questions;
-const DETAILS_STEP = questions.length;
-const RESULT_STEP = questions.length + 1;
+type Answers = Record<QuizKey, string[]>;
 
 const emptyAnswers: Answers = {
   business_type: [],
   pains: [],
   hours: [],
-  response: [],
+  impact: [],
   channels: [],
+  response: [],
+  close_rate: [],
   booking_methods: [],
+  return_rate: [],
 };
+
+// רק תשובות לשאלות שהוצגו נחשבות, גם אם סומנו קודם ואז הכאב שהוביל אליהן בוטל.
+function shownAnswers(answers: Answers): Answers {
+  const shown = new Set(activeQuestions(answers.pains).map((question) => question.key));
+  return Object.fromEntries(
+    Object.entries(answers).map(([key, value]) => [key, shown.has(key as QuizKey) ? value : []]),
+  ) as Answers;
+}
 
 function sendAnswers(payload: Record<string, unknown>) {
   if (!QUIZ_WEBHOOK_URL) return;
@@ -35,18 +42,20 @@ export function Quiz() {
   const [answers, setAnswers] = useState<Answers>(emptyAnswers);
   const [otherText, setOtherText] = useState("");
   const [name, setName] = useState("");
-  const [contact, setContact] = useState("");
-  const [freeText, setFreeText] = useState("");
+  const [phone, setPhone] = useState("");
   const [honeypot, setHoneypot] = useState("");
-  const [error, setError] = useState<"" | "required" | "name" | "contact">("");
-  const [result, setResult] = useState<Automation[]>([]);
+  const [error, setError] = useState<"" | "required" | "name" | "phone">("");
+  const [result, setResult] = useState<Automation[] | null>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const moved = useRef(false);
+
+  const questions = activeQuestions(answers.pains);
+  const detailsStep = questions.length;
 
   useEffect(() => {
     // לא מזיזים את הפוקוס בטעינת הדף, רק אחרי מעבר בין מסכים.
     if (moved.current) headingRef.current?.focus();
-  }, [step]);
+  }, [step, result]);
 
   const goTo = (next: number) => {
     moved.current = true;
@@ -80,61 +89,70 @@ export function Quiz() {
   const onDetailsSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (!name.trim()) return setError("name");
-    if (!contact.trim()) return setError("contact");
+    if (!phone.trim()) return setError("phone");
 
+    const shown = shownAnswers(answers);
     const selected = selectAutomations({
-      pains: answers.pains,
-      response: answers.response[0],
-      channels: answers.channels,
-      booking_methods: answers.booking_methods,
+      pains: shown.pains,
+      response: shown.response[0],
+      channels: shown.channels,
+      booking_methods: shown.booking_methods,
     });
-    setResult(selected);
 
     if (!honeypot) {
       sendAnswers({
-        business_type: answers.business_type,
-        business_type_other: answers.business_type.includes("other") ? otherText.trim() : "",
-        pains: answers.pains,
-        hours: answers.hours[0] ?? "",
-        response: answers.response[0] ?? "",
-        channels: answers.channels,
-        booking_methods: answers.booking_methods,
+        business_type: shown.business_type,
+        business_type_other: shown.business_type.includes("other") ? otherText.trim() : "",
+        pains: shown.pains,
+        hours: shown.hours[0] ?? "",
+        impact: shown.impact,
+        channels: shown.channels,
+        response: shown.response[0] ?? "",
+        close_rate: shown.close_rate[0] ?? "",
+        booking_methods: shown.booking_methods,
+        return_rate: shown.return_rate[0] ?? "",
         name: name.trim(),
-        contact: contact.trim(),
-        free_text: freeText.trim(),
+        phone: phone.trim(),
         result_ids: selected.map((automation) => automation.id),
         submitted_at: new Date().toISOString(),
         page_url: window.location.href,
       });
     }
 
-    goTo(RESULT_STEP);
+    moved.current = true;
+    setError("");
+    setResult(selected);
   };
 
-  const total = questions.length;
-  const progress = step < total ? quiz.progress(step + 1, total) : "";
+  if (result) {
+    return (
+      <div className="quiz">
+        <QuizResult automations={result} answers={shownAnswers(answers)} headingRef={headingRef} />
+      </div>
+    );
+  }
+
+  // המסך הנוכחי מתוך כל השאלות ומסך הפרטים.
+  const progress = ((step + 1) / (questions.length + 1)) * 100;
 
   return (
     <div className="quiz">
-      <div className="quiz__head">
-        <h3 className="quiz__title">{quiz.title}</h3>
-        <p className="quiz__subtitle">{quiz.subtitle}</p>
+      <h3 className="quiz__title">{quiz.title}</h3>
+
+      <div
+        className="quiz__bar"
+        role="progressbar"
+        aria-label="התקדמות בשאלון"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(progress)}
+      >
+        <span style={{ width: `${progress}%` }} />
       </div>
 
-      {step < total ? (
-        <div className="quiz__progress">
-          <div className="quiz__bar" aria-hidden="true">
-            <span style={{ width: `${((step + 1) / total) * 100}%` }} />
-          </div>
-        </div>
-      ) : null}
-      <p className="quiz__progress-text" aria-live="polite">
-        {progress}
-      </p>
-
-      {step < total ? (
+      {step < detailsStep ? (
         <QuestionStep
-          key={step}
+          key={questions[step].key}
           question={questions[step]}
           selected={answers[questions[step].key]}
           otherText={otherText}
@@ -145,13 +163,12 @@ export function Quiz() {
           onSubmit={onQuestionSubmit}
           onBack={step > 0 ? () => goTo(step - 1) : undefined}
         />
-      ) : null}
-
-      {step === DETAILS_STEP ? (
+      ) : (
         <form className="quiz__form" onSubmit={onDetailsSubmit} noValidate>
           <h3 className="quiz__question" ref={headingRef} tabIndex={-1}>
             {quiz.details.title}
           </h3>
+          <p className="quiz__privacy">{quiz.details.privacy}</p>
 
           <div className="quiz__field">
             <label htmlFor="quiz-name">{quiz.details.name}</label>
@@ -172,33 +189,23 @@ export function Quiz() {
           </div>
 
           <div className="quiz__field">
-            <label htmlFor="quiz-contact">{quiz.details.contact}</label>
+            <label htmlFor="quiz-phone">{quiz.details.phone}</label>
             <input
-              id="quiz-contact"
-              type="text"
-              dir="auto"
-              value={contact}
-              onChange={(event) => setContact(event.target.value)}
-              aria-invalid={error === "contact"}
-              aria-describedby={error === "contact" ? "quiz-contact-error" : undefined}
+              id="quiz-phone"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              dir="ltr"
+              value={phone}
+              onChange={(event) => setPhone(event.target.value)}
+              aria-invalid={error === "phone"}
+              aria-describedby={error === "phone" ? "quiz-phone-error" : undefined}
             />
-            {error === "contact" ? (
-              <p className="quiz__error" id="quiz-contact-error" role="alert">
-                {quiz.details.contactError}
+            {error === "phone" ? (
+              <p className="quiz__error" id="quiz-phone-error" role="alert">
+                {quiz.details.phoneError}
               </p>
             ) : null}
-          </div>
-
-          <div className="quiz__field">
-            <label htmlFor="quiz-free">
-              {quiz.details.freeText} <span className="quiz__optional">{quiz.details.optional}</span>
-            </label>
-            <textarea
-              id="quiz-free"
-              rows={3}
-              value={freeText}
-              onChange={(event) => setFreeText(event.target.value)}
-            />
           </div>
 
           <div className="quiz__trap" aria-hidden="true">
@@ -213,10 +220,8 @@ export function Quiz() {
             />
           </div>
 
-          <p className="quiz__privacy">{quiz.details.privacy}</p>
-
           <div className="quiz__nav">
-            <button type="button" className="quiz__back" onClick={() => goTo(DETAILS_STEP - 1)}>
+            <button type="button" className="quiz__back" onClick={() => goTo(detailsStep - 1)}>
               {quiz.back}
             </button>
             <button type="submit" className="btn btn--primary">
@@ -227,9 +232,7 @@ export function Quiz() {
             </button>
           </div>
         </form>
-      ) : null}
-
-      {step === RESULT_STEP ? <QuizResult automations={result} answers={answers} headingRef={headingRef} /> : null}
+      )}
     </div>
   );
 }
@@ -343,37 +346,41 @@ type QuizResultProps = {
 };
 
 function QuizResult({ automations, answers, headingRef }: QuizResultProps) {
-  const stage = automations[0]?.stage;
-  const message = stage ? `${quiz.result.message} ${quiz.result.messageStage(stage)}` : quiz.result.message;
+  const lead = automations[0];
+  const phrases = Object.keys(quiz.painPhrases)
+    .filter((pain) => answers.pains.includes(pain))
+    .map((pain) => quiz.painPhrases[pain]);
+  const pains = quiz.result.joinPains(phrases);
+  const message = lead
+    ? `${quiz.result.message} ${quiz.result.messagePains(pains, phrases.length)}`
+    : quiz.result.message;
   const href = `${whatsappUrl}?text=${encodeURIComponent(message)}`;
 
-  const hours = quiz.hoursText[answers.hours[0]];
+  const hours = quiz.hoursText[answers.hours[0]] ?? "";
   const response = answers.response[0];
   const extra =
     response === "forgotten" ? quiz.result.forgotten : response === "next_day" ? quiz.result.nextDay : "";
 
   return (
     <div className="quiz__result">
-      <h3 className="quiz__question" ref={headingRef} tabIndex={-1}>
-        {stage ? quiz.result.title(stage) : quiz.result.emptyTitle}
+      <h3 className="quiz__result-title" ref={headingRef} tabIndex={-1}>
+        {lead ? quiz.result.title(pains, phrases.length, hours) : quiz.result.emptyTitle}
       </h3>
 
-      {stage ? (
+      {lead ? (
         <>
-          {hours ? (
-            <p className="quiz__summary">{extra ? `${quiz.result.hours(hours)} ${extra}` : `${quiz.result.hours(hours)}.`}</p>
-          ) : null}
+          {extra ? <p className="quiz__summary">{extra}</p> : null}
+          <p className="quiz__intro">{quiz.result.intro}</p>
           <ol className="quiz__automations">
             {automations.map((automation, index) => (
               <li key={automation.id} className="quiz__automation">
-                <h4>{quiz.result.automation(index + 1, automation.name)}</h4>
-                <p>{automation.description}</p>
-                <dl>
-                  <dt>{quiz.result.howItWorks}</dt>
-                  <dd>{automation.howItWorks}</dd>
-                  <dt>{quiz.result.measure}</dt>
-                  <dd>{automation.measure}</dd>
-                </dl>
+                <span className="quiz__number" aria-hidden="true">
+                  {index + 1}
+                </span>
+                <div>
+                  <h4>{automation.name}</h4>
+                  <p>{automation.description}</p>
+                </div>
               </li>
             ))}
           </ol>

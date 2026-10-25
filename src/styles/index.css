@@ -2615,16 +2615,8 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
   color: var(--green);
 }
 
-.quiz__subtitle {
-  margin-top: 4px;
-  color: var(--muted-text);
-}
-
-.quiz__progress {
-  margin-top: 24px;
-}
-
 .quiz__bar {
+  margin-top: 20px;
   height: 6px;
   border-radius: 999px;
   background: var(--beige);
@@ -2637,16 +2629,6 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
   border-radius: inherit;
   background: var(--gold);
   transition: width 300ms ease;
-}
-
-.quiz__progress-text {
-  margin-top: 8px;
-  color: var(--muted-text);
-  font-size: 0.88rem;
-}
-
-.quiz__progress-text:empty {
-  display: none;
 }
 
 .quiz__form,
@@ -2725,8 +2707,7 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
 }
 
 .quiz__other,
-.quiz__field input,
-.quiz__field textarea {
+.quiz__field input {
   width: 100%;
   padding: 12px 14px;
   border: 1px solid color-mix(in srgb, var(--deep-green) 18%, transparent);
@@ -2750,17 +2731,8 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
   font-weight: 600;
 }
 
-.quiz__field textarea {
-  resize: vertical;
-}
-
 .quiz__field input[aria-invalid="true"] {
   border-color: #b4472f;
-}
-
-.quiz__optional {
-  color: var(--muted-text);
-  font-weight: 400;
 }
 
 .quiz__trap {
@@ -2773,7 +2745,7 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
 }
 
 .quiz__privacy {
-  margin-top: 14px;
+  margin-top: 6px;
   color: var(--muted-text);
   font-size: 0.85rem;
 }
@@ -2805,25 +2777,72 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
   cursor: pointer;
 }
 
+.quiz__result {
+  margin-top: 0;
+  text-align: center;
+}
+
+.quiz__result p {
+  text-align: center;
+  text-align-last: center;
+}
+
+.quiz__result-title {
+  max-width: 28em;
+  margin-inline: auto;
+  color: var(--green);
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  line-height: 1.4;
+  text-wrap: balance;
+  outline: none;
+}
+
 .quiz__summary {
   margin-top: 10px;
   color: var(--muted-text);
   line-height: 1.7;
 }
 
+.quiz__intro {
+  margin-top: 24px;
+  font-weight: 600;
+}
+
 .quiz__automations {
   display: grid;
-  gap: 14px;
-  margin-top: 20px;
+  gap: 12px;
+  max-width: 34rem;
+  margin: 16px auto 0;
   padding: 0;
   list-style: none;
 }
 
 .quiz__automation {
-  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
   border: 1px solid var(--border);
   border-radius: 16px;
   background: var(--warm-white);
+}
+
+.quiz__automation,
+.quiz__automation p {
+  text-align: start;
+  text-align-last: start;
+}
+
+.quiz__number {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--cream);
+  font-weight: 700;
 }
 
 .quiz__automation h4 {
@@ -2834,23 +2853,6 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
 
 .quiz__automation p {
   margin-top: 6px;
-}
-
-.quiz__automation dl {
-  display: grid;
-  gap: 2px;
-  margin: 12px 0 0;
-  font-size: 0.94rem;
-}
-
-.quiz__automation dt {
-  margin-top: 6px;
-  font-weight: 650;
-}
-
-.quiz__automation dd {
-  margin: 0;
-  color: var(--muted-text);
 }
 
 .quiz__cta {
@@ -2866,6 +2868,7 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
   }
 
   .quiz__automation {
+    gap: 12px;
     padding: 14px;
   }
 
