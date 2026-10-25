@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { WordReveal } from "@/components/WordReveal";
+import { LiquidGlassAccordion } from "@/components/ui/liquid-glass-accordion";
 import { faq } from "@/content/site";
 
 type FaqItem = (typeof faq.items)[number];
@@ -25,64 +25,32 @@ const faqSchema = {
   })),
 };
 
-function FaqItemView({ item, index }: { item: FaqItem; index: number }) {
-  const [open, setOpen] = useState(false);
-  const questionId = `faq-q-${index + 1}`;
-  const panelId = `faq-a-${index + 1}`;
+function FaqAnswer({ item }: { item: FaqItem }) {
   const list = "list" in item ? item.list : undefined;
   const closing = "closing" in item ? item.closing : undefined;
 
   return (
-    <div className={`faq__item${open ? " is-open" : ""}`}>
-      <h3>
-        <button
-          id={questionId}
-          className="faq__question"
-          type="button"
-          aria-expanded={open}
-          aria-controls={panelId}
-          onClick={() => setOpen((current) => !current)}
-        >
-          <span>{item.question}</span>
-          <span className="faq__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="18" height="18" focusable="false">
-              <path
-                d="M12 5v14M5 12h14"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.7"
-                strokeLinecap="round"
-              />
-            </svg>
-          </span>
-        </button>
-      </h3>
-      <div
-        id={panelId}
-        className="faq__panel"
-        role="region"
-        aria-labelledby={questionId}
-        inert={!open}
-      >
-        <div className="faq__panel-inner">
-          <div className="faq__answer">
-            {item.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-            {list ? (
-              <ul className="faq__points">
-                {list.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            ) : null}
-            {closing ? <p>{closing}</p> : null}
-          </div>
-        </div>
-      </div>
+    <div className="faq__answer">
+      {item.paragraphs.map((paragraph) => (
+        <p key={paragraph}>{paragraph}</p>
+      ))}
+      {list ? (
+        <ul className="faq__points">
+          {list.map((point) => (
+            <li key={point}>{point}</li>
+          ))}
+        </ul>
+      ) : null}
+      {closing ? <p>{closing}</p> : null}
     </div>
   );
 }
+
+const accordionItems = faq.items.map((item, index) => ({
+  id: `q${index + 1}`,
+  title: item.question,
+  content: <FaqAnswer item={item} />,
+}));
 
 export function FaqSection() {
   return (
@@ -97,10 +65,8 @@ export function FaqSection() {
         <div className="faq">
           <WordReveal id="faq-title" text={faq.title} />
           <Reveal>
-            <div className="faq__list">
-              {faq.items.map((item, index) => (
-                <FaqItemView key={item.question} item={item} index={index} />
-              ))}
+            <div className="faq__glass-stage">
+              <LiquidGlassAccordion items={accordionItems} />
             </div>
           </Reveal>
         </div>

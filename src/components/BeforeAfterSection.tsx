@@ -1,9 +1,8 @@
 import { Reveal } from "@/components/Reveal";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { cta, shift } from "@/content/site";
+import { Quiz } from "@/components/Quiz";
+import { shift } from "@/content/site";
 import { trackViewOnce } from "@/analytics";
 import { useInView } from "@/hooks/useInView";
-import { RichText } from "@/components/Ltr";
 import { WordReveal } from "@/components/WordReveal";
 
 export function BeforeAfterSection() {
@@ -22,11 +21,7 @@ export function BeforeAfterSection() {
           <p className="section__intro">{shift.text}</p>
         </Reveal>
 
-        <div className="section-cta">
-          <WhatsAppButton source="before_after">
-            <RichText text={cta.whatsapp} />
-          </WhatsAppButton>
-        </div>
+        <Quiz />
       </div>
     </section>
   );
