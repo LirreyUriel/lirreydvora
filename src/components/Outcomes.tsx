@@ -5,12 +5,12 @@ import { outcomes } from "@/content/site";
 import { trackViewOnce } from "@/analytics";
 import { useInView } from "@/hooks/useInView";
 
-function MoreLine({ text }: { text: string }) {
-  const [first, ...rest] = text.split(" ");
+function MoreLine({ text, highlight }: { text: string; highlight: string }) {
+  const rest = text.startsWith(highlight) ? text.slice(highlight.length) : ` ${text}`;
   return (
     <p>
-      <strong>{first}</strong>
-      {rest.length > 0 ? ` ${rest.join(" ")}` : null}
+      <strong>{highlight}</strong>
+      {rest}
     </p>
   );
 }
@@ -46,7 +46,7 @@ export function Outcomes() {
                   </p>
                 </div>
                 <div className="shift-side shift-side--more" aria-hidden={!revealed}>
-                  <MoreLine text={pair.more} />
+                  <MoreLine text={pair.more} highlight={pair.highlight} />
                 </div>
               </article>
             </Reveal>

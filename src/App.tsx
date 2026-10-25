@@ -1,6 +1,5 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { ProblemSection } from "@/components/ProblemSection";
 import { BeforeAfterSection } from "@/components/BeforeAfterSection";
 import { PresenceBand } from "@/components/PresenceBand";
 import { About } from "@/components/About";
@@ -32,7 +31,6 @@ export default function App() {
       <Header />
       <main id="main">
         <Hero />
-        <ProblemSection />
         <Outcomes />
         <StorySection />
         <HowItWorks />
