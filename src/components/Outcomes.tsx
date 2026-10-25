@@ -32,6 +32,18 @@ export function Outcomes() {
       <div className="container">
         <WordReveal id="examples-title" text={outcomes.title} />
 
+        {/* הכפתור לפני הכרטיסים, כדי שלא יגללו על פני כרטיסים מטושטשים בלי להבין למה. */}
+        {revealed ? null : (
+          <div className="section-cta shift-cta">
+            <button type="button" className="btn btn--primary" onClick={reveal}>
+              <span className="btn__label">{outcomes.reveal}</span>
+              <span className="btn__arrow" aria-hidden="true">
+                ←
+              </span>
+            </button>
+          </div>
+        )}
+
         <div
           ref={listRef}
           className={`shift-list${revealed ? " is-revealed" : ""}`}
@@ -58,16 +70,6 @@ export function Outcomes() {
         </Reveal>
         {revealed ? <p className="shift-after">{outcomes.afterReveal}</p> : null}
 
-        {revealed ? null : (
-          <div className="section-cta">
-            <button type="button" className="btn btn--primary" onClick={reveal}>
-              <span className="btn__label">{outcomes.reveal}</span>
-              <span className="btn__arrow" aria-hidden="true">
-                ←
-              </span>
-            </button>
-          </div>
-        )}
       </div>
     </section>
   );

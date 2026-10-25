@@ -236,6 +236,8 @@ export const faq = {
 
 export const finalCta = {
   id: "final-cta",
+  title: "רוצה שהעסק ימשיך לעבוד גם כשהטלפון בצד?",
+  text: "בשיחה קצרה נבין יחד מה אפשר להעביר לאוטומציה כבר עכשיו.",
 } as const;
 
 export const footer = {
@@ -246,7 +248,8 @@ export const footer = {
 } as const;
 
 export const privacy = {
-  banner: "אנחנו משתמשים בעוגיות כדי לשפר את החוויה שלך באתר",
+  banner: "האתר משתמש בעוגיות לשיפור החוויה",
+  dismiss: "אישור וסגירה",
   intro: "אפשר לבחור אילו עוגיות לאפשר.",
   necessaryTitle: "הכרחיות",
   necessaryText: "דרושות לפעולה בסיסית של האתר",

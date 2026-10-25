@@ -9,6 +9,7 @@ import {
   type QuizQuestion,
 } from "@/content/quiz";
 import { QuizIcon } from "@/components/QuizIcon";
+import { QUIZ_ACTIVE_EVENT } from "@/components/MobileWhatsAppCTA";
 import type { Automation } from "@/content/automations";
 import { selectAutomations } from "@/quiz/selectAutomations";
 
@@ -74,8 +75,20 @@ export function Quiz() {
 
   useEffect(() => {
     // לא מזיזים את הפוקוס בטעינת הדף, רק אחרי מעבר בין מסכים.
-    if (moved.current) headingRef.current?.focus();
+    if (!moved.current) return;
+    const heading = headingRef.current;
+    heading?.focus({ preventScroll: true });
+    // כל מסך חדש נפתח מראש הכרטיס, כדי שהשאלה תהיה בראש המסך ולא באמצעו.
+    const card = heading?.closest(".quiz");
+    if (card) {
+      const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      card.scrollIntoView({ block: "start", behavior: smooth ? "smooth" : "auto" });
+    }
   }, [started, step, result]);
+
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent(QUIZ_ACTIVE_EVENT, { detail: started && !result }));
+  }, [started, result]);
 
   const goTo = (next: number) => {
     moved.current = true;

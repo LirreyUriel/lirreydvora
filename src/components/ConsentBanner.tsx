@@ -37,19 +37,30 @@ export function ConsentBanner() {
 
   if (!visible) return null;
 
-  if (!expanded) {
-    return (
-      <button type="button" className="consent-line" onClick={() => setExpanded(true)}>
-        {privacy.banner}
-      </button>
-    );
-  }
-
   const close = (allowAnalytics: boolean) => {
     if (allowAnalytics) grantConsent();
     else denyConsent();
     setVisible(false);
   };
+
+  if (!expanded) {
+    return (
+      <div className="consent-line">
+        <button type="button" className="consent-line__open" onClick={() => setExpanded(true)}>
+          {privacy.banner}
+        </button>
+        {/* סגירה משאירה את ברירת המחדל: המדידה כבר פועלת. */}
+        <button
+          type="button"
+          className="consent-line__close"
+          aria-label={privacy.dismiss}
+          onClick={() => close(true)}
+        >
+          ✕
+        </button>
+      </div>
+    );
+  }
 
   return (
     <aside className="consent-bar" role="dialog" aria-labelledby="consent-title">
