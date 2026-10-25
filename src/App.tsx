@@ -4,6 +4,7 @@ import { ProblemSection } from "@/components/ProblemSection";
 import { BeforeAfterSection } from "@/components/BeforeAfterSection";
 import { About } from "@/components/About";
 import { Outcomes } from "@/components/Outcomes";
+import { StorySection } from "@/components/StorySection";
 import { HowItWorks } from "@/components/HowItWorks";
 import { FaqSection } from "@/components/Faq";
 import { FinalCTA } from "@/components/FinalCTA";
@@ -32,6 +33,7 @@ export default function App() {
         <Hero />
         <ProblemSection />
         <Outcomes />
+        <StorySection />
         <HowItWorks />
         <BeforeAfterSection />
         <About />

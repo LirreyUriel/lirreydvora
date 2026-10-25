@@ -416,8 +416,8 @@ h2.measure-wide {
   line-height: 1.45;
 }
 
-/* Less -> more: once the row is revealed, the "less" side dims and is struck through,
-   then the "more" side lights up. */
+/* Less -> more: after the button is pressed, the "less" side dims and is struck through,
+   then the blurred "more" side comes into focus and lights up. */
 .shift-side {
   position: relative;
   transition:
@@ -452,32 +452,52 @@ h2.measure-wide {
 .shift-side--more p {
   position: relative;
   z-index: 1;
-  opacity: 0.55;
-  transition: opacity 700ms ease;
+  opacity: 0.35;
+  filter: blur(5px);
+  transition:
+    opacity 700ms ease,
+    filter 700ms ease;
 }
 
-.reveal.is-visible .shift-side--less p {
+.shift-list:focus {
+  outline: none;
+}
+
+.shift-closing {
+  max-width: 34rem;
+  margin: 28px auto 0;
+  color: var(--deep-green);
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.6;
+  text-align: center;
+  text-align-last: center;
+  text-wrap: balance;
+}
+
+.shift-list.is-revealed .shift-side--less p {
   color: color-mix(in srgb, var(--muted-text) 70%, transparent);
   transition-delay: calc(var(--shift-delay, 0ms) + 450ms);
 }
 
-.reveal.is-visible .shift-strike {
+.shift-list.is-revealed .shift-strike {
   background-size: 100% 1px;
   transition-delay: calc(var(--shift-delay, 0ms) + 600ms);
 }
 
-.reveal.is-visible .shift-side--more {
+.shift-list.is-revealed .shift-side--more {
   background-color: color-mix(in srgb, var(--sage) 46%, #e7f0e6);
   transition-delay: calc(var(--shift-delay, 0ms) + 1150ms);
 }
 
-.reveal.is-visible .shift-side--more > span,
-.reveal.is-visible .shift-side--more p {
+.shift-list.is-revealed .shift-side--more > span,
+.shift-list.is-revealed .shift-side--more p {
   opacity: 1;
+  filter: none;
   transition-delay: calc(var(--shift-delay, 0ms) + 1150ms);
 }
 
-.reveal.is-visible .shift-side--more::after {
+.shift-list.is-revealed .shift-side--more::after {
   opacity: 1;
   transition-delay: calc(var(--shift-delay, 0ms) + 1250ms);
 }
@@ -3168,5 +3188,216 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
   .quiz-result__card {
     opacity: 1;
     animation: none;
+  }
+}
+
+/* Before -> after story: one moment in the day, by hand and with automation */
+.story {
+  background: var(--deep-green);
+  color: var(--cream);
+}
+
+.story__eyebrow {
+  color: var(--gold-soft);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-align-last: center;
+}
+
+.story__title {
+  max-width: 18em;
+  margin: 10px auto 0;
+  color: var(--cream);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.story__grid {
+  display: grid;
+  gap: 16px;
+  align-items: stretch;
+  max-width: 62rem;
+  margin: 40px auto 0;
+}
+
+@media (min-width: 860px) {
+  .story__grid {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 20px;
+  }
+}
+
+.story__reveal {
+  display: flex;
+}
+
+.story__arrow {
+  display: grid;
+  place-items: center;
+  align-self: center;
+  justify-self: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--deep-green);
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+@media (max-width: 859px) {
+  .story__arrow {
+    transform: rotate(-90deg);
+  }
+}
+
+.story-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 26px;
+  border-radius: var(--radius);
+  color: var(--deep-green);
+}
+
+.story-card--before {
+  background: color-mix(in srgb, var(--beige) 82%, var(--deep-green));
+}
+
+.story-card--after {
+  background: var(--warm-white);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--gold) 45%, transparent),
+    0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.story-card__label {
+  align-self: flex-start;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.story-card--before .story-card__label {
+  background: color-mix(in srgb, var(--deep-green) 12%, transparent);
+  color: var(--muted-text);
+}
+
+.story-card--after .story-card__label {
+  background: var(--gold);
+  color: var(--deep-green);
+}
+
+.story-card__event {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 1.15rem;
+  font-weight: 750;
+}
+
+.story-card__event svg {
+  flex-shrink: 0;
+  color: var(--green);
+}
+
+.story-card__intro {
+  margin-top: 14px;
+  color: var(--muted-text);
+  font-weight: 600;
+}
+
+.story-tasks,
+.story-done {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.story-tasks li,
+.story-done li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.4;
+  text-align: start;
+}
+
+.story-tasks li {
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--warm-white) 45%, transparent);
+  color: color-mix(in srgb, var(--deep-green) 80%, transparent);
+}
+
+.story-tasks__number {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid color-mix(in srgb, var(--deep-green) 35%, transparent);
+  border-radius: 50%;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.story-done li {
+  padding: 9px 4px;
+  font-weight: 600;
+}
+
+.story-done__check {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--cream);
+}
+
+.story-card__closing {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  color: var(--green);
+  font-size: 1.15rem;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.story-done + .story-card__closing {
+  margin-top: 18px;
+}
+
+/* The "after" checks tick in one by one once the card is in view. */
+.story-done li {
+  opacity: 0;
+  transform: translateX(8px);
+  transition:
+    opacity 400ms ease,
+    transform 400ms ease;
+  transition-delay: calc(var(--i) * 160ms + 500ms);
+}
+
+.reveal.is-visible .story-done li {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-done li {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
