@@ -65,9 +65,6 @@ export function Outcomes() {
           ))}
         </div>
 
-        <Reveal>
-          <p className="shift-closing">{outcomes.closing}</p>
-        </Reveal>
         {revealed ? <p className="shift-after">{outcomes.afterReveal}</p> : null}
 
       </div>

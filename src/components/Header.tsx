@@ -10,7 +10,7 @@ export function Header() {
   return (
     <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
       <div className="site-header__inner">
-        <Logo compact />
+        <Logo compact mobileLine />
         <WhatsAppButton source="header" variant={scrolled ? "header" : "on-dark"}>
           <RichText text={cta.whatsapp} />
         </WhatsAppButton>
