@@ -21,7 +21,7 @@ const stageAutomation: [pain: string, automationId: string][] = [
 const MAX_RESULTS = 3;
 
 function isComplete(automation: Automation) {
-  return [automation.name, automation.description, automation.howItWorks, automation.measure].every(
+  return [automation.name, automation.description].every(
     (text) => text.trim() !== "" && !text.includes("TODO"),
   );
 }

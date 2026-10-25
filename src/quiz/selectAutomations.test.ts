@@ -49,6 +49,15 @@ test("manual WhatsApp booking adds a single inbox", () => {
   );
 });
 
+test("after the session suggests its own automation", () => {
+  assert.deepEqual(ids({ pains: ["after_session"], response: "within_hour" }), ["after_session"]);
+});
+
 test("an automation still marked TODO is never shown", () => {
-  assert.deepEqual(ids({ pains: ["after_session"], response: "within_hour" }), []);
+  const draft = { id: "win_back", stage: "שימור", name: "TODO", description: "TODO" };
+  const picked = selectAutomations(
+    { pains: ["retention"], channels: [], booking_methods: [] },
+    [draft],
+  );
+  assert.deepEqual(picked, []);
 });

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { QUIZ_WEBHOOK_URL, whatsappUrl } from "@/config";
-import { activeQuestions, quiz, type QuizKey, type QuizQuestion } from "@/content/quiz";
+import { activeQuestions, quiz, type QuizKey, type QuizOption, type QuizQuestion } from "@/content/quiz";
+import { QuizIcon } from "@/components/QuizIcon";
 import type { Automation } from "@/content/automations";
 import { selectAutomations } from "@/quiz/selectAutomations";
 
@@ -263,6 +264,7 @@ function QuestionStep({
   const full = !!question.max && selected.length >= question.max;
   const errorId = `quiz-${question.key}-error`;
   const hintId = `quiz-${question.key}-hint`;
+  const cards = question.options.some((option: QuizOption) => option.detail);
 
   return (
     <form className="quiz__form" onSubmit={onSubmit} noValidate>
@@ -281,10 +283,34 @@ function QuestionStep({
           </p>
         ) : null}
 
-        <div className="quiz__options">
-          {question.options.map((option) => {
+        <div className={`quiz__options${cards ? " quiz__options--cards" : ""}`}>
+          {question.options.map((option: QuizOption) => {
             const checked = selected.includes(option.value);
             const id = `quiz-${question.key}-${option.value}`;
+            if (option.detail) {
+              return (
+                <label key={option.value} htmlFor={id} className="quiz__card">
+                  <input
+                    id={id}
+                    className="quiz__card-input"
+                    type={question.multiple ? "checkbox" : "radio"}
+                    name={question.key}
+                    value={option.value}
+                    checked={checked}
+                    disabled={!checked && full}
+                    onChange={() => onToggle(question, option.value)}
+                  />
+                  <span className="quiz__card-icon">
+                    <QuizIcon name={option.value} />
+                  </span>
+                  <span className="quiz__card-text">
+                    <strong>{option.label}</strong>
+                    <span>{option.detail}</span>
+                  </span>
+                  <span className="quiz__card-check" aria-hidden="true" />
+                </label>
+              );
+            }
             return (
               <label key={option.value} htmlFor={id} className="quiz__option">
                 <input

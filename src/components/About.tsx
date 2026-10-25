@@ -14,7 +14,7 @@ export function About() {
       <div className="container about-layout">
         <div className="about-photo">
           <img
-            className="clip-reveal"
+            className="photo-reveal"
             src={about.image}
             width={1024}
             height={1024}
