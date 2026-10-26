@@ -1,7 +1,7 @@
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { RichText } from "@/components/Ltr";
-import { cta } from "@/content/site";
-import { articlesPage, author, formatArticleDate, readTime, type Article } from "@/content/articles";
+import { whatsappMessageUrl } from "@/config";
+import { articleCta, articlesPage, author, readTime, type Article } from "@/content/articles";
 
 export function ArticlePage({ article }: { article: Article }) {
   return (
@@ -22,8 +22,6 @@ export function ArticlePage({ article }: { article: Article }) {
             <img src={author.avatar} alt="" width={40} height={40} className="post__avatar" />
             <span className="post__author">{author.name}</span>
             <span aria-hidden="true">·</span>
-            <time dateTime={article.date}>{formatArticleDate(article.date)}</time>
-            <span aria-hidden="true">·</span>
             <span>{readTime(article)}</span>
           </div>
         </header>
@@ -41,6 +39,15 @@ export function ArticlePage({ article }: { article: Article }) {
               aria-label={article.video.label}
             />
             <figcaption>{article.video.label}</figcaption>
+          </figure>
+        ) : article.cover.animated ? (
+          <figure className="post__cover">
+            <img
+              src={article.cover.animated.src}
+              alt={article.cover.animated.alt}
+              width={article.cover.animated.width}
+              height={article.cover.animated.height}
+            />
           </figure>
         ) : (
           <figure className="post__cover">
@@ -86,10 +93,16 @@ export function ArticlePage({ article }: { article: Article }) {
         </div>
 
         <aside className="post__cta">
-          <p>{article.closing}</p>
-          <WhatsAppButton source="article" variant="primary">
-            <RichText text={cta.whatsapp} />
+          <WhatsAppButton
+            source="article"
+            variant="primary"
+            href={whatsappMessageUrl(articleCta.message(article.title))}
+          >
+            {articleCta.label}
           </WhatsAppButton>
+          <p className="post__signature">
+            <RichText text={articleCta.signature} />
+          </p>
         </aside>
       </div>
     </article>

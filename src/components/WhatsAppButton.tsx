@@ -7,6 +7,8 @@ type Props = {
   source: WhatsAppSource;
   children: ReactNode;
   className?: string;
+  // קישור עם הודעה מוכנה. בלי זה הכפתור פותח שיחה ריקה.
+  href?: string;
   variant?: "primary" | "on-dark" | "ghost" | "header";
 };
 
@@ -14,13 +16,14 @@ export function WhatsAppButton({
   source,
   children,
   className = "",
+  href = whatsappUrl,
   variant = "primary",
 }: Props) {
   const { ripples, onPointerDown, removeRipple } = useButtonRipple();
 
   return (
     <a
-      href={whatsappUrl}
+      href={href}
       className={`btn btn--${variant} ${className}`}
       target="_blank"
       rel="noopener noreferrer"

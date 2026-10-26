@@ -1,5 +1,5 @@
 import { GlassBlogCard } from "@/components/ui/glass-blog-card";
-import { articlePath, articles, articlesPage, author, formatArticleDate, readTime } from "@/content/articles";
+import { articlePath, articles, articlesPage, author, readTime } from "@/content/articles";
 
 export function ArticlesPage() {
   return (
@@ -21,8 +21,6 @@ export function ArticlesPage() {
               imageSrcSet={`${article.cover.small} 800w, ${article.cover.src} 1920w`}
               imageAlt={article.cover.alt}
               author={author}
-              date={formatArticleDate(article.date)}
-              dateTime={article.date}
               readTime={readTime(article)}
               tags={article.tags}
               actionLabel={articlesPage.readMore}

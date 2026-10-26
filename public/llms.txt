@@ -28,12 +28,15 @@ Lirrey Dvora is an Israel-based business automation consultant who designs, buil
 
 בוגרת תואר שני בהצטיינות במנהל עסקים, עם שנים של ניהול צוותים עסקיים וטכנולוגיים והובלת אפיון, בנייה והטמעה של מערכות אצל לקוחות פרטיים וארגונים. עובדת רק עם עסקים בנישת הגוף-נפש, כי אוטומציה לעסק שבנוי על אמון ויחס אישי צריכה להיות מותאמת ולא פתרון מדף.
 
-## מאמרים (Articles)
+## פרויקטים (Projects / case studies)
 
 - [איך הקליניקה הפסיקה לרדוף אחרי אישורי הגעה](https://lirreydvora.com/articles/clinic-appointment-reminders/): מקרה מקליניקה לתזונה קלינית. תזכורות ואישורי הגעה אוטומטיים בוואטסאפ שמעדכנים את היומן לבד, תזכורת שנייה למי שלא ענה, בלי הודעות בשישי ושבת, וסימון תקלות ביומן. חסך כשעתיים בשבוע. (Case study: automated appointment reminders and confirmations for a nutrition clinic.)
 - [שיחת היכרות אחת פחות, ופגישה ראשונה שמתחילה כבר מהעומק](https://lirreydvora.com/articles/pre-meeting-questionnaire/): מקרה מקליניקה לתזונה קלינית. שאלון קצר באתר לפני פגישת האבחון במקום שיחת היכרות, עם שאלת מוכנות לשינוי, איסוף רק של פרטים לתיאום (בלי מידע רפואי), מייל מסודר לכל מילוי וסימון מקור הפנייה. (Case study: a pre-meeting intake questionnaire for a nutrition clinic.)
 - [שלוש החלטות קטנות שהפכו הרשמה לסדנה לחוויה רגועה](https://lirreydvora.com/articles/workshop-registration/): מקרה ממנחת סדנאות מיינדפולנס. עמוד הרשמה ותשלום ייעודי שמתחבר לאתר הקיים, בחירה בין הרשמה לסדנה לבין השארת פרטים לעדכונים, אישור וקבלה אוטומטיים אחרי התשלום ולוח מעקב אחרי נרשמים ותשלומים. (Case study: workshop registration and payment flow for a mindfulness facilitator.)
-- כל המאמרים: https://lirreydvora.com/articles/
+- [איך חסכנו 6 שעות בשבוע על תיאום תורים בהודעות](https://lirreydvora.com/articles/self-booking/): מקרה מסטודיו. קביעת תורים עצמית מתוך חלונות זמן שהסטודיו מגדיר מראש, מחוברת לסדר העבודה הקיים, בלי הלוך ושוב בהודעות. (Case study: self-service booking for a studio.)
+- [כל רכישה מקבלת אישור וחשבונית, בלי שאף אחד צריך להפיק אותם](https://lirreydvora.com/articles/purchase-confirmation-invoice/): מקרה מעסק Wellness. אישור הזמנה וחשבונית שמופקים ונשלחים אוטומטית מיד אחרי התשלום, על גבי המערכות שכבר בשימוש. (Case study: automatic order confirmation and invoice after purchase.)
+- [לפעמים התשובה הנכונה היא "עוד לא"](https://lirreydvora.com/articles/not-yet/): ארבע שאלות לשאול לפני שמאוטמטים תהליך, ומה עושים כשעוד לא הגיע הזמן. (When not to automate yet: four questions to ask first.)
+- כל הפרויקטים: https://lirreydvora.com/articles/
 
 ## יצירת קשר (Contact)
 

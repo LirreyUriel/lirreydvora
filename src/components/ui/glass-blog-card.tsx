@@ -6,8 +6,6 @@ type Props = {
   imageSrcSet?: string;
   imageAlt?: string;
   author: { name: string; avatar: string };
-  date: string;
-  dateTime?: string;
   readTime: string;
   tags?: string[];
   actionLabel?: string;
@@ -23,8 +21,6 @@ export function GlassBlogCard({
   imageSrcSet,
   imageAlt = "",
   author,
-  date,
-  dateTime,
   readTime,
   tags = [],
   actionLabel = "לקריאת המאמר",
@@ -90,10 +86,7 @@ export function GlassBlogCard({
                 loading="lazy"
                 className="glass-card__avatar"
               />
-              <div className="glass-card__byline">
-                <span className="glass-card__name">{author.name}</span>
-                <time dateTime={dateTime}>{date}</time>
-              </div>
+              <span className="glass-card__name">{author.name}</span>
             </div>
 
             <span className="glass-card__time">

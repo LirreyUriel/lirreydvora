@@ -6,6 +6,7 @@ import { About } from "@/components/About";
 import { Outcomes } from "@/components/Outcomes";
 import { StorySection } from "@/components/StorySection";
 import { HowItWorks } from "@/components/HowItWorks";
+import { ProjectsTeaser } from "@/components/ProjectsTeaser";
 import { FaqSection } from "@/components/Faq";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Footer } from "@/components/Footer";
@@ -47,6 +48,7 @@ export default function App({ path }: { path: string }) {
             <Outcomes />
             <StorySection />
             <HowItWorks />
+            <ProjectsTeaser />
             <BeforeAfterSection />
             <PresenceBand />
             <About />

@@ -638,6 +638,17 @@ h2.measure-wide {
   background: #fff;
 }
 
+.btn--outline {
+  background: transparent;
+  color: var(--deep-green);
+  box-shadow: inset 0 0 0 1.5px var(--deep-green);
+}
+
+.btn--outline:hover {
+  background: var(--deep-green);
+  color: var(--cream);
+}
+
 .brand {
   display: flex;
   align-items: center;
@@ -3716,6 +3727,16 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
   }
 }
 
+/* ---------- פרויקטים בעמוד הראשי ---------- */
+
+.projects-teaser {
+  background: var(--warm-white);
+}
+
+.projects-teaser__grid {
+  margin-top: 40px;
+}
+
 /* ---------- כרטיס מאמר (זכוכית) ---------- */
 
 .glass-card {
@@ -3916,12 +3937,6 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
   border: 1px solid var(--border);
 }
 
-.glass-card__byline {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.4;
-}
-
 .glass-card__name {
   font-weight: 600;
   color: var(--text);
@@ -4075,11 +4090,12 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
   justify-items: start;
 }
 
-.post__cta p {
-  font-size: 1.2rem;
-  font-weight: 600;
+.post__signature {
+  font-size: 0.95rem;
+  font-weight: 500;
   line-height: 1.5;
   text-align: start;
+  color: color-mix(in srgb, var(--cream) 80%, transparent);
 }
 
 .post__cta .btn--primary {
