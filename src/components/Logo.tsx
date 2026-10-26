@@ -6,7 +6,7 @@ type Props = {
 
 export function Logo({ compact = false, inverted = false, mobileLine = false }: Props) {
   return (
-    <a href="#top" className={`brand ${inverted ? "brand--inverted" : ""}`}>
+    <a href="/#top" className={`brand ${inverted ? "brand--inverted" : ""}`}>
       <img
         src="/images/logo.png"
         alt=""
@@ -18,7 +18,11 @@ export function Logo({ compact = false, inverted = false, mobileLine = false }: 
         <span className="brand__name">לירי דבורה</span>
         {mobileLine ? (
           <span className="brand__mobile-line">
-            לירי דבורה | אוטומציות לעסקי <span dir="ltr">Wellness</span>
+            <span className="brand__mobile-name">לירי דבורה</span>
+            <span className="brand__mobile-sep"> | </span>
+            <span>
+              אוטומציות לעסקי <span dir="ltr">Wellness</span>
+            </span>
           </span>
         ) : null}
         {compact ? null : (

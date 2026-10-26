@@ -13,4 +13,19 @@
       <image:loc>https://lirreydvora.com/images/about.jpg</image:loc>
     </image:image>
   </url>
+  <url>
+    <loc>https://lirreydvora.com/articles/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lirreydvora.com/articles/clinic-appointment-reminders/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://lirreydvora.com/images/articles/clinic-reminders.jpg</image:loc>
+    </image:image>
+  </url>
 </urlset>

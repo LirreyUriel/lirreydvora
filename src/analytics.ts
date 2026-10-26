@@ -7,7 +7,8 @@ export type WhatsAppSource =
   | "about"
   | "final_cta"
   | "sticky_mobile"
-  | "footer";
+  | "footer"
+  | "article";
 
 const CONSENT_KEY = "lirrey-measurement-consent";
 const GA_ID_PATTERN = /^G-[A-Za-z0-9]+$/;

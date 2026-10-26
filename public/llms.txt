@@ -28,6 +28,11 @@ Lirrey Dvora is an Israel-based business automation consultant who designs, buil
 
 בוגרת תואר שני בהצטיינות במנהל עסקים, עם שנים של ניהול צוותים עסקיים וטכנולוגיים והובלת אפיון, בנייה והטמעה של מערכות אצל לקוחות פרטיים וארגונים. עובדת רק עם עסקים בנישת הגוף-נפש, כי אוטומציה לעסק שבנוי על אמון ויחס אישי צריכה להיות מותאמת ולא פתרון מדף.
 
+## מאמרים (Articles)
+
+- [איך הקליניקה הפסיקה לרדוף אחרי אישורי הגעה](https://lirreydvora.com/articles/clinic-appointment-reminders/): מקרה מקליניקה לתזונה קלינית. תזכורות ואישורי הגעה אוטומטיים בוואטסאפ שמעדכנים את היומן לבד, תזכורת שנייה למי שלא ענה, בלי הודעות בשישי ושבת, וסימון תקלות ביומן. חסך כשעתיים בשבוע. (Case study: automated appointment reminders and confirmations for a nutrition clinic.)
+- כל המאמרים: https://lirreydvora.com/articles/
+
 ## יצירת קשר (Contact)
 
 - וואטסאפ / WhatsApp: https://wa.me/972553015612
