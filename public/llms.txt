@@ -1,0 +1,35 @@
+# לירי דבורה • אוטומציות לעסקי Wellness (Lirrey Dvora)
+
+> לירי דבורה (Lirrey Dvora) מאפיינת, בונה ומטמיעה אוטומציות עסקיות מותאמות אישית לעסקי Wellness וגוף-נפש בישראל: קליניקות ומטפלים, סטודיו לכושר ויוגה, תזונאים, מנחי סדנאות וריטריטים. המטרה: להוריד מבעלי העסק את העבודה התפעולית החוזרת, כדי שיישאר להם זמן וקשב ללקוחות.
+
+Lirrey Dvora is an Israel-based business automation consultant who designs, builds and implements custom automations for wellness businesses (clinics, therapists, fitness and yoga studios, nutritionists, workshop and retreat leaders). Service language: Hebrew (English available). Website: https://lirreydvora.com/
+
+## מה אפשר להפוך לאוטומטי (What gets automated)
+
+- קליטת פניות ומתעניינים מכל הערוצים למערכת אחת, עם בקרה על מי מחכה לתשובה (lead capture and follow-up, CRM)
+- קביעת פגישות ותורים מול היומן, עם אישורי הגעה ותזכורות בוואטסאפ ובמייל (scheduling, WhatsApp reminders)
+- שליחת שאלונים לפני שיחות היכרות או טיפולים (intake forms)
+- אישורי הרשמה לסדנאות, טיפולים וריטריטים (registration confirmations)
+- שליחה אוטומטית של אישורי הזמנה, חשבוניות וקבלות (automatic invoices and receipts)
+- הודעות מעקב אישיות ושימור לקוחות (client retention messages)
+- עדכון רשימות תפוצה ודיוור (mailing lists)
+- סיכומי שבוע ודוחות בקרה (weekly reports)
+
+## איך העבודה מתנהלת (Process)
+
+1. שיחת ייעוץ ללא עלות להיכרות עם העסק (free consultation call)
+2. אפיון מדויק של התהליכים וצווארי הבקבוק (process mapping)
+3. בניית אוטומציה מותאמת אישית (custom build)
+4. ליווי והטמעה עד שהכל רץ חלק, כולל ניטור תקלות ותחזוקה (implementation, monitoring, support)
+
+אפשר להתחיל בקטן, באוטומציה אחת, ולהתרחב בהדרגה. לא נדרש רקע טכנולוגי. המחיר נקבע אחרי האפיון, בהצעת מחיר שקופה שכוללת הטמעה, תחזוקה ותיקונים.
+
+## על לירי (About)
+
+בוגרת תואר שני בהצטיינות במנהל עסקים, עם שנים של ניהול צוותים עסקיים וטכנולוגיים והובלת אפיון, בנייה והטמעה של מערכות אצל לקוחות פרטיים וארגונים. עובדת רק עם עסקים בנישת הגוף-נפש, כי אוטומציה לעסק שבנוי על אמון ויחס אישי צריכה להיות מותאמת ולא פתרון מדף.
+
+## יצירת קשר (Contact)
+
+- וואטסאפ / WhatsApp: https://wa.me/972553015612
+- אתר: https://lirreydvora.com/
+- שאלות נפוצות: https://lirreydvora.com/#faq
