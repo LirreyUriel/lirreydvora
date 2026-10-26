@@ -87,8 +87,13 @@ function rememberConsent(value: Consent) {
   }
 }
 
+// בפיתוח מקומי לא טוענים GA וקלריטי, כדי שביקורים ושגיאות מ-npm run dev לא ייכנסו לנתונים.
+function isLocalHost() {
+  return /^(localhost|127\.0\.0\.1|\[::1\]|.+\.localhost)$/.test(location.hostname);
+}
+
 export function startAnalytics() {
-  if (started || typeof window === "undefined" || !analyticsEnabled()) return;
+  if (started || typeof window === "undefined" || !analyticsEnabled() || isLocalHost()) return;
   started = true;
   if (gaId) loadGoogleAnalytics(gaId);
   if (clarityId) loadClarity(clarityId);
