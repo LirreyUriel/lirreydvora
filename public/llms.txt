@@ -2,7 +2,7 @@
 
 > לירי דבורה (Lirrey Dvora) מאפיינת, בונה ומטמיעה אוטומציות עסקיות מותאמות אישית לעסקי Wellness וגוף-נפש בישראל: קליניקות ומטפלים, סטודיו לכושר ויוגה, תזונאים, מנחי סדנאות וריטריטים. המטרה: להוריד מבעלי העסק את העבודה התפעולית החוזרת, כדי שיישאר להם זמן וקשב ללקוחות.
 
-Lirrey Dvora is an Israel-based business automation consultant who designs, builds and implements custom automations for wellness businesses (clinics, therapists, fitness and yoga studios, nutritionists, workshop and retreat leaders). Service language: Hebrew (English available). Website: https://lirreydvora.com/
+Lirrey Dvora is an Israel-based business automation consultant who designs, builds and implements custom automations for wellness businesses (clinics, therapists, fitness and yoga studios, nutritionists, workshop and retreat leaders). Service language: Hebrew (English available). Website: https://lirrey.com/
 
 ## מה אפשר להפוך לאוטומטי (What gets automated)
 
@@ -30,16 +30,16 @@ Lirrey Dvora is an Israel-based business automation consultant who designs, buil
 
 ## פרויקטים (Projects / case studies)
 
-- [איך הקליניקה הפסיקה לרדוף אחרי אישורי הגעה](https://lirreydvora.com/articles/clinic-appointment-reminders/): מקרה מקליניקה לתזונה קלינית. תזכורות ואישורי הגעה אוטומטיים בוואטסאפ שמעדכנים את היומן לבד, תזכורת שנייה למי שלא ענה, בלי הודעות בשישי ושבת, וסימון תקלות ביומן. חסך כשעתיים בשבוע. (Case study: automated appointment reminders and confirmations for a nutrition clinic.)
-- [שיחת היכרות אחת פחות, ופגישה ראשונה שמתחילה כבר מהעומק](https://lirreydvora.com/articles/pre-meeting-questionnaire/): מקרה מקליניקה לתזונה קלינית. שאלון קצר באתר לפני פגישת האבחון במקום שיחת היכרות, עם שאלת מוכנות לשינוי, איסוף רק של פרטים לתיאום (בלי מידע רפואי), מייל מסודר לכל מילוי וסימון מקור הפנייה. (Case study: a pre-meeting intake questionnaire for a nutrition clinic.)
-- [שלוש החלטות קטנות שהפכו הרשמה לסדנה לחוויה רגועה](https://lirreydvora.com/articles/workshop-registration/): מקרה ממנחת סדנאות מיינדפולנס. עמוד הרשמה ותשלום ייעודי שמתחבר לאתר הקיים, בחירה בין הרשמה לסדנה לבין השארת פרטים לעדכונים, אישור וקבלה אוטומטיים אחרי התשלום ולוח מעקב אחרי נרשמים ותשלומים. (Case study: workshop registration and payment flow for a mindfulness facilitator.)
-- [איך חסכנו 6 שעות בשבוע על תיאום תורים בהודעות](https://lirreydvora.com/articles/self-booking/): מקרה מסטודיו. קביעת תורים עצמית מתוך חלונות זמן שהסטודיו מגדיר מראש, מחוברת לסדר העבודה הקיים, בלי הלוך ושוב בהודעות. (Case study: self-service booking for a studio.)
-- [כל רכישה מקבלת אישור וחשבונית, בלי שאף אחד צריך להפיק אותם](https://lirreydvora.com/articles/purchase-confirmation-invoice/): מקרה מעסק Wellness. אישור הזמנה וחשבונית שמופקים ונשלחים אוטומטית מיד אחרי התשלום, על גבי המערכות שכבר בשימוש. (Case study: automatic order confirmation and invoice after purchase.)
-- כל הפרויקטים: https://lirreydvora.com/articles/
-- הטקסט המלא של כל הפרויקטים, כולל שאלות נפוצות (Full text of all case studies): https://lirreydvora.com/llms-full.txt
+- [איך הקליניקה הפסיקה לרדוף אחרי אישורי הגעה](https://lirrey.com/articles/clinic-appointment-reminders/): מקרה מקליניקה לתזונה קלינית. תזכורות ואישורי הגעה אוטומטיים בוואטסאפ שמעדכנים את היומן לבד, תזכורת שנייה למי שלא ענה, בלי הודעות בשישי ושבת, וסימון תקלות ביומן. חסך כשעתיים בשבוע. (Case study: automated appointment reminders and confirmations for a nutrition clinic.)
+- [שיחת היכרות אחת פחות, ופגישה ראשונה שמתחילה כבר מהעומק](https://lirrey.com/articles/pre-meeting-questionnaire/): מקרה מקליניקה לתזונה קלינית. שאלון קצר באתר לפני פגישת האבחון במקום שיחת היכרות, עם שאלת מוכנות לשינוי, איסוף רק של פרטים לתיאום (בלי מידע רפואי), מייל מסודר לכל מילוי וסימון מקור הפנייה. (Case study: a pre-meeting intake questionnaire for a nutrition clinic.)
+- [שלוש החלטות קטנות שהפכו הרשמה לסדנה לחוויה רגועה](https://lirrey.com/articles/workshop-registration/): מקרה ממנחת סדנאות מיינדפולנס. עמוד הרשמה ותשלום ייעודי שמתחבר לאתר הקיים, בחירה בין הרשמה לסדנה לבין השארת פרטים לעדכונים, אישור וקבלה אוטומטיים אחרי התשלום ולוח מעקב אחרי נרשמים ותשלומים. (Case study: workshop registration and payment flow for a mindfulness facilitator.)
+- [איך חסכנו 6 שעות בשבוע על תיאום תורים בהודעות](https://lirrey.com/articles/self-booking/): מקרה מסטודיו. קביעת תורים עצמית מתוך חלונות זמן שהסטודיו מגדיר מראש, מחוברת לסדר העבודה הקיים, בלי הלוך ושוב בהודעות. (Case study: self-service booking for a studio.)
+- [כל רכישה מקבלת אישור וחשבונית, בלי שאף אחד צריך להפיק אותם](https://lirrey.com/articles/purchase-confirmation-invoice/): מקרה מעסק Wellness. אישור הזמנה וחשבונית שמופקים ונשלחים אוטומטית מיד אחרי התשלום, על גבי המערכות שכבר בשימוש. (Case study: automatic order confirmation and invoice after purchase.)
+- כל הפרויקטים: https://lirrey.com/articles/
+- הטקסט המלא של כל הפרויקטים, כולל שאלות נפוצות (Full text of all case studies): https://lirrey.com/llms-full.txt
 
 ## יצירת קשר (Contact)
 
 - וואטסאפ / WhatsApp: https://wa.me/972553015612
-- אתר: https://lirreydvora.com/
-- שאלות נפוצות: https://lirreydvora.com/#faq
+- אתר: https://lirrey.com/
+- שאלות נפוצות: https://lirrey.com/#faq

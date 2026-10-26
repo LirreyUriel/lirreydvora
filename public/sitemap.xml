@@ -2,66 +2,66 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://lirreydvora.com/</loc>
+    <loc>https://lirrey.com/</loc>
     <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://lirreydvora.com/og.png</image:loc>
+      <image:loc>https://lirrey.com/og.png</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://lirreydvora.com/images/about.jpg</image:loc>
+      <image:loc>https://lirrey.com/images/about.jpg</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://lirreydvora.com/articles/</loc>
+    <loc>https://lirrey.com/articles/</loc>
     <lastmod>2026-10-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://lirreydvora.com/articles/clinic-appointment-reminders/</loc>
+    <loc>https://lirrey.com/articles/clinic-appointment-reminders/</loc>
     <lastmod>2026-10-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
     <image:image>
-      <image:loc>https://lirreydvora.com/images/articles/clinic-reminders.jpg</image:loc>
+      <image:loc>https://lirrey.com/images/articles/clinic-reminders.jpg</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://lirreydvora.com/articles/pre-meeting-questionnaire/</loc>
+    <loc>https://lirrey.com/articles/pre-meeting-questionnaire/</loc>
     <lastmod>2026-10-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
     <image:image>
-      <image:loc>https://lirreydvora.com/images/articles/intake-questionnaire.jpg</image:loc>
+      <image:loc>https://lirrey.com/images/articles/intake-questionnaire.jpg</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://lirreydvora.com/articles/workshop-registration/</loc>
+    <loc>https://lirrey.com/articles/workshop-registration/</loc>
     <lastmod>2026-10-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
     <image:image>
-      <image:loc>https://lirreydvora.com/images/articles/workshop-registration.jpg</image:loc>
+      <image:loc>https://lirrey.com/images/articles/workshop-registration.jpg</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://lirreydvora.com/articles/self-booking/</loc>
+    <loc>https://lirrey.com/articles/self-booking/</loc>
     <lastmod>2026-10-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
     <image:image>
-      <image:loc>https://lirreydvora.com/images/articles/self-booking.jpg</image:loc>
+      <image:loc>https://lirrey.com/images/articles/self-booking.jpg</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://lirreydvora.com/articles/purchase-confirmation-invoice/</loc>
+    <loc>https://lirrey.com/articles/purchase-confirmation-invoice/</loc>
     <lastmod>2026-10-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
     <image:image>
-      <image:loc>https://lirreydvora.com/images/articles/purchase-invoices.jpg</image:loc>
+      <image:loc>https://lirrey.com/images/articles/purchase-invoices.jpg</image:loc>
     </image:image>
   </url>
 </urlset>

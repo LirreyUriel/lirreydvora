@@ -1,7 +1,7 @@
 import { whatsappUrl } from "@/config";
 import { articlePath, articles, articlesPage, author, wordCount, type Article } from "@/content/articles";
 
-const SITE = "https://lirreydvora.com";
+const SITE = "https://lirrey.com";
 
 export type Route =
   | { kind: "home" }

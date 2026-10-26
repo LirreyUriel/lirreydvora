@@ -44,4 +44,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://lirreydvora.com/sitemap.xml
+Sitemap: https://lirrey.com/sitemap.xml

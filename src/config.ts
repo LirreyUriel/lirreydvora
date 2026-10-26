@@ -6,7 +6,7 @@ export function whatsappMessageUrl(text: string) {
   return `${whatsappUrl}?text=${encodeURIComponent(text)}`;
 }
 
-export const SITE_URL = "https://lirreydvora.com";
+export const SITE_URL = "https://lirrey.com";
 
 // כתובת שמקבלת את תשובות השאלון (POST ב-JSON). כל עוד היא ריקה, השאלון מציג תוצאה ולא שולח כלום.
 // מחובר לאוטומציה "שאלון באתר ← מתעניינים" בבסיס Clients ב-Airtable, שיוצרת שורה בטבלת "מתעניינים".

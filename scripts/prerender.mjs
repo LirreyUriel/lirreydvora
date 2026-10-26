@@ -4,7 +4,7 @@ import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 import { resolve } from "node:path";
 
-const SITE = "https://lirreydvora.com";
+const SITE = "https://lirrey.com";
 const root = resolve(import.meta.dirname, "..");
 const distDir = resolve(root, "dist");
 const indexPath = resolve(distDir, "index.html");
