@@ -37,4 +37,13 @@
       <image:loc>https://lirreydvora.com/images/articles/intake-questionnaire.jpg</image:loc>
     </image:image>
   </url>
+  <url>
+    <loc>https://lirreydvora.com/articles/workshop-registration/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://lirreydvora.com/images/articles/workshop-registration.jpg</image:loc>
+    </image:image>
+  </url>
 </urlset>
