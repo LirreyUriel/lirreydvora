@@ -16,7 +16,7 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { ArticlesPage } from "@/pages/ArticlesPage";
 import { ArticlePage } from "@/pages/ArticlePage";
 import { resolveRoute, routeMeta } from "@/routes";
-import { trackViewOnce } from "@/analytics";
+import { trackPageView } from "@/analytics";
 import { startScrollFallback } from "@/scrollEffects";
 import { useEffect } from "react";
 
@@ -24,7 +24,11 @@ export default function App({ path }: { path: string }) {
   const route = resolveRoute(path);
 
   useEffect(() => {
-    trackViewOnce("page_view");
+    trackPageView(
+      route.kind === "article"
+        ? { page_type: "article", article_slug: route.article.slug, article_title: route.article.title }
+        : { page_type: route.kind === "articles" ? "projects" : "home" },
+    );
     return startScrollFallback();
   }, []);
 

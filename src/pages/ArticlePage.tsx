@@ -1,9 +1,22 @@
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { RichText } from "@/components/Ltr";
 import { whatsappMessageUrl } from "@/config";
-import { articleCta, articlesPage, author, readTime, type Article } from "@/content/articles";
+import { trackArticleRead } from "@/analytics";
+import { useInView } from "@/hooks/useInView";
+import {
+  articleCta,
+  articlePath,
+  articlesPage,
+  author,
+  readTime,
+  relatedArticles,
+  type Article,
+} from "@/content/articles";
 
 export function ArticlePage({ article }: { article: Article }) {
+  // מי שהגיע לשאלות הנפוצות קרא את המאמר עד הסוף.
+  const { ref: endRef } = useInView<HTMLElement>(() => trackArticleRead(), 0.2);
+
   return (
     <article className="post" aria-labelledby="post-title">
       <div className="post__inner">
@@ -25,6 +38,17 @@ export function ArticlePage({ article }: { article: Article }) {
             <span>{readTime(article)}</span>
           </div>
         </header>
+
+        <aside className="post__summary" aria-labelledby="post-summary-title">
+          <h2 id="post-summary-title">{articlesPage.summaryTitle}</h2>
+          <ul>
+            {article.summary.map((point) => (
+              <li key={point}>
+                <RichText text={point} />
+              </li>
+            ))}
+          </ul>
+        </aside>
 
         {article.video ? (
           <figure className="post__video">
@@ -92,6 +116,20 @@ export function ArticlePage({ article }: { article: Article }) {
           ))}
         </div>
 
+        <section className="post__faq" aria-labelledby="post-faq-title" ref={endRef}>
+          <h2 id="post-faq-title">{articlesPage.faqTitle}</h2>
+          {article.faq.map((item) => (
+            <div key={item.q} className="post__faq-item">
+              <h3>
+                <RichText text={item.q} />
+              </h3>
+              <p>
+                <RichText text={item.a} />
+              </p>
+            </div>
+          ))}
+        </section>
+
         <aside className="post__cta">
           <WhatsAppButton
             source="article"
@@ -104,6 +142,19 @@ export function ArticlePage({ article }: { article: Article }) {
             <RichText text={articleCta.signature} />
           </p>
         </aside>
+
+        <nav className="post__related" aria-labelledby="post-related-title">
+          <h2 id="post-related-title">{articlesPage.relatedTitle}</h2>
+          <ul>
+            {relatedArticles(article).map((item) => (
+              <li key={item.slug}>
+                <a href={articlePath(item)}>
+                  <RichText text={item.title} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </article>
   );

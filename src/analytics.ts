@@ -126,10 +126,47 @@ function loadClarity(id: string) {
   else document.head.appendChild(script);
 }
 
+// מה נמדד בעמוד הנוכחי. מצורף לכל אירוע, כך שאפשר לראות ב-GA4 ובקלריטי תוצאות לכל מאמר בנפרד.
+export type PageContext = {
+  page_type: "home" | "projects" | "article";
+  article_slug?: string;
+  article_title?: string;
+};
+
+let pageContext: PageContext | null = null;
+
 function send(event: string, params: Record<string, unknown>) {
   if (typeof window.gtag === "function") {
-    window.gtag("event", event, params);
+    window.gtag("event", event, { ...pageContext, ...params });
   }
+}
+
+// צפייה בעמוד: page_view עם הכתובת המלאה וקבוצת תוכן ב-GA4, ותגיות + אירוע בקלריטי.
+export function trackPageView(context: PageContext) {
+  if (typeof window === "undefined") return;
+  pageContext = context;
+  if (!analyticsEnabled()) return;
+  startAnalytics();
+
+  window.clarity?.("set", "page_type", context.page_type);
+  if (context.article_slug) {
+    window.clarity?.("set", "article_slug", context.article_slug);
+    window.clarity?.("event", "article_view");
+  }
+
+  send("page_view", {
+    page_location: location.href,
+    page_path: location.pathname,
+    page_title: document.title,
+    content_group: context.page_type,
+  });
+  if (context.article_slug) send("article_view", {});
+}
+
+export function trackArticleRead() {
+  if (!pageContext?.article_slug) return;
+  window.clarity?.("event", "article_read");
+  push("article_read");
 }
 
 function push(event: string, params: Record<string, unknown> = {}) {

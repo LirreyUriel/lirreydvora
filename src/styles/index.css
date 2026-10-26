@@ -4079,6 +4079,60 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
   color: var(--deep-green);
 }
 
+.post__summary {
+  margin-top: 28px;
+  padding: 20px 24px;
+  border-radius: var(--radius);
+  background: var(--beige);
+  border-inline-start: 3px solid var(--gold-soft);
+}
+
+.post__summary h2,
+.post__related h2 {
+  font-size: 1.05rem;
+  max-width: none;
+  margin-bottom: 10px;
+  color: var(--deep-green);
+}
+
+.post__summary ul,
+.post__related ul {
+  display: grid;
+  gap: 8px;
+  padding-inline-start: 1.1em;
+}
+
+.post__faq {
+  margin-top: 56px;
+}
+
+.post__faq h2 {
+  font-size: clamp(1.45rem, 3vw, 1.8rem);
+  max-width: none;
+  margin-bottom: 8px;
+}
+
+.post__faq-item {
+  padding-block: 16px;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+}
+
+.post__faq-item h3 {
+  font-size: 1.08rem;
+  margin-bottom: 6px;
+}
+
+.post__related {
+  margin-top: 40px;
+}
+
+.post__related a {
+  font-weight: 600;
+  color: var(--deep-green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .post__cta {
   margin-top: 56px;
   padding: 32px;
