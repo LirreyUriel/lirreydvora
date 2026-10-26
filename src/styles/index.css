@@ -4019,6 +4019,24 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
   text-align: center;
 }
 
+.post__cover {
+  margin-top: 32px;
+}
+
+.post__cover img,
+.post__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  background: var(--beige);
+  box-shadow: var(--shadow);
+}
+
+.post__figure {
+  margin-block: 28px;
+}
+
 .post__body {
   margin-top: 16px;
 }

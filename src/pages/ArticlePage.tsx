@@ -42,7 +42,18 @@ export function ArticlePage({ article }: { article: Article }) {
             />
             <figcaption>{article.video.label}</figcaption>
           </figure>
-        ) : null}
+        ) : (
+          <figure className="post__cover">
+            <img
+              src={article.cover.src}
+              srcSet={`${article.cover.small} 800w, ${article.cover.src} 1920w`}
+              sizes="(max-width: 800px) 100vw, 760px"
+              alt={article.cover.alt}
+              width={1920}
+              height={1008}
+            />
+          </figure>
+        )}
 
         <div className="post__body">
           {article.sections.map((section, index) => (
@@ -53,6 +64,17 @@ export function ArticlePage({ article }: { article: Article }) {
                   <p key={i}>
                     <RichText text={paragraph} />
                   </p>
+                ) : "figure" in paragraph ? (
+                  <figure key={i} className="post__figure">
+                    <img
+                      src={paragraph.figure.src}
+                      alt={paragraph.figure.alt}
+                      width={paragraph.figure.width}
+                      height={paragraph.figure.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </figure>
                 ) : (
                   <p key={i} className="post__point">
                     <strong>{paragraph.lead}</strong> <RichText text={paragraph.text} />
