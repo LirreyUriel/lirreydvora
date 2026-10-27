@@ -99,13 +99,28 @@ export function startAnalytics() {
   if (clarityId) loadClarity(clarityId);
 }
 
+// ?debug=1 בכתובת שולח את האירועים במצב דיבאג, כדי לראות אותם ב-DebugView של GA4.
+// נשמר ללשונית הנוכחית, כך שהמצב נשאר גם במעבר בין עמודים. ?debug=0 מכבה.
+const DEBUG_KEY = "lirrey-ga-debug";
+
+function debugMode() {
+  try {
+    const param = new URLSearchParams(location.search).get("debug");
+    if (param === "1") sessionStorage.setItem(DEBUG_KEY, "1");
+    if (param === "0") sessionStorage.removeItem(DEBUG_KEY);
+    return sessionStorage.getItem(DEBUG_KEY) === "1";
+  } catch {
+    return new URLSearchParams(location.search).get("debug") === "1";
+  }
+}
+
 function loadGoogleAnalytics(id: string) {
   window.dataLayer = window.dataLayer || [];
   window.gtag = function gtag() {
     window.dataLayer?.push(arguments);
   };
   window.gtag("js", new Date());
-  window.gtag("config", id, { send_page_view: false });
+  window.gtag("config", id, { send_page_view: false, ...(debugMode() ? { debug_mode: true } : {}) });
 
   const script = document.createElement("script");
   script.async = true;
