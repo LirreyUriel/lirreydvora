@@ -28,8 +28,11 @@ type Consent = "granted" | "denied";
 
 const GA_MEASUREMENT_ID = "G-DM9S3T9S54";
 const CLARITY_PROJECT_ID = "z2sksixp74";
+// תג Google שנוצר לקמפיין הממומן בגוגל. נטען יחד עם GA, ומקבל את אותם צפיות ואירועים.
+const GOOGLE_ADS_TAG_ID = "G-V88C9XLYK8";
 
 const gaId = measurementId(import.meta.env.VITE_GA_MEASUREMENT_ID, GA_ID_PATTERN) || GA_MEASUREMENT_ID;
+const googleTagIds = [...new Set([gaId, GOOGLE_ADS_TAG_ID].filter(Boolean))];
 const clarityId =
   measurementId(import.meta.env.VITE_CLARITY_PROJECT_ID, CLARITY_ID_PATTERN) || CLARITY_PROJECT_ID;
 let started = false;
@@ -60,7 +63,7 @@ export function analyticsEnabled() {
 
 export function grantConsent() {
   rememberConsent("granted");
-  if (gaId) delete (window as unknown as Record<string, unknown>)[`ga-disable-${gaId}`];
+  for (const id of googleTagIds) delete (window as unknown as Record<string, unknown>)[`ga-disable-${id}`];
   startAnalytics();
 }
 
@@ -71,7 +74,7 @@ export function denyConsent() {
 
 function stopAnalytics() {
   if (typeof window === "undefined") return;
-  if (gaId) (window as unknown as Record<string, unknown>)[`ga-disable-${gaId}`] = true;
+  for (const id of googleTagIds) (window as unknown as Record<string, unknown>)[`ga-disable-${id}`] = true;
   window.clarity?.("consent", false);
   for (const name of document.cookie.split(";").map((c) => c.split("=")[0].trim())) {
     if (!/^(_ga|_gid|_gat|_clck|_clsk|CLID|MUID)/.test(name)) continue;
@@ -98,7 +101,7 @@ function isLocalHost() {
 export function startAnalytics() {
   if (started || typeof window === "undefined" || !analyticsEnabled() || isLocalHost()) return;
   started = true;
-  if (gaId) loadGoogleAnalytics(gaId);
+  if (googleTagIds.length) loadGoogleAnalytics(googleTagIds);
   if (clarityId) loadClarity(clarityId);
 }
 
@@ -117,17 +120,20 @@ function debugMode() {
   }
 }
 
-function loadGoogleAnalytics(id: string) {
+function loadGoogleAnalytics(ids: string[]) {
   window.dataLayer = window.dataLayer || [];
   window.gtag = function gtag() {
     window.dataLayer?.push(arguments);
   };
   window.gtag("js", new Date());
-  window.gtag("config", id, { send_page_view: false, ...(debugMode() ? { debug_mode: true } : {}) });
+  const debug = debugMode();
+  for (const id of ids) {
+    window.gtag("config", id, { send_page_view: false, ...(debug ? { debug_mode: true } : {}) });
+  }
 
   const script = document.createElement("script");
   script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${ids[0]}`;
   document.head.appendChild(script);
 }
 
