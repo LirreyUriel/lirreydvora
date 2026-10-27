@@ -3396,12 +3396,68 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
   text-wrap: balance;
 }
 
+.story-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 62rem;
+  margin: 32px auto 0;
+}
+
+.story-tabs__tab {
+  padding: 10px 18px;
+  border: 1px solid color-mix(in srgb, var(--green) 30%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--warm-white) 60%, transparent);
+  color: var(--green);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 650;
+  line-height: 1.3;
+  cursor: pointer;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.story-tabs__tab:hover {
+  background: var(--warm-white);
+  border-color: var(--green);
+}
+
+.story-tabs__tab[aria-selected="true"] {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--cream);
+}
+
+.story-tabs__tab:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* בטלפון: שתי לשוניות בשורה, באותו רוחב. */
+@media (max-width: 599px) {
+  .story-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .story-tabs__tab {
+    padding: 10px 12px;
+    border-radius: 16px;
+    font-size: 0.88rem;
+  }
+}
+
 .story__grid {
   display: grid;
   gap: 16px;
   align-items: stretch;
   max-width: 62rem;
-  margin: 40px auto 0;
+  margin: 28px auto 0;
 }
 
 @media (min-width: 860px) {
@@ -4186,4 +4242,102 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
   .glass-card__link:hover .glass-card__image {
     transform: none;
   }
+}
+
+/* Lead form under "why work with me" */
+.lead-form {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 36px 32px;
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 599px) {
+  .lead-form {
+    padding: 28px 20px;
+  }
+}
+
+.lead-form__title {
+  color: var(--deep-green);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.lead-form__grid {
+  display: grid;
+  gap: 0 16px;
+  margin-top: 8px;
+}
+
+@media (min-width: 600px) {
+  .lead-form__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .lead-form__wide {
+    grid-column: 1 / -1;
+  }
+}
+
+/* שגיאה מתחת לשדה אחד לא מותחת את השדה שלידו. */
+.lead-form .quiz__field {
+  align-content: start;
+}
+
+.lead-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--deep-green) 18%, transparent);
+  border-radius: 12px;
+  background: var(--warm-white);
+  color: var(--text);
+  font: inherit;
+  resize: vertical;
+}
+
+.lead-form .quiz__field input:focus-visible,
+.lead-form textarea:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.lead-form__submit {
+  display: flex;
+  width: fit-content;
+  margin: 28px auto 0;
+}
+
+.lead-form__submit:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.lead-form__failed {
+  margin-top: 20px;
+  color: #b4472f;
+  font-weight: 600;
+  text-align: center;
+}
+
+.lead-form__failed a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.lead-form__success {
+  text-align: center;
+}
+
+.lead-form__success p {
+  margin-top: 10px;
+  text-align: center;
+  color: var(--muted-text);
+  font-size: 1.1rem;
+}
+
+.lead-form__success .lead-form__title:focus {
+  outline: none;
 }

@@ -3,6 +3,7 @@ import { Hero } from "@/components/Hero";
 import { BeforeAfterSection } from "@/components/BeforeAfterSection";
 import { PresenceBand } from "@/components/PresenceBand";
 import { About } from "@/components/About";
+import { LeadForm } from "@/components/LeadForm";
 import { Outcomes } from "@/components/Outcomes";
 import { StorySection } from "@/components/StorySection";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -56,6 +57,7 @@ export default function App({ path }: { path: string }) {
             <BeforeAfterSection />
             <PresenceBand />
             <About />
+            <LeadForm />
             <FaqSection />
             <FinalCTA />
           </>

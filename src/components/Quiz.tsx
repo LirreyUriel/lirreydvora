@@ -36,7 +36,7 @@ function shownAnswers(answers: Answers): Answers {
   ) as Answers;
 }
 
-// התשובות נשלחות בעברית, מופרדות בפסיקים, כמו האפשרויות בטבלת "מתעניינים" ב-Airtable.
+// התשובות נשלחות בעברית, מופרדות בפסיקים, כמו האפשרויות בטבלת "מילאו שאלון" ב-Airtable.
 // Airtable מפצל בחירה מרובה לפי פסיקים, אז פסיק בתוך תשובה הופך ל-" / ".
 function labels(key: QuizKey, values: string[]) {
   return values

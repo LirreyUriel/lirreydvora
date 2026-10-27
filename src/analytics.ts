@@ -9,7 +9,8 @@ export type WhatsAppSource =
   | "sticky_mobile"
   | "footer"
   | "article"
-  | "quiz_result";
+  | "quiz_result"
+  | "lead_form";
 
 const CONSENT_KEY = "lirrey-measurement-consent";
 const GA_ID_PATTERN = /^G-[A-Za-z0-9]+$/;
@@ -201,6 +202,13 @@ function push(event: string, params: Record<string, unknown> = {}) {
 
 export function track(event: string, params: Record<string, unknown> = {}) {
   push(event, params);
+}
+
+// שלבי טופס הפנייה: נשלחים ל-GA עם הפרמטרים, ולקלריטי כאירוע, כדי שאפשר יהיה לסנן הקלטות לפי שלב.
+// אף פעם לא שולחים את מה שנכתב בשדות, רק איזה שדה ומה קרה בו.
+export function trackLeadForm(event: string, params: Record<string, unknown> = {}) {
+  push(event, params);
+  if (analyticsEnabled()) window.clarity?.("event", event);
 }
 
 export function trackWhatsApp(source: WhatsAppSource) {

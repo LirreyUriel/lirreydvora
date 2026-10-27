@@ -1,9 +1,36 @@
-import type { CSSProperties } from "react";
+import { useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import { Reveal } from "@/components/Reveal";
 import { story } from "@/content/site";
+import { track } from "@/analytics";
 
-// לפני ואחרי של רגע אחד ביום: לקוחה קובעת פגישה.
+// לפני ואחרי של רגע אחד ביום, בלשונית לכל סוג אוטומציה.
 export function StorySection() {
+  const [active, setActive] = useState(0);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const tab = story.tabs[active];
+
+  const select = (index: number) => {
+    if (index === active) return;
+    setActive(index);
+    track("automation_tab_click", { tab: story.tabs[index].id, position: index + 1 });
+  };
+
+  // חיצים עוברים בין הלשוניות. בעברית החץ שמאלה הוא "הבא".
+  const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    const count = story.tabs.length;
+    const moves: Record<string, number> = {
+      ArrowLeft: (active + 1) % count,
+      ArrowRight: (active - 1 + count) % count,
+      Home: 0,
+      End: count - 1,
+    };
+    const next = moves[event.key];
+    if (next === undefined) return;
+    event.preventDefault();
+    select(next);
+    tabRefs.current[next]?.focus();
+  };
+
   return (
     <section className="section story" id={story.id} aria-labelledby="story-title">
       <div className="container">
@@ -12,17 +39,45 @@ export function StorySection() {
           {story.title}
         </h2>
 
-        <div className="story__grid">
+        <div className="story-tabs" role="tablist" aria-label={story.tabsLabel} onKeyDown={onKeyDown}>
+          {story.tabs.map((item, index) => (
+            <button
+              key={item.id}
+              ref={(node) => {
+                tabRefs.current[index] = node;
+              }}
+              type="button"
+              role="tab"
+              id={`story-tab-${item.id}`}
+              className="story-tabs__tab"
+              aria-selected={index === active}
+              aria-controls="story-panel"
+              tabIndex={index === active ? 0 : -1}
+              onClick={() => select(index)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+
+        {/* key מרכיב את הכרטיסים מחדש בכל לשונית, כדי שהסימונים ב"אחרי" ייכנסו שוב אחד אחד. */}
+        <div
+          key={tab.id}
+          className="story__grid"
+          role="tabpanel"
+          id="story-panel"
+          aria-labelledby={`story-tab-${tab.id}`}
+        >
           <Reveal className="story__reveal">
             <article className="story-card story-card--before">
-              <span className="story-card__label">{story.before.label}</span>
+              <span className="story-card__label">{story.beforeLabel}</span>
               <p className="story-card__event">
                 <CalendarIcon />
-                {story.before.event}
+                {tab.before.event}
               </p>
-              <p className="story-card__intro">{story.before.tasksTitle}</p>
+              <p className="story-card__intro">{story.tasksTitle}</p>
               <ol className="story-tasks">
-                {story.before.tasks.map((task, index) => (
+                {tab.before.tasks.map((task, index) => (
                   <li key={task}>
                     <span className="story-tasks__number" aria-hidden="true">
                       {index + 1}
@@ -40,14 +95,14 @@ export function StorySection() {
 
           <Reveal className="story__reveal" delay={200}>
             <article className="story-card story-card--after">
-              <span className="story-card__label">{story.after.label}</span>
+              <span className="story-card__label">{story.afterLabel}</span>
               <p className="story-card__event">
                 <CalendarIcon />
-                {story.after.event}
+                {tab.after.event}
               </p>
-              <p className="story-card__intro">{story.after.intro}</p>
+              <p className="story-card__intro">{story.intro}</p>
               <ul className="story-done">
-                {story.after.done.map((item, index) => (
+                {tab.after.done.map((item, index) => (
                   <li key={item} style={{ "--i": index } as CSSProperties}>
                     <span className="story-done__check" aria-hidden="true">
                       <svg viewBox="0 0 24 24" width="14" height="14" focusable="false">
@@ -65,7 +120,7 @@ export function StorySection() {
                   </li>
                 ))}
               </ul>
-              <p className="story-card__closing">{story.after.closing}</p>
+              <p className="story-card__closing">{tab.after.closing}</p>
             </article>
           </Reveal>
         </div>
