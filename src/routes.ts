@@ -1,11 +1,13 @@
 import { whatsappUrl } from "@/config";
 import { articlePath, articles, articlesPage, author, wordCount, type Article } from "@/content/articles";
+import { leadForm } from "@/content/site";
 
 const SITE = "https://lirrey.com";
 
 export type Route =
   | { kind: "home" }
   | { kind: "articles" }
+  | { kind: "contact" }
   | { kind: "article"; article: Article };
 
 export type RouteMeta = {
@@ -27,13 +29,14 @@ function normalize(path: string) {
 export function resolveRoute(path: string): Route {
   const current = normalize(path);
   if (current === articlesPage.path) return { kind: "articles" };
+  if (current === leadForm.path) return { kind: "contact" };
   const article = articles.find((item) => articlePath(item) === current);
   return article ? { kind: "article", article } : { kind: "home" };
 }
 
 // דפים שמרונדרים מראש ב-build. העמוד הראשי משתמש ב-meta שכבר נמצאים ב-index.html.
 export function prerenderPaths() {
-  return [articlesPage.path, ...articles.map(articlePath)];
+  return [articlesPage.path, leadForm.path, ...articles.map(articlePath)];
 }
 
 // llms-full.txt: כל מאמר בטקסט מלא, עם תקציר ושאלות נפוצות, כדי שמנועי AI יוכלו לצטט ולקשר.
@@ -71,6 +74,16 @@ export function llmsFull() {
 
 export function routeMeta(route: Route): RouteMeta | null {
   if (route.kind === "home") return null;
+
+  if (route.kind === "contact") {
+    return {
+      title: leadForm.pageTitle,
+      description: leadForm.pageDescription,
+      path: leadForm.path,
+      image: "/og.png",
+      type: "website",
+    };
+  }
 
   if (route.kind === "articles") {
     return {

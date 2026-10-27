@@ -35,13 +35,15 @@ async function sendLead(payload: Record<string, string>) {
   });
 }
 
-export function LeadForm() {
+// page: הטופס לבד בעמוד /contact/. אז הכותרת היא h1 והסקשן ממלא את המסך.
+export function LeadForm({ page = false }: { page?: boolean }) {
   const { ref } = useInView<HTMLElement>(() => trackLeadForm("lead_form_view"));
   const [values, setValues] = useState<Record<Field, string>>({ name: "", phone: "", business: "", notes: "" });
   const [honeypot, setHoneypot] = useState("");
   const [error, setError] = useState<FieldError>("");
   const [status, setStatus] = useState<Status>("idle");
   const successRef = useRef<HTMLHeadingElement>(null);
+  const Heading = page ? "h1" : "h2";
 
   // מה קרה בטופס עד עכשיו, בשביל לוג הנטישה. ref ולא state, כי לא צריך לרנדר מחדש.
   const startedAt = useRef<number | null>(null);
@@ -153,21 +155,26 @@ export function LeadForm() {
   };
 
   return (
-    <section ref={ref} className="section section--beige" id={leadForm.id} aria-labelledby="lead-form-title">
+    <section
+      ref={ref}
+      className={`section section--beige${page ? " lead-page" : ""}`}
+      id={leadForm.id}
+      aria-labelledby="lead-form-title"
+    >
       <div className="container">
         <div className="lead-form">
           {status === "sent" ? (
             <div className="lead-form__success" role="status">
-              <h2 className="lead-form__title" ref={successRef} tabIndex={-1}>
+              <Heading className="lead-form__title" ref={successRef} tabIndex={-1}>
                 {leadForm.successTitle}
-              </h2>
+              </Heading>
               <p>{leadForm.successText}</p>
             </div>
           ) : (
             <form onSubmit={onSubmit} noValidate>
-              <h2 id="lead-form-title" className="lead-form__title">
+              <Heading id="lead-form-title" className="lead-form__title">
                 {leadForm.title}
-              </h2>
+              </Heading>
 
               <div className="lead-form__grid">
                 <TextField

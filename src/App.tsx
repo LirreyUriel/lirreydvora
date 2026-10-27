@@ -28,7 +28,7 @@ export default function App({ path }: { path: string }) {
     trackPageView(
       route.kind === "article"
         ? { page_type: "article", article_slug: route.article.slug, article_title: route.article.title }
-        : { page_type: route.kind === "articles" ? "projects" : "home" },
+        : { page_type: route.kind === "articles" ? "projects" : route.kind === "contact" ? "contact" : "home" },
     );
     return startScrollFallback();
   }, []);
@@ -45,7 +45,7 @@ export default function App({ path }: { path: string }) {
       <a className="skip-link" href="#main">
         דילוג לתוכן
       </a>
-      <Header solid={route.kind !== "home"} active={route.kind === "home" ? undefined : "articles"} />
+      <Header solid={route.kind !== "home"} active={route.kind === "articles" || route.kind === "article" ? "articles" : undefined} />
       <main id="main">
         {route.kind === "home" ? (
           <>
@@ -63,6 +63,8 @@ export default function App({ path }: { path: string }) {
           </>
         ) : route.kind === "articles" ? (
           <ArticlesPage />
+        ) : route.kind === "contact" ? (
+          <LeadForm page />
         ) : (
           <ArticlePage article={route.article} />
         )}
