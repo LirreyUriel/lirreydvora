@@ -8,6 +8,7 @@ import {
   type QuizOption,
   type QuizQuestion,
 } from "@/content/quiz";
+import { track } from "@/analytics";
 import { QuizIcon } from "@/components/QuizIcon";
 import { QUIZ_ACTIVE_EVENT } from "@/components/MobileWhatsAppCTA";
 import type { Automation } from "@/content/automations";
@@ -90,6 +91,17 @@ export function Quiz() {
     window.dispatchEvent(new CustomEvent(QUIZ_ACTIVE_EVENT, { detail: started && !result }));
   }, [started, result]);
 
+  // לוג לכל מסך שמוצג, כך שאפשר לראות באנליטיקה באיזה שלב גולשים עוזבים את השאלון.
+  useEffect(() => {
+    if (!started || result) return;
+    const total = detailsStep + 1;
+    if (step < detailsStep) {
+      track("quiz_question_view", { question: questions[step].key, step: step + 1, total });
+    } else {
+      track("quiz_details_view", { step: step + 1, total });
+    }
+  }, [started, step, result]);
+
   const goTo = (next: number) => {
     moved.current = true;
     setError("");
@@ -133,6 +145,8 @@ export function Quiz() {
     });
 
     if (!honeypot) {
+      // השלמה נרשמת רק לשליחה אמיתית, בלי מלכודת הבוטים.
+      track("quiz_complete", { results_count: selected.length });
       sendAnswers({
         business_type: labels("business_type", shown.business_type),
         business_type_other: shown.business_type.includes("other") ? otherText.trim() : "",
@@ -175,6 +189,7 @@ export function Quiz() {
           type="button"
           className="btn btn--primary"
           onClick={() => {
+            track("quiz_start");
             moved.current = true;
             setStarted(true);
           }}
