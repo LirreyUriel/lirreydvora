@@ -4346,11 +4346,3 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
 .lead-form__success .lead-form__title:focus {
   outline: none;
 }
-
-/* The form alone on /contact/: fills the screen under the header. */
-.lead-page {
-  display: grid;
-  align-items: center;
-  min-height: calc(100vh - var(--header-h));
-  padding-top: calc(var(--header-h) + 32px);
-}

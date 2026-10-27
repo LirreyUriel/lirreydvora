@@ -28,9 +28,22 @@ export default function App({ path }: { path: string }) {
     trackPageView(
       route.kind === "article"
         ? { page_type: "article", article_slug: route.article.slug, article_title: route.article.title }
-        : { page_type: route.kind === "articles" ? "projects" : route.kind === "contact" ? "contact" : "home" },
+        : { page_type: route.kind === "articles" ? "projects" : "home" },
     );
     return startScrollFallback();
+  }, []);
+
+  // כתובת עם עוגן (lirrey.com/#contact) נפתחת על הסקשן. הדפדפן קופץ לבד רק אם הסקשן כבר קיים בטעינה,
+  // ותמונות שנטענות מעליו מזיזות אותו, אז קופצים שוב אחרי הרינדור ואחרי שהעמוד נטען.
+  useEffect(() => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    // instant: ה-scroll-behavior: smooth של העמוד היה מגלגל את כל הדף מההתחלה.
+    const jump = () => document.getElementById(id)?.scrollIntoView({ block: "start", behavior: "instant" });
+    requestAnimationFrame(jump);
+    if (document.readyState === "complete") return;
+    window.addEventListener("load", jump, { once: true });
+    return () => window.removeEventListener("load", jump);
   }, []);
 
   // ב-build הכותרת כבר נכתבת לכל דף; כאן זה בשביל סביבת הפיתוח.
@@ -63,8 +76,7 @@ export default function App({ path }: { path: string }) {
           </>
         ) : route.kind === "articles" ? (
           <ArticlesPage />
-        ) : route.kind === "contact" ? (
-          <LeadForm page />
+
         ) : (
           <ArticlePage article={route.article} />
         )}

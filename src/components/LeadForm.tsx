@@ -35,15 +35,13 @@ async function sendLead(payload: Record<string, string>) {
   });
 }
 
-// page: הטופס לבד בעמוד /contact/. אז הכותרת היא h1 והסקשן ממלא את המסך.
-export function LeadForm({ page = false }: { page?: boolean }) {
+export function LeadForm() {
   const { ref } = useInView<HTMLElement>(() => trackLeadForm("lead_form_view"));
   const [values, setValues] = useState<Record<Field, string>>({ name: "", phone: "", business: "", notes: "" });
   const [honeypot, setHoneypot] = useState("");
   const [error, setError] = useState<FieldError>("");
   const [status, setStatus] = useState<Status>("idle");
   const successRef = useRef<HTMLHeadingElement>(null);
-  const Heading = page ? "h1" : "h2";
 
   // מה קרה בטופס עד עכשיו, בשביל לוג הנטישה. ref ולא state, כי לא צריך לרנדר מחדש.
   const startedAt = useRef<number | null>(null);
@@ -155,26 +153,21 @@ export function LeadForm({ page = false }: { page?: boolean }) {
   };
 
   return (
-    <section
-      ref={ref}
-      className={`section section--beige${page ? " lead-page" : ""}`}
-      id={leadForm.id}
-      aria-labelledby="lead-form-title"
-    >
+    <section ref={ref} className="section section--beige" id={leadForm.id} aria-labelledby="lead-form-title">
       <div className="container">
         <div className="lead-form">
           {status === "sent" ? (
             <div className="lead-form__success" role="status">
-              <Heading className="lead-form__title" ref={successRef} tabIndex={-1}>
+              <h2 className="lead-form__title" ref={successRef} tabIndex={-1}>
                 {leadForm.successTitle}
-              </Heading>
+              </h2>
               <p>{leadForm.successText}</p>
             </div>
           ) : (
             <form onSubmit={onSubmit} noValidate>
-              <Heading id="lead-form-title" className="lead-form__title">
+              <h2 id="lead-form-title" className="lead-form__title">
                 {leadForm.title}
-              </Heading>
+              </h2>
 
               <div className="lead-form__grid">
                 <TextField

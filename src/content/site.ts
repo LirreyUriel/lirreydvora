@@ -12,8 +12,9 @@ export const hero = {
   ],
 } as const;
 
+// ה-id של כל סקשן הוא גם העוגן שלו בכתובת: lirrey.com/#quiz, lirrey.com/#automations וכן הלאה.
 export const shift = {
-  id: "shift",
+  id: "quiz",
   title: "איך אדע איזו אוטומציה תעזור לי?",
   text: "לא צריך לנחש לבד. בתהליך משותף, נבנה יחד עסק רגוע, מסודר ומקצועי יותר.",
 } as const;
@@ -35,7 +36,7 @@ export const about = {
 } as const;
 
 export const outcomes = {
-  id: "examples",
+  id: "benefits",
   title: "אם העסק עובד אבל יותר מדי דברים עדיין תלויים בך",
   // highlight הוא תחילת המשפט ב-more, שמוצג בהדגשה.
   pairs: [
@@ -72,7 +73,7 @@ export const outcomes = {
 
 // כל לשונית היא לפני ואחרי של רגע אחד בעסק. id נשלח לאנליטיקה כשעוברים ללשונית.
 export const story = {
-  id: "story",
+  id: "automations",
   eyebrow: "לפני ← אחרי",
   title: "איך ייראו אוטומציות בעסק שלי?",
   tabsLabel: "סוגי אוטומציות",
@@ -149,7 +150,7 @@ export const story = {
           "אחרי שבוע יצאה אליה הודעה אישית לשאול מה שלומה",
           "קיבלה קישור לקביעת הפגישה הבאה",
         ],
-        closing: "והמטופלות מרגישות שאת איתן גם בין הפגישות",
+        closing: "והמטופלות מרגישות אותך גם בין הפגישות",
       },
     },
     {
@@ -217,7 +218,7 @@ export const story = {
           "עלה פוסט לאינסטגרם ולפייסבוק שמפרסם את הסדנה",
           "נשלח מייל לרשימת התפוצה שמזמין להירשם",
         ],
-        closing: "ואת פנויה להכין את הסדנה עצמה",
+        closing: "ויש לך זמן להכין את הסדנה עצמה",
       },
     },
     {
@@ -247,10 +248,6 @@ export const story = {
 
 export const leadForm = {
   id: "contact",
-  // עמוד נפרד לטופס, לקישור ישיר מהרשתות, מוואטסאפ ומקמפיינים.
-  path: "/contact/",
-  pageTitle: "שנדבר על ייעול העסק שלכם | לירי דבורה",
-  pageDescription: "משאירים שם, טלפון ותחום העסק, ולירי חוזרת אליכם לשיחת ייעוץ על אוטומציות שיפנו לכם זמן בעסק.",
   title: "שנדבר כבר מחר בבוקר על ייעול העסק שלכם?",
   name: "שם מלא",
   phone: "טלפון",
@@ -271,7 +268,7 @@ export const leadForm = {
 } as const;
 
 export const howItWorks = {
-  id: "start",
+  id: "how-it-works",
   title: "איך מתחילים?",
   steps: [
     {
@@ -407,6 +404,7 @@ export const finalCta = {
 } as const;
 
 export const footer = {
+  id: "footer",
   name: "Lirrey Dvora",
   hebrewName: "לירי דבורה",
   tagline: "לירי דבורה • אוטומציות לעסקי Wellness",

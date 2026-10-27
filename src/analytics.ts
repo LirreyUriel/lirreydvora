@@ -151,7 +151,7 @@ function loadClarity(id: string) {
 
 // מה נמדד בעמוד הנוכחי. מצורף לכל אירוע, כך שאפשר לראות ב-GA4 ובקלריטי תוצאות לכל מאמר בנפרד.
 export type PageContext = {
-  page_type: "home" | "projects" | "article" | "contact";
+  page_type: "home" | "projects" | "article";
   article_slug?: string;
   article_title?: string;
 };

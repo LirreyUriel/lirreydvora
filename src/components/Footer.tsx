@@ -5,7 +5,7 @@ import { openConsentSettings } from "@/components/ConsentBanner";
 
 export function Footer() {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" id={footer.id}>
       <div className="container site-footer__brand">
         <Logo inverted compact />
         <p>
