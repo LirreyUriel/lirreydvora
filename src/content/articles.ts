@@ -22,7 +22,15 @@ export type Article = {
   summary: string[];
   faq: { q: string; a: string }[];
   // animated: GIF שמוצג בראש המאמר במקום הכריכה הסטטית (הכריכה נשארת לכרטיסים ולשיתוף).
-  cover: { src: string; small: string; og: string; alt: string; animated?: ArticleFigure };
+  // hideOnPage: הכריכה לא מוצגת בראש המאמר, כשאותה תמונה כבר מופיעה בגוף המאמר.
+  cover: {
+    src: string;
+    small: string;
+    og: string;
+    alt: string;
+    animated?: ArticleFigure;
+    hideOnPage?: boolean;
+  };
   video?: { src: string; poster: string; label: string };
   sections: ArticleSection[];
 };
@@ -108,6 +116,7 @@ export const articles: Article[] = [
       small: "/images/articles/self-booking-800.webp",
       og: "/images/articles/self-booking.jpg",
       alt: "מסך קביעת תור: בוחרים יום ושעה פנויה מתוך החלונות של הסטודיו, והתור נקבע",
+      hideOnPage: true,
     },
     sections: [
       {
@@ -127,14 +136,6 @@ export const articles: Article[] = [
         heading: "מה בניתי",
         paragraphs: [
           'תהליך שבו כל אחד קובע את התור בעצמו, מתוך חלונות הזמן שהסטודיו הגדיר מראש. בוחרים שעה פנויה והתור נקבע, בלי הלוך ושוב ובלי "רגע, אבדוק ואחזור אליך".',
-          {
-            figure: {
-              src: "/images/articles/booking-after.webp",
-              alt: "אחרי: בוחרים יום ושעה פנויה מתוך החלונות שהסטודיו קבע, ומאשרים את התור",
-              width: 1400,
-              height: 887,
-            },
-          },
         ],
       },
       {
@@ -155,6 +156,14 @@ export const articles: Article[] = [
         paragraphs: [
           "הזמן שהלך על חילופי הודעות חזר לעבודה עצמה. ומי שרוצה לדבר עם הסטודיו עדיין יכול, אבל כבר לא חייב לדבר כדי לקבוע תור.",
           "אוטומציה טובה לא מחליפה קשר אישי. היא מפנה לו מקום.",
+          {
+            figure: {
+              src: "/images/articles/booking-after.webp",
+              alt: "אחרי: בוחרים יום ושעה פנויה מתוך החלונות שהסטודיו קבע, ומאשרים את התור",
+              width: 1400,
+              height: 887,
+            },
+          },
         ],
       },
     ],

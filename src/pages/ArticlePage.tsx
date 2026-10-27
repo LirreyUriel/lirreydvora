@@ -73,7 +73,7 @@ export function ArticlePage({ article }: { article: Article }) {
               height={article.cover.animated.height}
             />
           </figure>
-        ) : (
+        ) : article.cover.hideOnPage ? null : (
           <figure className="post__cover">
             <img
               src={article.cover.src}
