@@ -8,7 +8,8 @@ export type WhatsAppSource =
   | "final_cta"
   | "sticky_mobile"
   | "footer"
-  | "article";
+  | "article"
+  | "quiz_result";
 
 const CONSENT_KEY = "lirrey-measurement-consent";
 const GA_ID_PATTERN = /^G-[A-Za-z0-9]+$/;
@@ -19,6 +20,7 @@ const namedClicks: Partial<Record<WhatsAppSource, string>> = {
   header: "header_whatsapp_click",
   final_cta: "final_whatsapp_click",
   sticky_mobile: "sticky_whatsapp_click",
+  quiz_result: "quiz_whatsapp_click",
 };
 
 type Consent = "granted" | "denied";

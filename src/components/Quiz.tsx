@@ -8,7 +8,7 @@ import {
   type QuizOption,
   type QuizQuestion,
 } from "@/content/quiz";
-import { track } from "@/analytics";
+import { track, trackWhatsApp } from "@/analytics";
 import { QuizIcon } from "@/components/QuizIcon";
 import { QUIZ_ACTIVE_EVENT } from "@/components/MobileWhatsAppCTA";
 import type { Automation } from "@/content/automations";
@@ -144,9 +144,11 @@ export function Quiz() {
       booking_methods: shown.booking_methods,
     });
 
+    // השלמה נרשמת תמיד, כי מילוי אוטומטי של הדפדפן יכול למלא גם את שדה המלכודת.
+    // trap_filled מסמן שליחה כזו, כדי שאפשר יהיה לסנן אותה ב-GA.
+    track("quiz_complete", { results_count: selected.length, trap_filled: honeypot ? 1 : 0 });
+
     if (!honeypot) {
-      // השלמה נרשמת רק לשליחה אמיתית, בלי מלכודת הבוטים.
-      track("quiz_complete", { results_count: selected.length });
       sendAnswers({
         business_type: labels("business_type", shown.business_type),
         business_type_other: shown.business_type.includes("other") ? otherText.trim() : "",
@@ -496,7 +498,13 @@ function QuizResult({ automations, answers, headingRef }: QuizResultProps) {
       ) : null}
 
       <div className="quiz__cta">
-        <a className="btn btn--primary" href={href} target="_blank" rel="noopener noreferrer">
+        <a
+          className="btn btn--primary"
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackWhatsApp("quiz_result")}
+        >
           <span className="btn__label">{quiz.result.cta}</span>
           <span className="btn__arrow" aria-hidden="true">
             ←
