@@ -1,4 +1,4 @@
-import { whatsappUrl } from "@/config";
+import { whatsappMessageUrl } from "@/config";
 import { trackWhatsApp } from "@/analytics";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { floatingWhatsApp } from "@/content/site";
@@ -7,7 +7,7 @@ import { floatingWhatsApp } from "@/content/site";
 export function FloatingWhatsApp() {
   return (
     <a
-      href={whatsappUrl}
+      href={whatsappMessageUrl(floatingWhatsApp.message)}
       className="floating-wa"
       target="_blank"
       rel="noopener noreferrer"

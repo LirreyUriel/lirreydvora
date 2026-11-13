@@ -1,8 +1,8 @@
 // כפתורי הפעולה, שמובילים לטופס הפנייה.
 export type CtaSource = "hero" | "header" | "how_it_works" | "about" | "final_cta" | "article" | "quiz_result";
 
-// הקישורים לוואטסאפ: הכפתור הצף, והקישור שמופיע בטופס רק אם השליחה נכשלה.
-export type WhatsAppSource = "floating" | "lead_form";
+// הקישורים לוואטסאפ: הכפתור הצף, הטלפון בפוטר, והקישור שמופיע בטופס רק אם השליחה נכשלה.
+export type WhatsAppSource = "floating" | "footer" | "lead_form";
 
 const CONSENT_KEY = "lirrey-measurement-consent";
 const GA_ID_PATTERN = /^G-[A-Za-z0-9]+$/;

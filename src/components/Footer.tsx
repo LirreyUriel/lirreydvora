@@ -1,6 +1,7 @@
 import { Logo } from "@/components/Logo";
-import { footer, privacy } from "@/content/site";
-import { PHONE_DISPLAY, phoneUrl } from "@/config";
+import { floatingWhatsApp, footer, privacy } from "@/content/site";
+import { PHONE_DISPLAY, whatsappMessageUrl } from "@/config";
+import { trackWhatsApp } from "@/analytics";
 import { RichText } from "@/components/Ltr";
 import { openConsentSettings } from "@/components/ConsentBanner";
 
@@ -14,7 +15,14 @@ export function Footer() {
         </p>
         <p className="site-footer__phone">
           <span>{footer.phoneLabel}:</span>
-          <a href={phoneUrl} dir="ltr">
+          <a
+            href={whatsappMessageUrl(floatingWhatsApp.message)}
+            dir="ltr"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${floatingWhatsApp.label}: ${PHONE_DISPLAY}`}
+            onClick={() => trackWhatsApp("footer")}
+          >
             {PHONE_DISPLAY}
           </a>
         </p>

@@ -2,9 +2,11 @@ export const WHATSAPP_PHONE = "972553015612";
 
 export const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}`;
 
-// המספר כפי שהוא מוצג בפוטר, והקישור לחיוג אליו.
+// קישור לוואטסאפ שנפתח עם הודעה מוכנה.
+export const whatsappMessageUrl = (message: string) => `${whatsappUrl}?text=${encodeURIComponent(message)}`;
+
+// המספר כפי שהוא מוצג בפוטר. הלחיצה עליו פותחת הודעת וואטסאפ.
 export const PHONE_DISPLAY = `0${WHATSAPP_PHONE.slice(3, 5)}-${WHATSAPP_PHONE.slice(5, 8)}-${WHATSAPP_PHONE.slice(8)}`;
-export const phoneUrl = `tel:+${WHATSAPP_PHONE}`;
 
 // טופס הפנייה בעמוד הראשי. הכתובת מתחילה ב-/ כדי שתעבוד גם מעמודי הפרויקטים.
 export const contactFormUrl = "/#contact";
