@@ -1,5 +1,6 @@
 import { Logo } from "@/components/Logo";
 import { footer, privacy } from "@/content/site";
+import { PHONE_DISPLAY, phoneUrl } from "@/config";
 import { RichText } from "@/components/Ltr";
 import { openConsentSettings } from "@/components/ConsentBanner";
 
@@ -10,6 +11,12 @@ export function Footer() {
         <Logo inverted compact />
         <p>
           <RichText text={footer.tagline} />
+        </p>
+        <p className="site-footer__phone">
+          <span>{footer.phoneLabel}:</span>
+          <a href={phoneUrl} dir="ltr">
+            {PHONE_DISPLAY}
+          </a>
         </p>
         <details className="site-footer__privacy">
           <summary>{privacy.summary}</summary>

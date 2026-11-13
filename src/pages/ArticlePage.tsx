@@ -1,6 +1,5 @@
-import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { CtaButton } from "@/components/CtaButton";
 import { RichText } from "@/components/Ltr";
-import { whatsappMessageUrl } from "@/config";
 import { trackArticleRead } from "@/analytics";
 import { useInView } from "@/hooks/useInView";
 import {
@@ -131,13 +130,7 @@ export function ArticlePage({ article }: { article: Article }) {
         </section>
 
         <aside className="post__cta">
-          <WhatsAppButton
-            source="article"
-            variant="primary"
-            href={whatsappMessageUrl(articleCta.message(article.title))}
-          >
-            {articleCta.label}
-          </WhatsAppButton>
+          <CtaButton source="article">{articleCta.label}</CtaButton>
           <p className="post__signature">
             <RichText text={articleCta.signature} />
           </p>

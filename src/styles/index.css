@@ -204,10 +204,6 @@ section[id] {
   text-align: center;
 }
 
-.shift-cta {
-  margin-top: 28px;
-}
-
 h2.measure-wide {
   max-width: 18em;
 }
@@ -391,7 +387,7 @@ h2.measure-wide {
   line-height: 1.45;
 }
 
-/* Less -> more: after the button is pressed, the "less" side dims and is struck through,
+/* Less -> more: when a row scrolls into view, the "less" side dims and is struck through,
    then the blurred "more" side comes into focus and lights up. */
 .shift-side {
   position: relative;
@@ -434,8 +430,24 @@ h2.measure-wide {
     filter 700ms ease;
 }
 
-.shift-list:focus {
-  outline: none;
+/* שם העמודה: שורת כותרת כשהעמודות זו לצד זו, ותווית בתוך כל כרטיס במובייל. */
+.shift-head {
+  display: none;
+}
+
+.shift-head span,
+.shift-side--more > .shift-label {
+  color: var(--deep-green);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+
+.shift-side--more > .shift-label {
+  margin-bottom: 6px;
+  opacity: 1;
+  filter: none;
 }
 
 .shift-after {
@@ -447,39 +459,31 @@ h2.measure-wide {
   line-height: 1.35;
   text-align: center;
   text-align-last: center;
-  animation: quiz-rise 500ms ease-out both;
-  animation-delay: 900ms;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .shift-after {
-    animation: none;
-  }
-}
-
-.shift-list.is-revealed .shift-side--less p {
+.shift-row.is-revealed .shift-side--less p {
   color: color-mix(in srgb, var(--muted-text) 70%, transparent);
   transition-delay: calc(var(--shift-delay, 0ms) + 225ms);
 }
 
-.shift-list.is-revealed .shift-strike {
+.shift-row.is-revealed .shift-strike {
   background-size: 100% 1px;
   transition-delay: calc(var(--shift-delay, 0ms) + 300ms);
 }
 
-.shift-list.is-revealed .shift-side--more {
+.shift-row.is-revealed .shift-side--more {
   background-color: color-mix(in srgb, var(--sage) 46%, #e7f0e6);
   transition-delay: calc(var(--shift-delay, 0ms) + 575ms);
 }
 
-.shift-list.is-revealed .shift-side--more > span,
-.shift-list.is-revealed .shift-side--more p {
+.shift-row.is-revealed .shift-side--more > span,
+.shift-row.is-revealed .shift-side--more p {
   opacity: 1;
   filter: none;
   transition-delay: calc(var(--shift-delay, 0ms) + 575ms);
 }
 
-.shift-list.is-revealed .shift-side--more::after {
+.shift-row.is-revealed .shift-side--more::after {
   opacity: 1;
   transition-delay: calc(var(--shift-delay, 0ms) + 625ms);
 }
@@ -1987,6 +1991,19 @@ h2.measure-wide {
   max-width: 28rem;
 }
 
+.site-footer__brand .site-footer__phone {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.site-footer__phone a {
+  color: var(--cream);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .site-footer__privacy {
   margin-top: 18px;
   max-width: 36rem;
@@ -2185,39 +2202,37 @@ h2.measure-wide {
   font-size: 0.8rem;
 }
 
-.sticky-wa {
+.floating-wa {
   position: fixed;
-  inset-inline: var(--page-gutter);
-  bottom: calc(12px + env(safe-area-inset-bottom));
-  z-index: 50;
+  inset-inline-end: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(23, 37, 34, 0.3);
   transition:
-    opacity 280ms ease,
-    transform 280ms ease;
+    transform 180ms ease,
+    box-shadow 180ms ease;
 }
 
-.sticky-wa.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(12px);
+.floating-wa svg {
+  width: 30px;
+  height: 30px;
 }
 
-.sticky-wa__btn {
-  min-height: 56px;
-  border-radius: 18px;
-  background: var(--deep-green);
-  color: var(--cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 12px 18px;
-  box-shadow: 0 12px 30px rgba(23, 37, 34, 0.28);
-  font-weight: 700;
+.floating-wa:hover {
+  transform: scale(1.06);
+  box-shadow: 0 14px 32px rgba(23, 37, 34, 0.36);
 }
 
-.sticky-wa__label {
-  font-size: 0.86rem;
-  opacity: 0.86;
+.floating-wa:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
 }
 
 @media (max-width: 767px) {
@@ -2342,12 +2357,6 @@ h2.measure-wide {
     bottom: calc(84px + env(safe-area-inset-bottom));
   }
 
-  /* כשהכפתור הצף מוסתר, שורת העוגיות יורדת למקומו. */
-  .sticky-off .consent-bar,
-  .sticky-off .consent-line {
-    bottom: calc(8px + env(safe-area-inset-bottom));
-  }
-
   p,
   li,
   .quote-type,
@@ -2439,7 +2448,24 @@ h2.measure-wide {
     padding-bottom: 56px;
   }
 
-  .sticky-wa {
+  .floating-wa {
+    inset-inline-end: 24px;
+    bottom: 24px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .shift-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-inline: 22px;
+  }
+
+  .shift-head span:last-child {
+    padding-inline-start: 22px;
+  }
+
+  .shift-side--more > .shift-label {
     display: none;
   }
 

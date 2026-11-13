@@ -1,27 +1,16 @@
-export type WhatsAppSource =
-  | "hero"
-  | "header"
-  | "before_after"
-  | "case_study"
-  | "how_it_works"
-  | "about"
-  | "final_cta"
-  | "sticky_mobile"
-  | "footer"
-  | "article"
-  | "quiz_result"
-  | "lead_form";
+// כפתורי הפעולה, שמובילים לטופס הפנייה.
+export type CtaSource = "hero" | "header" | "how_it_works" | "about" | "final_cta" | "article" | "quiz_result";
+
+// הקישורים לוואטסאפ: הכפתור הצף, והקישור שמופיע בטופס רק אם השליחה נכשלה.
+export type WhatsAppSource = "floating" | "lead_form";
 
 const CONSENT_KEY = "lirrey-measurement-consent";
 const GA_ID_PATTERN = /^G-[A-Za-z0-9]+$/;
 const CLARITY_ID_PATTERN = /^[a-z0-9]+$/i;
 
+// הכפתור הצף ממשיך לשלוח את האירוע של הכפתור הצף הקודם, כדי שהנתונים ב-GA יישארו רציפים.
 const namedClicks: Partial<Record<WhatsAppSource, string>> = {
-  hero: "hero_whatsapp_click",
-  header: "header_whatsapp_click",
-  final_cta: "final_whatsapp_click",
-  sticky_mobile: "sticky_whatsapp_click",
-  quiz_result: "quiz_whatsapp_click",
+  floating: "sticky_whatsapp_click",
 };
 
 type Consent = "granted" | "denied";
@@ -228,6 +217,10 @@ export function track(event: string, params: Record<string, unknown> = {}) {
 export function trackLeadForm(event: string, params: Record<string, unknown> = {}) {
   push(event, params);
   if (analyticsEnabled()) window.clarity?.("event", event);
+}
+
+export function trackCta(source: CtaSource) {
+  push("cta_click", { source });
 }
 
 export function trackWhatsApp(source: WhatsAppSource) {

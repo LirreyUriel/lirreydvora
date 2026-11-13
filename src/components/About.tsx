@@ -2,7 +2,7 @@ import { Reveal } from "@/components/Reveal";
 import { about, cta } from "@/content/site";
 import { trackViewOnce } from "@/analytics";
 import { useInView } from "@/hooks/useInView";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { CtaButton } from "@/components/CtaButton";
 import { RichText } from "@/components/Ltr";
 import { WordReveal } from "@/components/WordReveal";
 
@@ -34,9 +34,9 @@ export function About() {
             ))}
           </Reveal>
 
-          <WhatsAppButton source="about">
-            <RichText text={cta.whatsapp} />
-          </WhatsAppButton>
+          <CtaButton source="about">
+            <RichText text={cta.talk} />
+          </CtaButton>
         </div>
       </div>
     </section>

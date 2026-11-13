@@ -7,7 +7,6 @@ export function ProjectsTeaser() {
   return (
     <section className="section projects-teaser" id={projectsTeaser.id} aria-labelledby="projects-title">
       <div className="container">
-        <p className="eyebrow">{projectsTeaser.eyebrow}</p>
         <h2 id="projects-title">
           <RichText text={projectsTeaser.title} />
         </h2>

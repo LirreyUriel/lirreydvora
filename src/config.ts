@@ -2,9 +2,12 @@ export const WHATSAPP_PHONE = "972553015612";
 
 export const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}`;
 
-export function whatsappMessageUrl(text: string) {
-  return `${whatsappUrl}?text=${encodeURIComponent(text)}`;
-}
+// המספר כפי שהוא מוצג בפוטר, והקישור לחיוג אליו.
+export const PHONE_DISPLAY = `0${WHATSAPP_PHONE.slice(3, 5)}-${WHATSAPP_PHONE.slice(5, 8)}-${WHATSAPP_PHONE.slice(8)}`;
+export const phoneUrl = `tel:+${WHATSAPP_PHONE}`;
+
+// טופס הפנייה בעמוד הראשי. הכתובת מתחילה ב-/ כדי שתעבוד גם מעמודי הפרויקטים.
+export const contactFormUrl = "/#contact";
 
 export const SITE_URL = "https://lirrey.com";
 

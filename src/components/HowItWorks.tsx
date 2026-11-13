@@ -4,7 +4,7 @@ import { cta, howItWorks } from "@/content/site";
 import { trackViewOnce } from "@/analytics";
 import { useInView } from "@/hooks/useInView";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { CtaButton } from "@/components/CtaButton";
 import { RichText } from "@/components/Ltr";
 import { WordReveal } from "@/components/WordReveal";
 
@@ -106,9 +106,9 @@ export function HowItWorks() {
 
         <Reveal>
           <div className="section-cta">
-            <WhatsAppButton source="how_it_works">
-              <RichText text={cta.whatsapp} />
-            </WhatsAppButton>
+            <CtaButton source="how_it_works">
+              <RichText text={cta.talk} />
+            </CtaButton>
           </div>
         </Reveal>
       </div>

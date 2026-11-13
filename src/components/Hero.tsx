@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { cta, hero } from "@/content/site";
 import { Ltr, RichText } from "@/components/Ltr";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { CtaButton } from "@/components/CtaButton";
 
 const WELLNESS = "Wellness";
 const wellnessAt = hero.titleBefore.indexOf(WELLNESS);
@@ -304,9 +304,9 @@ export function Hero() {
           ))}
           <div className="hero__cta" ref={anchorRef}>
             <div className="hero__magnet" ref={magnetRef}>
-              <WhatsAppButton source="hero">
+              <CtaButton source="hero">
                 <RichText text={cta.hero} />
-              </WhatsAppButton>
+              </CtaButton>
             </div>
           </div>
         </div>

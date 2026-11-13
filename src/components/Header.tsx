@@ -1,5 +1,5 @@
 import { Logo } from "@/components/Logo";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { CtaButton } from "@/components/CtaButton";
 import { cta } from "@/content/site";
 import { articlesPage } from "@/content/articles";
 import { RichText } from "@/components/Ltr";
@@ -27,9 +27,9 @@ export function Header({ solid = false, active }: Props) {
             {articlesPage.title}
           </a>
         </nav>
-        <WhatsAppButton source="header" variant={scrolled ? "header" : "on-dark"}>
-          <RichText text={cta.whatsapp} />
-        </WhatsAppButton>
+        <CtaButton source="header" variant={scrolled ? "header" : "on-dark"}>
+          <RichText text={cta.talk} />
+        </CtaButton>
       </div>
     </header>
   );

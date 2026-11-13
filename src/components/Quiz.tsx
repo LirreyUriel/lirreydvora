@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
-import { QUIZ_WEBHOOK_URL, whatsappUrl } from "@/config";
+import { QUIZ_WEBHOOK_URL } from "@/config";
 import {
   activeQuestions,
   questionsByKey,
@@ -8,9 +8,9 @@ import {
   type QuizOption,
   type QuizQuestion,
 } from "@/content/quiz";
-import { track, trackWhatsApp } from "@/analytics";
+import { track } from "@/analytics";
 import { QuizIcon } from "@/components/QuizIcon";
-import { QUIZ_ACTIVE_EVENT } from "@/components/MobileWhatsAppCTA";
+import { CtaButton } from "@/components/CtaButton";
 import type { Automation } from "@/content/automations";
 import { selectAutomations } from "@/quiz/selectAutomations";
 
@@ -86,10 +86,6 @@ export function Quiz() {
       card.scrollIntoView({ block: "start", behavior: smooth ? "smooth" : "auto" });
     }
   }, [started, step, result]);
-
-  useEffect(() => {
-    window.dispatchEvent(new CustomEvent(QUIZ_ACTIVE_EVENT, { detail: started && !result }));
-  }, [started, result]);
 
   // לוג לכל מסך שמוצג, כך שאפשר לראות באנליטיקה באיזה שלב גולשים עוזבים את השאלון.
   useEffect(() => {
@@ -447,10 +443,6 @@ function QuizResult({ automations, answers, headingRef }: QuizResultProps) {
     .map((pain) => quiz.painPhrases[pain]);
   const pains = quiz.result.joinPains(phrases);
   const found = automations.length > 0;
-  const message = found
-    ? `${quiz.result.message} ${quiz.result.messagePains(pains, phrases.length)}`
-    : quiz.result.message;
-  const href = `${whatsappUrl}?text=${encodeURIComponent(message)}`;
 
   const hours = quiz.hoursText[answers.hours[0]] ?? "";
   const extra = answers.response.includes("forgotten")
@@ -498,18 +490,7 @@ function QuizResult({ automations, answers, headingRef }: QuizResultProps) {
       ) : null}
 
       <div className="quiz__cta">
-        <a
-          className="btn btn--primary"
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => trackWhatsApp("quiz_result")}
-        >
-          <span className="btn__label">{quiz.result.cta}</span>
-          <span className="btn__arrow" aria-hidden="true">
-            ←
-          </span>
-        </a>
+        <CtaButton source="quiz_result">{quiz.result.cta}</CtaButton>
       </div>
     </div>
   );

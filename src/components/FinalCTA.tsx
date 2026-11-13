@@ -1,4 +1,4 @@
-import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { CtaButton } from "@/components/CtaButton";
 import { cta, finalCta } from "@/content/site";
 import { RichText } from "@/components/Ltr";
 
@@ -8,9 +8,9 @@ export function FinalCTA() {
       <div className="container">
         <h2 id="final-cta-title">{finalCta.title}</h2>
         <p className="final-cta__text">{finalCta.text}</p>
-        <WhatsAppButton source="final_cta" variant="on-dark">
-          <RichText text={cta.whatsapp} />
-        </WhatsAppButton>
+        <CtaButton source="final_cta" variant="on-dark">
+          <RichText text={cta.talk} />
+        </CtaButton>
       </div>
     </section>
   );

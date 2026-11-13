@@ -189,7 +189,7 @@ export function activeQuestions(pains: string[]): QuizQuestion[] {
 
 export const quiz = {
   title: "שאלון קצר: איזו אוטומציה תתאים לעסק שלי?",
-  subtitle: "2 דקות שישפכו אור על הנקודות הכי חשובות לייעול בעסק",
+  subtitle: "2 דקות שיראו לך מה הכי כדאי לייעל בעסק",
   start: "בואו נתחיל",
   next: "הבא",
   back: "חזרה",
@@ -230,9 +230,6 @@ export const quiz = {
     eyebrow: "התוצאה שלך",
     intro: "האוטומציות הראשונות שהייתי בוחנת עבור העסק שלך",
     cta: "אשמח לשמוע עוד על התהליך",
-    message: "היי, מילאתי את השאלון באתר ואשמח לשמוע עוד על התהליך.",
-    messagePains: (pains: string, count: number) =>
-      count > 1 ? `הכאבים המרכזיים שעלו: ${pains}.` : `הכאב המרכזי שעלה: ${pains}.`,
   },
   hoursText: {
     up_to_1: "עד שעה",

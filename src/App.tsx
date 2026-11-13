@@ -12,7 +12,7 @@ import { FaqSection } from "@/components/Faq";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Footer } from "@/components/Footer";
 import { ConsentBanner } from "@/components/ConsentBanner";
-import { MobileWhatsAppCTA } from "@/components/MobileWhatsAppCTA";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ArticlesPage } from "@/pages/ArticlesPage";
 import { ArticlePage } from "@/pages/ArticlePage";
@@ -83,7 +83,7 @@ export default function App({ path }: { path: string }) {
       </main>
       <Footer />
       <ConsentBanner />
-      <MobileWhatsAppCTA />
+      <FloatingWhatsApp />
     </>
   );
 }
