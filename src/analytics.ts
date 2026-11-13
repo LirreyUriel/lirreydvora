@@ -30,6 +30,8 @@ const GA_MEASUREMENT_ID = "G-DM9S3T9S54";
 const CLARITY_PROJECT_ID = "z2sksixp74";
 // תג Google שנוצר לקמפיין הממומן בגוגל. נטען יחד עם GA, ומקבל את אותם צפיות ואירועים.
 const GOOGLE_ADS_TAG_ID = "G-V88C9XLYK8";
+// מכולת Google Tag Manager. נטענת יחד עם GA ומשתמשת באותו dataLayer.
+const GTM_CONTAINER_ID = "GTM-WWB6L379";
 
 const gaId = measurementId(import.meta.env.VITE_GA_MEASUREMENT_ID, GA_ID_PATTERN) || GA_MEASUREMENT_ID;
 const googleTagIds = [...new Set([gaId, GOOGLE_ADS_TAG_ID].filter(Boolean))];
@@ -102,6 +104,7 @@ export function startAnalytics() {
   if (started || typeof window === "undefined" || !analyticsEnabled() || isLocalHost()) return;
   started = true;
   if (googleTagIds.length) loadGoogleAnalytics(googleTagIds);
+  if (GTM_CONTAINER_ID) loadGoogleTagManager(GTM_CONTAINER_ID);
   if (clarityId) loadClarity(clarityId);
 }
 
@@ -134,6 +137,16 @@ function loadGoogleAnalytics(ids: string[]) {
   const script = document.createElement("script");
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${ids[0]}`;
+  document.head.appendChild(script);
+}
+
+function loadGoogleTagManager(id: string) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtm.js?id=${id}`;
   document.head.appendChild(script);
 }
 
