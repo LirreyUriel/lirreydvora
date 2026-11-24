@@ -1,11 +1,21 @@
 import { whatsappUrl } from "@/config";
-import { articlePath, articles, articlesPage, author, wordCount, type Article } from "@/content/articles";
+import { about, aboutPage } from "@/content/site";
+import {
+  articleModified,
+  articlePath,
+  articles,
+  articlesPage,
+  author,
+  wordCount,
+  type Article,
+} from "@/content/articles";
 
 const SITE = "https://lirrey.com";
 
 export type Route =
   | { kind: "home" }
   | { kind: "articles" }
+  | { kind: "about" }
   | { kind: "article"; article: Article };
 
 export type RouteMeta = {
@@ -13,7 +23,9 @@ export type RouteMeta = {
   description: string;
   path: string;
   image: string;
-  type: "website" | "article";
+  // og:image:alt. בלי ערך, משתמשים בכותרת העמוד.
+  imageAlt?: string;
+  type: "website" | "article" | "profile";
   keywords?: string[];
   // תגיות article:* של Open Graph.
   article?: { published: string; modified: string; section: string; tags: string[] };
@@ -27,13 +39,54 @@ function normalize(path: string) {
 export function resolveRoute(path: string): Route {
   const current = normalize(path);
   if (current === articlesPage.path) return { kind: "articles" };
+  if (current === aboutPage.path) return { kind: "about" };
   const article = articles.find((item) => articlePath(item) === current);
   return article ? { kind: "article", article } : { kind: "home" };
 }
 
 // דפים שמרונדרים מראש ב-build. העמוד הראשי משתמש ב-meta שכבר נמצאים ב-index.html.
 export function prerenderPaths() {
-  return [articlesPage.path, ...articles.map(articlePath)];
+  return [aboutPage.path, articlesPage.path, ...articles.map(articlePath)];
+}
+
+const escapeXml = (value: string) =>
+  value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+// sitemap.xml נבנה מרשימת המאמרים בכל build, כך שמאמר חדש נכנס אליו לבד.
+// homeModified מגיע מ-dateModified של עמוד הבית ב-index.html.
+export function sitemap(homeModified: string) {
+  const latest = articles.map(articleModified).sort().at(-1) ?? homeModified;
+  const entries = [
+    { path: "/", lastmod: homeModified, changefreq: "monthly", priority: "1.0", images: ["/og.png", "/images/about.jpg"] },
+    { path: aboutPage.path, lastmod: homeModified, changefreq: "monthly", priority: "0.8", images: [about.image] },
+    { path: articlesPage.path, lastmod: latest, changefreq: "weekly", priority: "0.7", images: [] },
+    ...articles.map((article) => ({
+      path: articlePath(article),
+      lastmod: articleModified(article),
+      changefreq: "yearly",
+      priority: "0.6",
+      images: [article.cover.og],
+    })),
+  ];
+  const urls = entries.map((entry) =>
+    [
+      "  <url>",
+      `    <loc>${escapeXml(SITE + entry.path)}</loc>`,
+      `    <lastmod>${entry.lastmod}</lastmod>`,
+      `    <changefreq>${entry.changefreq}</changefreq>`,
+      `    <priority>${entry.priority}</priority>`,
+      ...entry.images.map((image) => `    <image:image>\n      <image:loc>${escapeXml(SITE + image)}</image:loc>\n    </image:image>`),
+      "  </url>",
+    ].join("\n"),
+  );
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+    '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
+    ...urls,
+    "</urlset>",
+    "",
+  ].join("\n");
 }
 
 // llms-full.txt: כל מאמר בטקסט מלא, עם תקציר ושאלות נפוצות, כדי שמנועי AI יוכלו לצטט ולקשר.
@@ -72,6 +125,60 @@ export function llmsFull() {
 export function routeMeta(route: Route): RouteMeta | null {
   if (route.kind === "home") return null;
 
+  if (route.kind === "about") {
+    const url = `${SITE}${aboutPage.path}`;
+    return {
+      title: aboutPage.seoTitle,
+      description: aboutPage.description,
+      path: aboutPage.path,
+      image: about.image,
+      imageAlt: about.imageAlt,
+      type: "profile",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "ProfilePage",
+            "@id": `${url}#webpage`,
+            url,
+            name: aboutPage.seoTitle,
+            description: aboutPage.description,
+            inLanguage: "he-IL",
+            isPartOf: { "@id": `${SITE}/#website` },
+            mainEntity: { "@id": `${SITE}/#lirrey` },
+            primaryImageOfPage: `${SITE}${about.image}`,
+          },
+          {
+            "@type": "Person",
+            "@id": `${SITE}/#lirrey`,
+            name: author.name,
+            alternateName: "Lirrey Dvora",
+            jobTitle: "מומחית אוטומציות לעסקי Wellness",
+            description: about.paragraphs[0],
+            image: `${SITE}${about.image}`,
+            url,
+            worksFor: { "@id": `${SITE}/#business` },
+            knowsLanguage: ["he", "en"],
+            hasCredential: {
+              "@type": "EducationalOccupationalCredential",
+              credentialCategory: "degree",
+              name: "תואר שני במנהל עסקים (בהצטיינות)",
+            },
+            knowsAbout: ["אוטומציה עסקית", "אוטומציות וואטסאפ", "ניהול לידים ו-CRM", "Make", "Airtable", "עסקי Wellness"],
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": `${url}#breadcrumb`,
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: articlesPage.home, item: `${SITE}/` },
+              { "@type": "ListItem", position: 2, name: aboutPage.title, item: url },
+            ],
+          },
+        ],
+      },
+    };
+  }
+
   if (route.kind === "articles") {
     return {
       title: `${articlesPage.title} | לירי דבורה`,
@@ -108,9 +215,15 @@ export function routeMeta(route: Route): RouteMeta | null {
     description: article.description,
     path: articlePath(article),
     image: article.cover.og,
+    imageAlt: article.cover.alt,
     type: "article",
     keywords: article.keywords,
-    article: { published: article.date, modified: article.date, section: articlesPage.title, tags: article.tags },
+    article: {
+      published: article.date,
+      modified: articleModified(article),
+      section: articlesPage.title,
+      tags: article.tags,
+    },
     jsonLd: {
       "@context": "https://schema.org",
       "@graph": [
@@ -129,7 +242,7 @@ export function routeMeta(route: Route): RouteMeta | null {
             caption: article.cover.alt,
           },
           datePublished: article.date,
-          dateModified: article.date,
+          dateModified: articleModified(article),
           inLanguage: "he-IL",
           articleSection: articlesPage.title,
           keywords: [...article.keywords, ...article.tags].join(", "),
@@ -140,7 +253,7 @@ export function routeMeta(route: Route): RouteMeta | null {
             "@id": `${SITE}/#lirrey`,
             name: author.name,
             alternateName: "Lirrey Dvora",
-            url: `${SITE}/#about`,
+            url: `${SITE}${author.url}`,
             jobTitle: "מומחית אוטומציות לעסקי Wellness",
           },
           publisher: { "@id": `${SITE}/#business` },

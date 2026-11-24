@@ -16,6 +16,7 @@ import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ArticlesPage } from "@/pages/ArticlesPage";
 import { ArticlePage } from "@/pages/ArticlePage";
+import { AboutPage } from "@/pages/AboutPage";
 import { resolveRoute, routeMeta } from "@/routes";
 import { trackPageView } from "@/analytics";
 import { startScrollFallback } from "@/scrollEffects";
@@ -28,7 +29,7 @@ export default function App({ path }: { path: string }) {
     trackPageView(
       route.kind === "article"
         ? { page_type: "article", article_slug: route.article.slug, article_title: route.article.title }
-        : { page_type: route.kind === "articles" ? "projects" : "home" },
+        : { page_type: route.kind === "articles" ? "projects" : route.kind === "about" ? "about" : "home" },
     );
     return startScrollFallback();
   }, []);
@@ -76,7 +77,8 @@ export default function App({ path }: { path: string }) {
           </>
         ) : route.kind === "articles" ? (
           <ArticlesPage />
-
+        ) : route.kind === "about" ? (
+          <AboutPage />
         ) : (
           <ArticlePage article={route.article} />
         )}

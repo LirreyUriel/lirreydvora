@@ -14,6 +14,8 @@ export type Article = {
   excerpt: string;
   description: string;
   date: string;
+  // תאריך עדכון אחרון, כשהמאמר שונה אחרי הפרסום. משמש ל-dateModified ול-lastmod ב-sitemap.
+  updated?: string;
   tags: string[];
   // SEO ו-GEO: כותרת לתוצאות החיפוש, ביטויי חיפוש, תקציר "בקצרה" בראש המאמר ושאלות נפוצות בסופו.
   // התקציר והשאלות מוצגים בעמוד, כדי שגוגל ומנועי AI יוכלו לצטט תשובה ישירה.
@@ -38,6 +40,9 @@ export type Article = {
 export const author = {
   name: "לירי דבורה",
   avatar: "/images/about-800.webp",
+  url: "/about/",
+  bio: "בוגרת תואר שני בהצטיינות במנהל עסקים, עם שנים של ניהול צוותים עסקיים וטכנולוגיים. מאפיינת, בונה ומטמיעה אוטומציות לעסקי Wellness וגוף-נפש בלבד.",
+  more: "עוד עליי",
 } as const;
 
 export const articlesPage = {
@@ -825,6 +830,10 @@ export const articles: Article[] = [
     ],
   },
 ];
+
+export function articleModified(article: Article) {
+  return article.updated ?? article.date;
+}
 
 export function articlePath(article: Article) {
   return `${articlesPage.path}${article.slug}/`;

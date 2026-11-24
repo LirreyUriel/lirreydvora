@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/Reveal";
-import { about, cta } from "@/content/site";
+import { about, aboutPage, cta } from "@/content/site";
 import { trackViewOnce } from "@/analytics";
 import { useInView } from "@/hooks/useInView";
 import { CtaButton } from "@/components/CtaButton";
@@ -32,6 +32,11 @@ export function About() {
                 <RichText text={paragraph} />
               </p>
             ))}
+            <p>
+              <a className="about-more" href={aboutPage.path}>
+                {about.more} <span aria-hidden="true">←</span>
+              </a>
+            </p>
           </Reveal>
 
           <CtaButton source="about">

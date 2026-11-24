@@ -270,7 +270,7 @@ export function Hero() {
         <div className="hero__copy">
           <h1 className="hero__title">
             <span className="sr-only">
-              {hero.titleBefore} {hero.titleAfter}
+              {hero.titleBefore} {hero.titleAfter} {hero.titleKeywords}
             </span>
             <span className="hero__reserve" aria-hidden="true">
               <span className="hero__line">

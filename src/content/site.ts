@@ -6,6 +6,8 @@ export const cta = {
 export const hero = {
   titleBefore: "מה אם העסק ימשיך לעבוד",
   titleAfter: "גם כשהטלפון בצד?",
+  // נקרא רק על ידי מנועי חיפוש וקוראי מסך (בתוך ה-sr-only של ה-H1), לא מוצג על המסך.
+  titleKeywords: "אוטומציות לעסקי Wellness, קליניקות ומטפלים",
   paragraphs: [
     "אוטומציות לעסקי Wellness שמפנות ממך את העומס ומחזירות את הפוקוס ללקוחות",
   ],
@@ -32,6 +34,22 @@ export const about = {
   ],
   image: "/images/about.jpg",
   imageAlt: "לירי דבורה",
+  more: "עוד עליי",
+} as const;
+
+// עמוד /about/. הטקסטים נלקחים מהסקשנים הקיימים, כדי שיהיה מקור אחד לכל עובדה.
+export const aboutPage = {
+  path: "/about/",
+  title: "לירי דבורה",
+  subtitle: "מאפיינת, בונה ומטמיעה אוטומציות עסקיות לעסקי Wellness וגוף-נפש בישראל",
+  seoTitle: "לירי דבורה, מומחית אוטומציות לעסקי Wellness",
+  description:
+    "לירי דבורה (Lirrey Dvora), בוגרת תואר שני בהצטיינות במנהל עסקים, בונה אוטומציות מותאמות אישית לקליניקות, מטפלים, סטודיו, מנחי סדנאות וריטריטים.",
+  storyTitle: "קצת עליי",
+  expertiseTitle: "במה אני עוסקת",
+  processTitle: "איך העבודה מתנהלת",
+  projectsTitle: "פרויקטים אחרונים",
+  allProjects: "לכל הפרויקטים",
 } as const;
 
 export const outcomes = {

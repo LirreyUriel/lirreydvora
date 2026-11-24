@@ -1,5 +1,5 @@
 // כפתורי הפעולה, שמובילים לטופס הפנייה.
-export type CtaSource = "hero" | "header" | "how_it_works" | "about" | "final_cta" | "article" | "quiz_result";
+export type CtaSource = "hero" | "header" | "how_it_works" | "about" | "about_page" | "final_cta" | "article" | "quiz_result";
 
 // הקישורים לוואטסאפ: הכפתור הצף, הטלפון בפוטר, והקישור שמופיע בטופס רק אם השליחה נכשלה.
 export type WhatsAppSource = "floating" | "footer" | "lead_form";
@@ -159,7 +159,7 @@ function loadClarity(id: string) {
 
 // מה נמדד בעמוד הנוכחי. מצורף לכל אירוע, כך שאפשר לראות ב-GA4 ובקלריטי תוצאות לכל מאמר בנפרד.
 export type PageContext = {
-  page_type: "home" | "projects" | "article";
+  page_type: "home" | "projects" | "article" | "about";
   article_slug?: string;
   article_title?: string;
 };

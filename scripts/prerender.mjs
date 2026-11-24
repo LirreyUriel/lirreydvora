@@ -10,7 +10,7 @@ const distDir = resolve(root, "dist");
 const indexPath = resolve(distDir, "index.html");
 const serverDir = resolve(root, "dist-ssr");
 
-const { render, prerenderPaths, resolveRoute, routeMeta, llmsFull } = await import(
+const { render, prerenderPaths, resolveRoute, routeMeta, llmsFull, sitemap } = await import(
   pathToFileURL(resolve(serverDir, "entry-server.js")).href
 );
 const template = await readFile(indexPath, "utf8");
@@ -60,10 +60,10 @@ async function withMeta(html, meta) {
   out = setMeta(out, "og:url", url);
   out = setMeta(out, "og:image", image);
   out = setMeta(out, "og:image:secure_url", image);
-  out = setMeta(out, "og:image:alt", meta.title);
+  out = setMeta(out, "og:image:alt", meta.imageAlt ?? meta.title);
   out = setMeta(out, "twitter:title", meta.title);
   out = setMeta(out, "twitter:image", image);
-  out = setMeta(out, "twitter:image:alt", meta.title);
+  out = setMeta(out, "twitter:image:alt", meta.imageAlt ?? meta.title);
   if (isJpeg) {
     const { width, height } = await jpegSize(meta.image);
     out = setMeta(out, "og:image:type", "image/jpeg");
@@ -76,7 +76,7 @@ async function withMeta(html, meta) {
   if (meta.article) {
     extra.push(`<meta property="article:published_time" content="${meta.article.published}" />`);
     extra.push(`<meta property="article:modified_time" content="${meta.article.modified}" />`);
-    extra.push(`<meta property="article:author" content="${SITE}/#about" />`);
+    extra.push(`<meta property="article:author" content="${SITE}/about/" />`);
     extra.push(`<meta property="article:section" content="${escapeAttr(meta.article.section)}" />`);
     for (const tag of meta.article.tags) extra.push(`<meta property="article:tag" content="${escapeAttr(tag)}" />`);
   }
@@ -99,6 +99,11 @@ for (const path of prerenderPaths()) {
 
 // הטקסט המלא של כל הפרויקטים בקובץ אחד, למנועי AI שקוראים את llms.txt.
 await writeFile(resolve(distDir, "llms-full.txt"), llmsFull());
+
+// sitemap.xml מתוך רשימת המאמרים. תאריך עמוד הבית נלקח מ-dateModified שב-index.html.
+const homeModified = template.match(/"dateModified":\s*"([^"]+)"/)?.[1];
+if (!homeModified) throw new Error("prerender: home dateModified not found in index.html");
+await writeFile(resolve(distDir, "sitemap.xml"), sitemap(homeModified));
 
 await rm(serverDir, { recursive: true, force: true });
 console.log(`prerender: rendered / and ${prerenderPaths().join(", ")}`);

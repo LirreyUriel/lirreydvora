@@ -32,7 +32,9 @@ export function ArticlePage({ article }: { article: Article }) {
           <h1 id="post-title">{article.title}</h1>
           <div className="post__meta">
             <img src={author.avatar} alt="" width={40} height={40} className="post__avatar" />
-            <span className="post__author">{author.name}</span>
+            <a className="post__author" href={author.url}>
+              {author.name}
+            </a>
             <span aria-hidden="true">·</span>
             <span>{readTime(article)}</span>
           </div>
@@ -128,6 +130,19 @@ export function ArticlePage({ article }: { article: Article }) {
             </div>
           ))}
         </section>
+
+        <aside className="author-box" aria-label="על הכותבת">
+          <img src={author.avatar} alt={author.name} width={72} height={72} loading="lazy" decoding="async" />
+          <div>
+            <p className="author-box__name">
+              <a href={author.url}>{author.name}</a>
+            </p>
+            <p className="author-box__bio">{author.bio}</p>
+            <a className="author-box__more" href={author.url}>
+              {author.more} <span aria-hidden="true">←</span>
+            </a>
+          </div>
+        </aside>
 
         <aside className="post__cta">
           <CtaButton source="article">{articleCta.label}</CtaButton>

@@ -4372,3 +4372,107 @@ html.no-scroll-timeline .pull-quote.is-in .pull-quote__text {
 .lead-form__success .lead-form__title:focus {
   outline: none;
 }
+
+/* עמוד אודות */
+.about-page__header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.about-page__photo {
+  flex: none;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+.about-page__subtitle {
+  margin-top: 8px;
+  color: var(--muted-text);
+  font-size: 1.05rem;
+}
+
+.about-page__list {
+  display: grid;
+  gap: 10px;
+  padding-inline-start: 1.2em;
+}
+
+@media (max-width: 560px) {
+  .about-page__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .about-page__photo {
+    width: 96px;
+    height: 96px;
+  }
+}
+
+.about-more {
+  font-weight: 600;
+  color: var(--deep-green);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+a.post__author {
+  text-decoration: none;
+}
+
+a.post__author:hover {
+  text-decoration: underline;
+}
+
+/* קופסת כותבת בסוף כל מאמר */
+.author-box {
+  margin-top: 56px;
+  padding: 24px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  border-radius: var(--radius);
+  background: var(--beige);
+}
+
+.author-box img {
+  flex: none;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+.author-box__name {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.author-box__name a {
+  color: var(--deep-green);
+  text-decoration: none;
+}
+
+.author-box__bio {
+  margin-top: 6px;
+  color: var(--text);
+}
+
+.author-box__more {
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: 600;
+  color: var(--deep-green);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.author-box + .post__cta {
+  margin-top: 24px;
+}
