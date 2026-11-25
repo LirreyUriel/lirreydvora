@@ -435,7 +435,13 @@ function App() {
                 <button type="button" className="btn btn--gold btn--big" onClick={publish} disabled={publishing || (!dirty && !pending)}>
                   {publishing ? "מפרסמת…" : "פרסום עכשיו"}
                 </button>
-                {publishLog ? <pre className={`log${publishLog.ok ? "" : " log--error"}`} dir="ltr">{publishLog.text}</pre> : null}
+                {publishLog?.ok ? <p className="success">פורסם בהצלחה. האתר יתעדכן אחרי ש-Vercel יסיים לבנות אותו, בדרך כלל תוך דקה-שתיים.</p> : null}
+                {publishLog ? (
+                  <details className="log-wrap" open={!publishLog.ok}>
+                    <summary>{publishLog.ok ? "פרטים טכניים" : "הפרסום נכשל. פרטים:"}</summary>
+                    <pre className={`log${publishLog.ok ? "" : " log--error"}`} dir="ltr">{publishLog.text}</pre>
+                  </details>
+                ) : null}
                 <p className="muted small">
                   מתפרסמים רק קובצי התוכן (src/content/data) והתמונות (public/images). שינויי קוד אחרים לא נכללים.
                 </p>

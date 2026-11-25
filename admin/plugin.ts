@@ -11,10 +11,13 @@ const CONTENT_FILES = ["site", "articles", "automations", "quiz"] as const;
 const IMAGE_EXT = /\.(webp|jpe?g|png|gif|svg|avif)$/i;
 const MAX_UPLOAD = 25 * 1024 * 1024;
 
+// אזהרות ההמרה של סופי שורות (LF/CRLF) ב-Windows הן רעש ולא שגיאה, אז הן לא מוצגות.
+const noise = /^warning: (in the working copy of|LF will be replaced|CRLF will be replaced).*$/gm;
+
 function git(cwd: string, args: string[]) {
   return new Promise<{ ok: boolean; out: string }>((done) => {
     execFile("git", args, { cwd, windowsHide: true }, (error, stdout, stderr) => {
-      done({ ok: !error, out: `${stdout}${stderr}`.trim() });
+      done({ ok: !error, out: `${stdout}${stderr}`.replace(noise, "").replace(/\n{2,}/g, "\n").trim() });
     });
   });
 }

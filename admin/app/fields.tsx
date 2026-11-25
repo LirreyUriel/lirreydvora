@@ -273,14 +273,14 @@ function ArrayField({ name, value, path, onChange, root }: { name: string | numb
       <button type="button" title="שכפול" onClick={() => onChange([...value.slice(0, i + 1), structuredClone(value[i]), ...value.slice(i + 1)])}>⧉</button>
       <button
         type="button"
-        title="מחיקה"
-        className="danger"
+        title="מחיקת הפריט"
+        className="item__delete"
         onClick={() => {
           if (typeof value[i] === "string" && !value[i]) return onChange(value.filter((_, j) => j !== i));
           if (confirm("למחוק את הפריט?")) onChange(value.filter((_, j) => j !== i));
         }}
       >
-        ✕
+        מחיקה
       </button>
     </span>
   );
