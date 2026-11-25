@@ -1,4 +1,7 @@
-export const WHATSAPP_PHONE = "972553015612";
+import { contact } from "@/content/site";
+
+// המספר נערך בממשק הניהול, תחת "הגדרות".
+export const WHATSAPP_PHONE = contact.whatsappPhone;
 
 export const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}`;
 

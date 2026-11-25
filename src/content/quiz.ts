@@ -1,3 +1,5 @@
+import data from "./data/quiz.json";
+
 // detail מציג את האפשרות ככרטיס עם אייקון, כותרת מודגשת ופירוט.
 export type QuizOption = { value: string; label: string; detail?: string };
 
@@ -21,150 +23,7 @@ export type QuizQuestion = {
   options: QuizOption[];
 };
 
-const rateOptions: QuizOption[] = [
-  { value: "most", label: "הרוב" },
-  { value: "half", label: "בערך חצי" },
-  { value: "few", label: "מעט" },
-  { value: "unknown", label: "אין לי דרך לדעת" },
-];
-
-const questionList = [
-  {
-    key: "business_type",
-    legend: "מה סוג העסק?",
-    multiple: true,
-    max: 2,
-    required: false,
-    options: [
-      { value: "fitness", label: "כושר ותזונה" },
-      { value: "clinic", label: "קליניקה וטיפולים" },
-      { value: "mind", label: "נפש והתפתחות" },
-      { value: "parenting", label: "הריון והורות" },
-      { value: "beauty", label: "יופי וטיפוח" },
-      { value: "workshops", label: "סדנאות וריטריטים" },
-      { value: "online", label: "קורסים, תוכניות וקהילות אונליין" },
-      { value: "other", label: "אחר" },
-    ],
-  },
-  {
-    key: "pains",
-    legend: "מה הנקודות הכי כואבות בעסק היום בעיניך?",
-    multiple: true,
-    max: 3,
-    required: true,
-    options: [
-      {
-        value: "first_contact",
-        label: "מתעניינים חדשים",
-        detail: "הפניות מפוזרות, קשה לעקוב אחרי כולן, ולפעמים אני עונה באיחור או שפניות מתפספסות",
-      },
-      {
-        value: "stalled_leads",
-        label: "מתעניינים שנעלמים",
-        detail: "קשה לעקוב אחרי כל המתעניינים שדיברתי איתם ולהבין מי התקדם ולמי צריך לפנות שוב",
-      },
-      {
-        value: "booking",
-        label: "קביעת מפגש או אישורי הזמנות",
-        detail: "מתבזבז זמן בתיאום מפגשים ותורים, אישורי הגעה ותזכורות, הפקת אישורי הזמנה של קורסים ועוד",
-      },
-      {
-        value: "before_session",
-        label: "לפני המפגש",
-        detail: "קשה להתמודד עם ביטולים ברגע האחרון, או ששליחת שאלוני הכנה או איסוף פרטים לוגיסטיים מעמיס",
-      },
-      {
-        value: "retention",
-        label: "שימור הקשר עם הלקוחות",
-        detail:
-          "קשה לשמור על קשר רציף עם הלקוחות כמו שהייתי רוצה. לפעמים הם נעלמים וקשה לזכור לפנות לכולם שוב",
-      },
-      {
-        value: "behind_scenes",
-        label: "מאחורי הקלעים",
-        detail: "אין לי דרך קלה להשיג תמונה כללית של מה קורה בעסק שלי ומה דורש את תשומת ליבי",
-      },
-    ],
-  },
-  {
-    key: "hours",
-    legend: "כמה שעות בשבוע לוקחות הפעולות האלה במצב הנוכחי?",
-    multiple: false,
-    required: true,
-    options: [
-      { value: "up_to_1", label: "עד שעה" },
-      { value: "1_to_3", label: "1 עד 3 שעות" },
-      { value: "3_to_6", label: "3 עד 6 שעות" },
-      { value: "over_6", label: "יותר מ-6 שעות" },
-      { value: "none", label: "זה לא משהו שאני עושה היום" },
-    ],
-  },
-  {
-    key: "impact",
-    legend: "למה המצב הנוכחי גורם?",
-    multiple: true,
-    required: false,
-    options: [
-      { value: "time_energy", label: "בזבוז זמן ואנרגיה" },
-      { value: "money", label: "בזבוז כסף" },
-      { value: "missed_clients", label: "לקוחות שמתפספסים" },
-    ],
-  },
-  {
-    key: "channels",
-    legend: "איפה מגיעות הפניות היום?",
-    multiple: true,
-    required: false,
-    options: [
-      { value: "whatsapp", label: "וואטסאפ" },
-      { value: "instagram", label: "אינסטגרם" },
-      { value: "website_form", label: "טופס באתר" },
-      { value: "phone", label: "טלפון" },
-      { value: "email", label: "מייל" },
-    ],
-  },
-  {
-    key: "response",
-    legend: "כמה זמן לוקח לך לענות לפניות?",
-    multiple: true,
-    required: true,
-    options: [
-      { value: "auto_reply", label: "מענה אוטומטי" },
-      { value: "within_hour", label: "עד שעה" },
-      { value: "few_hours", label: "כמה שעות או באותו ערב" },
-      { value: "next_day", label: "למחרת" },
-      { value: "forgotten", label: "לפעמים מתפספס לי" },
-    ],
-  },
-  {
-    key: "close_rate",
-    legend: "כמה מהמתעניינים שפונים אליך מגיעים לקבל אצלך שירות בפועל?",
-    multiple: false,
-    required: true,
-    options: rateOptions,
-  },
-  {
-    key: "booking_methods",
-    legend: "איך לקוחות קובעים תור או נרשמים?",
-    multiple: true,
-    required: false,
-    options: [
-      { value: "google_calendar", label: "ביומן Google" },
-      { value: "calendly", label: "Calendly או דומה" },
-      { value: "management_system", label: "מערכת ניהול (Arbox, Mindbody ודומיהן)" },
-      { value: "whatsapp_manual", label: "בוואטסאפ, ידנית" },
-      { value: "sheet_or_form", label: "גיליון או טופס" },
-      { value: "no_system", label: "אין דרך מסודרת" },
-    ],
-  },
-  {
-    key: "return_rate",
-    legend: "כמה מהלקוחות שלך חוזרים?",
-    multiple: false,
-    required: true,
-    options: rateOptions,
-  },
-] satisfies QuizQuestion[];
+const questionList = data.questions as QuizQuestion[];
 
 export const questionsByKey = Object.fromEntries(questionList.map((question) => [question.key, question])) as Record<
   QuizKey,
@@ -187,34 +46,15 @@ export function activeQuestions(pains: string[]): QuizQuestion[] {
   return keys.map((key) => questionsByKey[key]);
 }
 
+// הטקסטים נערכים דרך ממשק הניהול ונשמרים ב-data/quiz.json. כאן נשארות רק פונקציות שמרכיבות משפטים.
 export const quiz = {
-  title: "שאלון קצר: איזו אוטומציה תתאים לעסק שלי?",
-  subtitle: "2 דקות שיראו לך מה הכי כדאי לייעל בעסק",
-  start: "בואו נתחיל",
-  next: "הבא",
-  back: "חזרה",
+  ...data.texts,
   maxNote: (max: number) => `אפשר לסמן עד ${max} תשובות`,
-  requiredError: "צריך לסמן לפחות תשובה אחת",
-  otherPlaceholder: "מה סוג העסק?",
-  details: {
-    title: "כמעט סיימנו!",
-    privacy: "הפרטים ישמשו ליצירת קשר בנושא השאלון בלבד",
-    name: "איך קוראים לך?",
-    phone: "מה מספר הטלפון?",
-    submit: "לתוצאה",
-    nameError: "צריך למלא שם",
-    phoneError: "צריך למלא מספר טלפון",
-  },
   // כל כאב מהשאלה השנייה, כפי שהוא נכנס למשפט התוצאה.
-  painPhrases: {
-    first_contact: "הפנייה הראשונה של לקוח",
-    stalled_leads: "המעקב אחרי מתעניינים",
-    booking: "תיאום המפגשים ואישורי ההזמנות",
-    before_session: "ההכנה לקראת המפגש",
-    retention: "שמירת הקשר עם הלקוחות",
-    behind_scenes: "הניסיון להבין מה קורה בעסק",
-  } as Record<string, string>,
+  painPhrases: data.texts.painPhrases as Record<string, string>,
+  hoursText: data.texts.hoursText as Record<string, string>,
   result: {
+    ...data.texts.result,
     // "X", "X ו-Y" או "X, Y ו-Z". כל הביטויים מתחילים בה' הידיעה, אז הו' מתחברת ישירות.
     joinPains: (phrases: string[]) =>
       phrases.length > 1 ? `${phrases.slice(0, -1).join(", ")} ו${phrases[phrases.length - 1]}` : phrases[0],
@@ -224,17 +64,5 @@ export const quiz = {
       if (!hours) return lead;
       return count > 1 ? `${lead}, ויחד הם מבזבזים לך ${hours} בשבוע` : `${lead}, והוא מבזבז לך ${hours} בשבוע`;
     },
-    emptyTitle: "בואו נבין יחד מה מתאים",
-    forgotten: "לפעמים פנייה נשכחת, ופנייה שנשכחת היא לקוח שהלך למקום אחר.",
-    nextDay: "היום פניות חדשות מחכות עד למחרת.",
-    eyebrow: "התוצאה שלך",
-    intro: "האוטומציות הראשונות שהייתי בוחנת עבור העסק שלך",
-    cta: "אשמח לשמוע עוד על התהליך",
   },
-  hoursText: {
-    up_to_1: "עד שעה",
-    "1_to_3": "בין שעה ל-3 שעות",
-    "3_to_6": "בין 3 ל-6 שעות",
-    over_6: "יותר מ-6 שעות",
-  } as Record<string, string>,
 };

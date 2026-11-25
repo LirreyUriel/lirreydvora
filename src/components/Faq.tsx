@@ -7,8 +7,8 @@ type FaqItem = (typeof faq.items)[number];
 
 function answerText(item: FaqItem) {
   const parts: string[] = [...item.paragraphs];
-  if ("list" in item) parts.push(...item.list);
-  if ("closing" in item) parts.push(item.closing);
+  if (item.list) parts.push(...item.list);
+  if (item.closing) parts.push(item.closing);
   return parts.join("\n");
 }
 
